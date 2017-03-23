@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"sourceMap": false,
+		"declaration": true,
+		"allowUnusedLabels": true
+	},
+	"files": [
+		"typings-custom/index.d.ts",
+		"typings/index.d.ts",
+		"./server/app.ts"
+	],
+	"filesGlob": [
+		"./server/"
+	]
+}

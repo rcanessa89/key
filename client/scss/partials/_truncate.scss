@@ -1,0 +1,9 @@
+@mixin truncate($width) {
+	@if $width != 'null' {
+		width: $width;
+	}
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

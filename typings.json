@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "async": "registry:npm/async#2.0.1+20160815105832",
+    "body-parser": "registry:npm/body-parser#1.15.2+20161116154925",
+    "express": "registry:npm/express#4.14.0+20170217205433",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20161228005052",
+    "helmet": "registry:dt/helmet#0.0.0+20161005184000",
+    "morgan": "registry:dt/morgan#1.7.0+20160726064905",
+    "serve-static": "registry:dt/serve-static#1.7.1+20161128184045",
+    "winston": "registry:dt/winston#2.2.0+20170106144044"
+  },
+  "globalDependencies": {
+    "mongoose": "registry:dt/mongoose#4.7.0+20170322192047",
+    "node": "registry:dt/node#7.0.0+20170204020307"
+  }
+}

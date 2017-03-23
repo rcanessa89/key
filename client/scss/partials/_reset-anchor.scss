@@ -1,0 +1,10 @@
+@mixin reset-anchor {
+	&:hover,
+	&:link,
+	&:active,
+	&:visited,
+	&:focus  {
+		text-decoration: none;
+		@content;
+	}
+}

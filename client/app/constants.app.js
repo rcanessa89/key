@@ -1,0 +1,1 @@
+const constants = {"environment":"dev"}; export default constants;
