@@ -5,7 +5,7 @@ import * as logger from 'winston';
 import constants from '../constants';
 
 export default class Server {
-	public app = express();
+	public app: express.Application = express();
 
 	public static bootstrap(): Server {
 		return new Server();

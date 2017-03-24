@@ -4,6 +4,7 @@ import constants from '../constants';
 
 export default class Db {
 	constructor() {
+		(<any>mongoose).Promise = global.Promise;
 		this.db = mongoose.connection;
 	}
 
@@ -30,7 +31,7 @@ export default class Db {
 		}
 	}
 
-	private dbConnected: any;
+	private dbConnected;
 	private db: mongoose.Connection;
 
 	private onOpenConnection() {

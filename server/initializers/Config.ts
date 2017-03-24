@@ -7,11 +7,11 @@ import * as logger from 'winston';
 import constants from '../constants';
 
 export default class Config {
-	constructor(app: Express.Application) {
+	constructor(app: express.Application) {
 		this.app = app;
 	}
 
-	app;
+	private app: express.Application;
 
 	public run() {
 		this.app.use(morgan(constants.MORGAN));

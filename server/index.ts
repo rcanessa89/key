@@ -38,11 +38,11 @@ const asyncAlways = error => {
 async.series(
 	[
 		cb => { config.run(); cb(null); },
-		cb => { routes.setRoutes(); cb(null) },
+		cb => { routes.setRoutes(); cb(null); },
 		cb => { cors(server.app); cb(null); },
 		cb => { helmet(server.app); cb(null); },
 		serverRun,
-		(cb) => { const db = new Db(); db.connect(); cb(null); }
+		cb => { const db = new Db(); db.connect(); cb(null); }
 	],
 
 	asyncAlways

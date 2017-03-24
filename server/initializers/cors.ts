@@ -10,7 +10,7 @@ const corsOptions = {
 	}
 };
 
-export default (app) => {
+export default (app: express.Application) => {
 	logger.info('[APP] CORS Configuring...');
 
 	app.use(cors(corsOptions));
