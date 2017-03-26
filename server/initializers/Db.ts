@@ -3,17 +3,22 @@ import * as logger from 'winston';
 import constants from '../constants';
 
 export default class Db {
-	constructor() {
+	constructor(onOpen: () => any) {
 		(<any>mongoose).Promise = global.Promise;
 		this.db = mongoose.connection;
+		this.onOpen = onOpen;
 	}
 
-	public connect() {
+	private dbConnected;
+	private db: mongoose.Connection;
+	private onOpen: () => any;
+
+	public connect(): void {
 		if (constants.DB_NAME && constants.DB_URI) {
 			this.db.on('error', console.error.bind(console, 'connection error:'));
-			this.db.once('open', this.onOpenConnection);
+			this.db.once('open', () => { logger.info('[DB] Connected to DB'); this.onOpen(); });
 
-			logger.info('[DB] Setting...');
+			logger.info('[DB] Connecting...');
 
 			this.dbConnected = mongoose.connect(constants.DB_URI);
 		} else {
@@ -21,7 +26,7 @@ export default class Db {
 		}
 	}
 
-	public disconnect() {
+	public disconnect(): void {
 		if (this.dbConnected) {
 			this.dbConnected.disconnect();
 
@@ -29,12 +34,5 @@ export default class Db {
 		} else {
 			logger.info('[DB] Not Connection defined');
 		}
-	}
-
-	private dbConnected;
-	private db: mongoose.Connection;
-
-	private onOpenConnection() {
-		logger.info('[DB] Connected to DB');
 	}
 }

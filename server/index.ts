@@ -16,34 +16,12 @@ const server = Server.bootstrap();
 const config = new Config(server.app);
 const routes = new Routes(server.app);
 
-const serverRun = cb => {
-	if (constants.ENV === 'dev') {
-		server.runServer();
-	} else {
-		server.runCluster();
-	}
-
-	cb(null);
-};
-
-const asyncAlways = error => {
-	if (error) {
-		logger.error('[APP] initialization failed ', error);
-
-	} else {
-		logger.info('[APP] initialized SUCCESSFULLY');
-	}
-};
-
 async.series(
 	[
 		cb => { config.run(); cb(null); },
 		cb => { routes.setRoutes(); cb(null); },
 		cb => { cors(server.app); cb(null); },
 		cb => { helmet(server.app); cb(null); },
-		serverRun,
-		cb => { const db = new Db(); db.connect(); cb(null); }
-	],
-
-	asyncAlways
+		cb => { const db = new Db(() => server.run()); db.connect(); cb(null); }
+	]
 );

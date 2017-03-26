@@ -13,7 +13,17 @@ export default class Config {
 
 	private app: express.Application;
 
-	public run() {
+	private onAppError(error, req, res, next): void {
+		res.status(error.status || 500);
+
+		res.json({
+			message: error.message
+		});
+
+		next(error);
+	}
+
+	public run(): void {
 		this.app.use(morgan(constants.MORGAN));
 		this.app.use(bodyParser.urlencoded({extended: true}));
 		this.app.use(bodyParser.json());
@@ -22,15 +32,5 @@ export default class Config {
 		this.app.use(compression());
 
 		logger.info('[APP] Configuring...');
-	}
-
-	private onAppError(error, req, res, next) {
-		res.status(error.status || 500);
-
-		res.json({
-			message: error.message
-		});
-
-		next(error);
 	}
 }

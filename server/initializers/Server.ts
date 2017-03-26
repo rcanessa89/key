@@ -5,19 +5,14 @@ import * as logger from 'winston';
 import constants from '../constants';
 
 export default class Server {
-	public app: express.Application = express();
-
-	public static bootstrap(): Server {
-		return new Server();
-	}
-
-	public runServer() {
+	private runServer(): void {
 		this.app.listen(constants.SERVER_PORT, () => {
 			logger.info('[SERVER] Listening on port ' + constants.SERVER_PORT);
+			logger.info('[APP] initialized SUCCESSFULLY');
 		});
 	}
 
-	public runCluster() {
+	private runCluster(): void {
 		if (cluster.isMaster) {
 			const cpuCount = os.cpus().length;
 
@@ -29,6 +24,20 @@ export default class Server {
 
 		} else {
 			this.runServer();
+		}
+	}
+
+	public app: express.Application = express();
+
+	public static bootstrap(): Server {
+		return new Server();
+	}
+
+	public run(): void {
+		if (constants.ENV === 'dev') {
+			this.runServer();
+		} else {
+			this.runCluster();
 		}
 	}
 }

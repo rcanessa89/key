@@ -4,3 +4,4 @@ client/dist
 server/dist
 typings
 npm-debug.log
+yarn-error.log

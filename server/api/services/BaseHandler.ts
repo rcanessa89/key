@@ -14,7 +14,7 @@ export default class BaseHandler {
 
 	private model: mongoose.Model<mongoose.Document>;
 
-	private queryCallback(error, data) {
+	private queryCallback(error, data): any {
 		let resData = null;
 
 		if (error) {
