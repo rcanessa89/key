@@ -7,6 +7,7 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true,
+		unique: true,
 		validate: {
 			validator: function(v) {
 				return regex.letters.test(v);
@@ -16,15 +17,43 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 		}
 	},
 
+	email: {
+		type: String,
+		unique: true,
+		required: true,
+		validate: {
+			validator: function(v) {
+				return regex.email.test(v);
+			},
+
+			message: '{VALUE} is not a valid email'
+		}
+	},
+
+	departments: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Department'
+	}],
+
+	registries: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Registry'
+	}],
+
+	assets: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Asset'
+	}],
+
 	created_at: {
 		type: Date,
 		default: Date.now
 	},
 
-	updated: {
+	updated_at: {
 		type: Date,
 		default: null
 	}
 });
 
-export default mongoose.model <ICompany> ('Company', userSchema);
+export default mongoose.model <ICompany> ('Company', userSchema, 'Companies');

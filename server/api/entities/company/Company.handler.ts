@@ -1,10 +1,10 @@
-import companySchema from './company.model';
+import companyModel from './company.model';
 import BaseHandler from '../../services/BaseHandler';
 
-class UserHandler extends BaseHandler {
+class CompanyHandler extends BaseHandler {
 	constructor() {
-		super(companySchema);
+		super(companyModel);
 	}
 }
 
-export default new UserHandler();
+export default new CompanyHandler();

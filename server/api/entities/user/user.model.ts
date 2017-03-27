@@ -17,50 +17,50 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 		}
 	},
 
-	// lastName: {
-	// 	type: String,
-	// 	required: true,
-	// 	trim: true,
-	// 	validate: {
-	// 		validator: function(v) {
-	// 			return lettersRegex.test(v);
-	// 		},
+	last_name: {
+		type: String,
+		required: true,
+		trim: true,
+		validate: {
+			validator: function(v) {
+				return regex.letters.test(v);
+			},
 
-	// 		message: '{VALUE} is not a valid, only letters allowed.'
-	// 	}
-	// },
+			message: '{VALUE} is not a valid, only letters allowed.'
+		}
+	},
 
-	// rol: {
-	// 	type: String,
-	// 	required: true,
-	// 	enum: ['admin', 'viewer'],
-	// 	default: 'viewer'
-	// },
+	rol: {
+		type: String,
+		required: true,
+		enum: ['admin', 'viewer'],
+		default: 'viewer'
+	},
 
-	// photoId: {
-	// 	type: Object,
-	// 	default: null
-	// },
+	photoId: {
+		type: Object,
+		default: null
+	},
 
-	// email: {
-	// 	type: String,
-	// 	unique: true,
-	// 	required: true,
-	// 	validate: {
-	// 		validator: function(v) {
-	// 			return regex.email.test(v);
-	// 		},
+	email: {
+		type: String,
+		unique: true,
+		required: true,
+		validate: {
+			validator: function(v) {
+				return regex.email.test(v);
+			},
 
-	// 		message: '{VALUE} is not a valid email'
-	// 	}
-	// },
+			message: '{VALUE} is not a valid email.'
+		}
+	},
 
 	created_at: {
 		type: Date,
 		default: Date.now
 	},
 
-	updated: {
+	updated_at: {
 		type: Date,
 		default: null
 	}

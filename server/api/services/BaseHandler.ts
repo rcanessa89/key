@@ -41,11 +41,11 @@ export default class BaseHandler {
 	}
 
 	public update(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
-		req.body.updated = new Date();
+		req.body.updated_at = new Date();
 		this.model.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (error, data) => res.json(this.queryCallback(error, data)));
 	}
 
 	public deleteById(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
-		this.model.remove({ _id: req.params.id }, (error, data?) => res.json(this.queryCallback(error, req.params.id)));
+		this.model.remove({ _id: req.params.id }, (error, data?) => res.json(this.queryCallback(error, {_id: req.params.id, message: 'Entity deleted.'})));
 	}
 }

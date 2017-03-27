@@ -1,14 +1,14 @@
 import * as cluster from 'cluster';
 import * as os from 'os';
 import * as express from 'express';
-import * as logger from 'winston';
+import logger from '../api/util/logger';
 import constants from '../constants';
 
 export default class Server {
 	private runServer(): void {
 		this.app.listen(constants.SERVER_PORT, () => {
-			logger.info('[SERVER] Listening on port ' + constants.SERVER_PORT);
-			logger.info('[APP] initialized SUCCESSFULLY');
+			logger('[SERVER] Listening on port ' + constants.SERVER_PORT);
+			logger('[APP] initialized SUCCESSFULLY');
 		});
 	}
 

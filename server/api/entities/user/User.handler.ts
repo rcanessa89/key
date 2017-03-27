@@ -1,9 +1,9 @@
-import userSchema from './user.model';
+import userModel from './user.model';
 import BaseHandler from '../../services/BaseHandler';
 
 class UserHandler extends BaseHandler {
 	constructor() {
-		super(userSchema);
+		super(userModel);
 	}
 }
 

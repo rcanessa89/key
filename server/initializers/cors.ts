@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as cors from 'cors';
-import * as logger from 'winston';
+import logger from '../api/util/logger';
 import constants from '../constants';
 
 const corsOptions = {
@@ -11,7 +11,7 @@ const corsOptions = {
 };
 
 export default (app: express.Application): void => {
-	logger.info('[APP] CORS Configuring...');
+	logger('[APP] CORS Configuring...');
 
 	app.use(cors(corsOptions));
 };

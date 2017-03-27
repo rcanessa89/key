@@ -5,14 +5,15 @@
 		"moduleResolution": "node",
 		"sourceMap": false,
 		"declaration": true,
-		"allowUnusedLabels": true
+		"allowUnusedLabels": true,
+		"types": []
 	},
 	"files": [
 		"typings-custom/index.d.ts",
 		"typings/index.d.ts",
 		"./server/app.ts"
 	],
-	"filesGlob": [
-		"./server/"
-	]
+	"exclude": [
+        "node_modules"
+    ]
 }

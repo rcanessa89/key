@@ -25,3 +25,5 @@ async.series(
 		cb => { const db = new Db(() => server.run()); db.connect(); cb(null); }
 	]
 );
+
+export default server.app;

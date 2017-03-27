@@ -1,18 +1,11 @@
 import * as mongoose from 'mongoose';
 
-enum Rol {
-	admin,
-	viewer
-}
-
-interface IUser extends mongoose.Document {
+interface IHost extends mongoose.Document {
 	name: string;
 	last_name: string;
-	rol: Rol;
-	photoId: string;
 	email: string;
 	created_at: Date;
 	updated_at: Date;
 }
 
-export default IUser;
+export default IHost;

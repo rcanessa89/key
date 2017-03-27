@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import * as logger from 'winston';
+import logger from '../api/util/logger';
 import constants from '../constants';
 
 export default class Db {
@@ -16,13 +16,13 @@ export default class Db {
 	public connect(): void {
 		if (constants.DB_NAME && constants.DB_URI) {
 			this.db.on('error', console.error.bind(console, 'connection error:'));
-			this.db.once('open', () => { logger.info('[DB] Connected to DB'); this.onOpen(); });
+			this.db.once('open', () => { logger('[DB] Connected to ' + constants.DB_NAME); this.onOpen(); });
 
-			logger.info('[DB] Connecting...');
+			logger('[DB] Connecting...');
 
 			this.dbConnected = mongoose.connect(constants.DB_URI);
 		} else {
-			logger.info('[DB] Data base is not defined');
+			logger('[DB] Data base is not defined');
 		}
 	}
 
@@ -30,9 +30,9 @@ export default class Db {
 		if (this.dbConnected) {
 			this.dbConnected.disconnect();
 
-			logger.info('[DB] Disconnect');
+			logger('[DB] Disconnect');
 		} else {
-			logger.info('[DB] Not Connection defined');
+			logger('[DB] Not Connection defined');
 		}
 	}
 }

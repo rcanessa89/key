@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser';
 import * as morgan from 'morgan';
 import * as compression from 'compression';
 import * as path from 'path';
-import * as logger from 'winston';
+import logger from '../api/util/logger';
 import constants from '../constants';
 
 export default class Config {
@@ -24,13 +24,16 @@ export default class Config {
 	}
 
 	public run(): void {
-		this.app.use(morgan(constants.MORGAN));
+		if (constants.ENV !== 'test') {
+			this.app.use(morgan(constants.MORGAN));
+		}
+
 		this.app.use(bodyParser.urlencoded({extended: true}));
 		this.app.use(bodyParser.json());
 		this.app.use(this.onAppError);
 		this.app.use(express.static(path.join(constants.CLIENT_ROOT)));
 		this.app.use(compression());
 
-		logger.info('[APP] Configuring...');
+		logger('[APP] Configuring...');
 	}
 }
