@@ -1,0 +1,15 @@
+.main-page {
+	padding-top: 70px;
+
+	.main-page-row {
+		display: flex;
+	}
+
+	.main-page-col-1 {
+		width: 270px;
+	}
+
+	.main-page-col-2 {
+		width: calc(100% - 270px);
+	}
+}
