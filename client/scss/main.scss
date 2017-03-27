@@ -18,7 +18,8 @@
 @import 'modules/icons';
 
 // Components
-@import 'components/title';
+@import 'components/share/app-header';
+\@import 'components/share/app-nav';
 
 // Pages
-@import 'pages/home';
+@import 'pages/main';
