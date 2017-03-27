@@ -5,7 +5,8 @@ import routerStates from './routes.app';
 
 const configRouter = router => {
     router.urlRouter.otherwise('/not-found');
-    router.urlRouter.when('', '/');
+    router.urlRouter.when('/', '/company');
+    router.urlRouter.when('', '/company');
 }
 
 render(

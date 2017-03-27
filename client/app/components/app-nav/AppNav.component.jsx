@@ -13,13 +13,13 @@ export default () => (
 				</li>
 				<li>
 					<a>
-						<span className="icon"><i className="fa fa-users" /></span>
+						<span className="icon"><i className="fa fa-user-circle" /></span>
 						Users
 					</a>
 				</li>
 				<li>
 					<a>
-						<span className="icon"><i className="fa fa-users" /></span>
+						<span className="icon"><i className="fa fa-cubes" /></span>
 						Departments
 					</a>
 				</li>
@@ -34,13 +34,13 @@ export default () => (
 			<ul className="menu-list">
 				<li>
 					<a>
-						<span className="icon"><i className="fa fa-users" /></span>
+						<span className="icon"><i className="fa fa-address-book" /></span>
 						People
 					</a>
 				</li>
 				<li>
 					<a>
-						<span className="icon"><i className="fa fa-users" /></span>
+						<span className="icon"><i className="fa fa-laptop" /></span>
 						Assets
 					</a>
 				</li>

@@ -1,68 +1,76 @@
-import notFoundPage from './pages/not-found/not-found.component';
-import assetsPage from './pages/assets/assets.component';
-import departmentsPage from './pages/departments/departments.component';
-import hostsPage from './pages/hosts/hosts.component';
-import loginPage from './pages/login/login.component';
-import mainPage from './pages/main/main.component';
-import registriesPage from './pages/registries/registries.component';
-import usersPage from './pages/users/users.component';
+import NotFoundPage from './pages/not-found/not-found.component';
+import AssetsPage from './pages/assets/assets.component';
+import DepartmentsPage from './pages/departments/departments.component';
+import HostsPage from './pages/hosts/hosts.component';
+import LoginPage from './pages/login/login.component';
+import MainPage from './pages/main/main.component';
+import PeoplePage from './pages/people/People.component';
+import UsersPage from './pages/users/users.component';
+import CompanyPage from './pages/company/Company.component';
 
 const notFound = {
 	name: 'not-found',
 	url: '/not-found',
-	component: notFoundPage
+	component: NotFoundPage
 };
 
 const login = {
 	name: 'login',
 	url: '/login',
-	component: loginPage
+	component: LoginPage
 };
 
 const main = {
 	name: 'main',
-	url: '/',
-	component: mainPage
+	abstract: true,
+	component: MainPage
+};
+
+const company = {
+	name: 'main.company',
+	url: '/company',
+	component: CompanyPage
 };
 
 const assets = {
 	name: 'main.assets',
 	url: '/assets',
-	component: assetsPage
+	component: AssetsPage
 };
 
 const departments = {
 	name: 'main.departments',
 	url: '/departments',
-	component: departmentsPage
+	component: DepartmentsPage
 };
 
 const hosts = {
 	name: 'main.hosts',
 	url: '/hosts',
-	component: hostsPage
+	component: HostsPage
 };
 
-const registries = {
-	name: 'main.registries',
-	url: '/registries',
-	component: registriesPage
+const people = {
+	name: 'main.people',
+	url: '/people',
+	component: PeoplePage
 };
 
 const users = {
 	name: 'main.users',
 	url: '/users',
-	component: usersPage
+	component: UsersPage
 };
 
 const states = [
 	notFound,
 	login,
 	main,
+	company,
 	assets,
 	departments,
 	hosts,
-	registries,
+	people,
 	users
 ];
 
