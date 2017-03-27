@@ -1,8 +1,8 @@
 {
-  "name": "express-react",
+  "name": "key",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/rcanessa89/express-react.git",
+  "repository": "https://github.com/rcanessa89/key.git",
   "author": "rcanessa <rcanessa89@hotmail.com>",
   "license": "MIT",
   "scripts": {
