@@ -1,15 +1,16 @@
 .main-page {
-	padding-top: 70px;
+	padding-top: $app-header-height;
 
 	.main-page-row {
 		display: flex;
 	}
 
 	.main-page-col-1 {
-		width: 270px;
+		width: $app-nav-width;
 	}
 
 	.main-page-col-2 {
-		width: calc(100% - 270px);
+		padding: 30px 15px;
+		width: $app-main-width;
 	}
 }

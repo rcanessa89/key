@@ -1,11 +1,11 @@
 .app-nav {
 	background-color: $white;
 	border-right: $border solid 1px;
-	height: calc(100% - 70px);
+	height: $app-nav-height;
 	overflow-y: auto;
 	padding: 15px;
 	position: fixed;
-	width: 270px;
+	width: $app-nav-width;
 	
 
 	a {

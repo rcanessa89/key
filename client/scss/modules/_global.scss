@@ -1,0 +1,13 @@
+* {
+	box-sizing: border-box;
+}
+
+.app-main-container {
+	margin: 0 auto;
+	max-width: 920px;
+	min-width: 744px;
+
+	@include bp-sm {
+		background: red;
+	}
+}

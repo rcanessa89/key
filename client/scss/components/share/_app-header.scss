@@ -1,7 +1,7 @@
 .app-header {
 	background-color: $primary;
-	height: 70px;
-	margin-top: -70px;
+	height: $app-header-height;
+	margin-top: -$app-header-height;
 	position: fixed;
 	width: 100%;
 }

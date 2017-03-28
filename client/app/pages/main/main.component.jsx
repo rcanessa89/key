@@ -1,8 +1,9 @@
 import React from 'react';
+import { UIView } from 'ui-router-react';
 import AppHeader from '../../components/app-header/AppHeader.component';
 import AppNav from '../../components/app-nav/AppNav.component';
 
-const mainPage = props => (
+export default props => (
 	<div className="main-page">
 		<AppHeader />
 		<div className="main-page-row">
@@ -10,12 +11,10 @@ const mainPage = props => (
 				<AppNav />
 			</div>
 			<div className="main-page-col-2">
-				<div className="container">
-					{props.children}
+				<div className="app-main-container">
+					<UIView />
 				</div>
 			</div>
 		</div>
 	</div>
 );
-
-export default mainPage;
