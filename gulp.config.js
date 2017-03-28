@@ -77,7 +77,8 @@ var config = {
 				src: [
 					'client/scss/**/*.scss',
 					'!client/scss/partials/_reset.scss',
-					'!client/scss/modules/_icons.scss'
+					'!client/scss/modules/_icons.scss',
+					'!client/scss/modules/_bulma-variables.scss'
 				],
 
 				options: {

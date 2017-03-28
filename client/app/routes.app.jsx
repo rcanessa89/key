@@ -11,55 +11,55 @@ import CompanyPage from './pages/company/Company.component';
 const notFound = {
 	name: 'not-found',
 	url: '/not-found',
-	component: NotFoundPage
+	component: NotFoundPage,
 };
 
 const login = {
 	name: 'login',
 	url: '/login',
-	component: LoginPage
+	component: LoginPage,
 };
 
 const main = {
 	name: 'main',
 	abstract: true,
-	component: MainPage
+	component: MainPage,
 };
 
 const company = {
 	name: 'main.company',
 	url: '/company',
-	component: CompanyPage
+	component: CompanyPage,
 };
 
 const assets = {
 	name: 'main.assets',
 	url: '/assets',
-	component: AssetsPage
+	component: AssetsPage,
 };
 
 const departments = {
 	name: 'main.departments',
 	url: '/departments',
-	component: DepartmentsPage
+	component: DepartmentsPage,
 };
 
 const hosts = {
 	name: 'main.hosts',
 	url: '/hosts',
-	component: HostsPage
+	component: HostsPage,
 };
 
 const people = {
 	name: 'main.people',
 	url: '/people',
-	component: PeoplePage
+	component: PeoplePage,
 };
 
 const users = {
 	name: 'main.users',
 	url: '/users',
-	component: UsersPage
+	component: UsersPage,
 };
 
 const states = [
@@ -71,8 +71,7 @@ const states = [
 	departments,
 	hosts,
 	people,
-	users
+	users,
 ];
 
 export default states;
-
