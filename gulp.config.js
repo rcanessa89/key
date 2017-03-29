@@ -56,7 +56,8 @@ var config = {
 			deps: [
 				'react',
 				'react-dom',
-				'ui-router-react'
+				'ui-router-react',
+				'classnames'
 			],
 
 			lint: {

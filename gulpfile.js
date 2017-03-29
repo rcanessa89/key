@@ -31,7 +31,7 @@ var gulp = require('gulp'),
 	configClient = config.client,
 	isProd = !!argv.prod;
 
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = isProd ? 'production' : 'develop';
 
 // Client tasks
 gulp.task('client-server', clientServerTask);
@@ -163,7 +163,7 @@ function vendorTask() {
 	var stream = b
 		.transform(envify({
 			_: 'purge',
-			NODE_ENV: 'production'
+			NODE_ENV: isProd ? 'production' : 'develop'
 		}))
 		.bundle()
 		.on('error', function(err){
@@ -172,7 +172,7 @@ function vendorTask() {
 		})
 		.pipe(source('vendor.js'))
 		.pipe(buffer())
-		.pipe(uglify());
+		.pipe(gulpif(isProd, uglify()));
 
 	stream.pipe(gulp.dest(configClient.code.dest));
 
