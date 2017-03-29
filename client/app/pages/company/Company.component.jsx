@@ -1,9 +1,9 @@
 import React from 'react';
-import AppButton from '../../components/app-button/AppButton.component';
+import AppIcon from '../../components/app-icon/AppIcon.component';
 
 export default () => (
 	<div className="company-page">
 		<h2>Company page</h2>
-
+		<AppIcon icon="home" size="large"/>
 	</div>
 );
