@@ -5,7 +5,11 @@ const propTypes = {
 	size: React.PropTypes.string,
 };
 
-const AppIcon = (props) => {
+const defaultProps = {
+	size: null,
+};
+
+const Icon = (props) => {
 	const sizeClassName = props.size ? `icon is-${props.size}` : 'icon';
 	const iconClassName = `fa fa-${props.icon}`;
 
@@ -16,6 +20,7 @@ const AppIcon = (props) => {
 	);
 };
 
-AppIcon.propTypes = propTypes;
+Icon.propTypes = propTypes;
+Icon.defaultProps = defaultProps;
 
-export default AppIcon;
+export default Icon;

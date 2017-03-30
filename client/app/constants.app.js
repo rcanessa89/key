@@ -1,1 +1,1 @@
-const constants = {"environment":"dev"}; export default constants;
+const constants = {"environment":"dev","apiBaseUrl":"http://localhost:8000/api"}; export default constants;

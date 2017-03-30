@@ -57,7 +57,12 @@ var config = {
 				'react',
 				'react-dom',
 				'ui-router-react',
-				'classnames'
+				'classnames',
+				'react-redux',
+				'redux-thunk',
+				'redux-logger',
+				'redux',
+				'axios'
 			],
 
 			lint: {

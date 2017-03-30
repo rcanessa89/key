@@ -1,10 +1,12 @@
 var env = {
 	dev: {
-		environment: 'dev'
+		environment: 'dev',
+		apiBaseUrl: 'http://localhost:8000/api'
 	},
 
 	prod: {
-		environment: 'prod'
+		environment: 'prod',
+		apiBaseUrl: ''
 	}
 };
 
