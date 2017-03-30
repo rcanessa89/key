@@ -15,7 +15,8 @@
         "linebreak-style": "off",
         "no-tabs": "off",
         "react/prop-types": [2, { "ignore": ["dispatch"] }],
-        "max-len": "off"
+        "max-len": "off",
+        "jsx-a11y/no-static-element-interactions": "off"
     },
     "globals": {
         "document": true,

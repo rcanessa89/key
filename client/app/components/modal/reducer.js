@@ -7,7 +7,7 @@ export default (state = initialState, action) => {
 	case actions.init:
 		return { ...state, [action.payload]: false };
 
-	case '1': {
+	case actions.destroy: {
 		const newState = { ...state };
 		delete newState[action.payload];
 		return newState;
