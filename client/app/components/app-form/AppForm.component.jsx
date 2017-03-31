@@ -6,7 +6,7 @@ const propTypes = {
 	onSubmit: React.PropTypes.func.isRequired,
 };
 
-const AppForm = props => {
+const AppForm = (props) => {
 	const formId = guid();
 
 	return (
@@ -16,6 +16,6 @@ const AppForm = props => {
 	);
 };
 
-AppForm.propsTypes = propTypes;
+AppForm.propTypes = propTypes;
 
 export default AppForm;

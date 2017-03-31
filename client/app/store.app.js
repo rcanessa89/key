@@ -15,7 +15,7 @@ if (constants.environment === 'dev') {
 
 const reducers = combineReducers({
 	modal,
-	form
+	form,
 });
 
 export default createStore(reducers, middleware);
