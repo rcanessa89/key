@@ -5,7 +5,8 @@ import constants from './constants.app';
 
 // Reducers
 import modal from './components/modal/reducer';
-import form from './components/app-form/text-input/reducer';
+import textInput from './components/app-form/text-input/reducer';
+import selectInput from './components/app-form/select-input/reducer';
 
 let middleware = applyMiddleware(thunk);
 
@@ -15,7 +16,8 @@ if (constants.environment === 'dev') {
 
 const reducers = combineReducers({
 	modal,
-	form,
+	textInput,
+	selectInput,
 });
 
 export default createStore(reducers, middleware);

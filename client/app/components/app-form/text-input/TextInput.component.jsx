@@ -9,7 +9,7 @@ const propTypes = {
 	type: React.PropTypes.oneOf(['text', 'letters', 'email']),
 	name: React.PropTypes.string.isRequired,
 	pattern: React.PropTypes.string,
-	textInputId: React.PropTypes.string,
+	textInputId: React.PropTypes.string.isRequired,
 	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
 	label: React.PropTypes.string.isRequired,
 	placeholer: React.PropTypes.string,
@@ -30,7 +30,6 @@ const propTypes = {
 
 const defaultProps = {
 	type: 'text',
-	textInputId: null,
 	size: null,
 	placeholer: null,
 	errorMessage: null,
@@ -47,7 +46,7 @@ const defaultProps = {
 };
 
 const stateMap = (state, ownProps) => ({
-	state: state.form.textInput[ownProps.textInputId],
+	state: state.textInput[ownProps.textInputId],
 });
 
 const dispatchMap = dispatch => bindActionCreators(actionCreators, dispatch);
@@ -76,7 +75,13 @@ class TextInput extends React.PureComponent {
 			this.errorMessage = 'Invalid email.';
 		}
 
-		this.props.init({ id: this.props.textInputId, name: this.props.name, valid: true, value: '', required: false });
+		this.props.init({
+			id: this.props.textInputId,
+			name: this.props.name,
+			valid: true,
+			value: '',
+			required: false,
+		});
 	}
 
 	componentWillUnmount() {
