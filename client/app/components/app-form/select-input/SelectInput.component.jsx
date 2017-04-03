@@ -23,7 +23,7 @@ const defaultProps = {
 		id: null,
 		name: null,
 		value: null,
-		required: false,
+		valid: true,
 	},
 };
 
@@ -37,6 +37,7 @@ class SelectInput extends React.PureComponent {
 	constructor() {
 		super();
 		this.onChange = this.onChange.bind(this);
+		this.onBlur = this.onBlur.bind(this);
 	}
 
 	componentWillMount() {
@@ -63,8 +64,27 @@ class SelectInput extends React.PureComponent {
 		this.props.onChange(state);
 	}
 
+	onBlur(e) {
+		let state = {
+			id: this.props.selectInputId,
+			name: this.props.name,
+		};
+
+		if (!this.props.state.value && this.props.required) {
+			state.value = null;
+			state.valid = null;
+			state.required = true;
+		} else {
+			state.value = this.props.state.value;
+			state.valid = true;
+			state.required = false;
+		}
+
+		this.props.onChange(state);
+	}
+
 	render() {
-		const requiredMessage = this.props.state.required && this.props.state.value.length ? (<p className="help is-danger">This email is invalid</p>) : null;
+		const requiredMessage = this.props.state.required && !this.props.state.value ? (<p className="help is-danger">{`The ${this.props.name} field is required.`}</p>) : null;
 
 		const selectClassName = classnames({
 			select: true,
@@ -76,7 +96,7 @@ class SelectInput extends React.PureComponent {
 				<label className="label">Subject</label>
 				<p className="control">
 					<span className={selectClassName}>
-						<select onChange={this.onChange}>
+						<select onChange={this.onChange} onBlur={this.onBlur}>
 							<option value="">Select...</option>
 							{
 								this.props.options.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)
