@@ -10,7 +10,9 @@ export default () => (
 	<div className="company-page">
 		<h2>Company page</h2>
 
-		<AppForm>
+		<AppForm
+			title="test fields"
+		>
 			<TextInput
 				name="text-test"
 				label="text test"

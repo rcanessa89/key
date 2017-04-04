@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	name: React.PropTypes.string.isRequired,
@@ -11,6 +12,8 @@ const propTypes = {
 	required: React.PropTypes.bool,
 	state: React.PropTypes.object.isRequired,
 	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
+	label: React.PropTypes.string.isRequired,
+	registry: React.PropTypes.func.isRequired,
 	onChange: React.PropTypes.func.isRequired,
 	columns: React.PropTypes.string,
 	columnsTable: React.PropTypes.string,
@@ -72,8 +75,8 @@ class SelectInput extends React.PureComponent {
 		this.props.onChange(state);
 	}
 
-	onBlur(e) {
-		let state = {
+	onBlur() {
+		const state = {
 			formId: this.props.formId,
 			fieldId: this.props.fieldId,
 			name: this.props.name,
@@ -110,13 +113,16 @@ class SelectInput extends React.PureComponent {
 		return (
 			<div className={fieldClassName}>
 				<div className="field">
-					<label className="label">Subject</label>
+					<p className="label">{capitalizeFirst(this.props.label)}</p>
 					<p className="control">
 						<span className={selectClassName}>
 							<select onChange={this.onChange} onBlur={this.onBlur}>
 								<option value="">Select...</option>
 								{
-									this.props.options.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)
+									this.props.options.map((option, index) => {
+										const key = `key-${index}`;
+										return <option key={key} value={option.value}>{capitalizeFirst(option.label)}</option>;
+									})
 								}
 							</select>
 						</span>

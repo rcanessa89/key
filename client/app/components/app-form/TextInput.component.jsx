@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
 import TextValidator from '../../util/TextValidator';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	formId: React.PropTypes.string.isRequired,
@@ -12,11 +13,12 @@ const propTypes = {
 	placeholer: React.PropTypes.string.isRequired,
 	type: React.PropTypes.oneOf(['text', 'letters', 'email']),
 	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
-	placeholer: React.PropTypes.string,
 	errorMessage: React.PropTypes.string,
 	succesMessage: React.PropTypes.string,
 	required: React.PropTypes.bool,
 	pattern: React.PropTypes.string,
+	registry: React.PropTypes.func.isRequired,
+	onChange: React.PropTypes.func.isRequired,
 	state: React.PropTypes.shape({
 		id: React.PropTypes.string,
 		name: React.PropTypes.string,
@@ -107,13 +109,13 @@ class TextInput extends React.PureComponent {
 
 	render() {
 		const validIcon = this.props.state.valid && this.props.state.value.length ? (<span className="icon is-small"><i className="fa fa-check" /></span>) : null;
-		const validMessage = this.props.state.valid && this.props.succesMessage && this.props.state.value.length ? (<p className="help is-success">{this.props.succesMessage}</p>) : null;
+		const validMessage = this.props.state.valid && this.props.succesMessage && this.props.state.value.length ? (<p className="help is-success">{capitalizeFirst(this.props.succesMessage)}</p>) : null;
 		const errorIcon = !this.props.state.valid || this.props.state.required ? (<span className={`icon is-${this.props.size}`}><i className="fa fa-warning" /></span>) : null;
 
 		let errorMessage = null;
 
 		if (!this.props.state.valid && !this.props.state.required) {
-			errorMessage = <p className="help is-danger">{this.errorMessage}</p>;
+			errorMessage = <p className="help is-danger">{capitalizeFirst(this.errorMessage)}</p>;
 		} else if (this.props.state.valid && this.props.state.required) {
 			errorMessage = <p className="help is-danger">{`The ${this.props.name} field is required.`}</p>;
 		}

@@ -1,4 +1,5 @@
 import React from 'react';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	title: React.PropTypes.string,
@@ -18,7 +19,7 @@ const ModalCard = (props) => {
 	return (
 		<div className="modal-card">
 			<header className="modal-card-head">
-				<p className="modal-card-title">{props.title}</p>
+				<p className="modal-card-title">{capitalizeFirst(props.title)}</p>
 				<button className="delete" onClick={props.close} />
 			</header>
 			<section className="modal-card-body">

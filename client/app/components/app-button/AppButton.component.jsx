@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	text: React.PropTypes.string.isRequired,
@@ -44,7 +45,7 @@ const AppButton = (props) => {
 				<span className={iconSizeClassName}>
 					<i className={iconClassName} />
 				</span>
-				<span>{props.text}</span>
+				<span>{capitalizeFirst(props.text)}</span>
 			</button>
 		);
 	}

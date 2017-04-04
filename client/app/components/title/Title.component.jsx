@@ -1,4 +1,5 @@
 import React from 'react';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	text: React.PropTypes.string.isRequired,
@@ -15,9 +16,9 @@ const defaultProps = {
 
 const Title = (props) => {
 	const titleClassName = props.size ? `title is-${props.size}` : 'title';
-	const titleEl = <div className={titleClassName}>{props.text}</div>;
+	const titleEl = <div className={titleClassName}>{capitalizeFirst(props.text)}</div>;
 	const subtitleClassName = props.subtitleSize ? `subtitle is-${props.subtitleSize}` : 'subtitle';
-	const subtitleEl = props.subtitle ? <h2 className={subtitleClassName}>{props.subtitle}</h2> : null;
+	const subtitleEl = props.subtitle ? <h2 className={subtitleClassName}>{capitalizeFirst(props.subtitle)}</h2> : null;
 
 	return (
 		<div>

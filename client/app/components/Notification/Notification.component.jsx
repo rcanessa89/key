@@ -1,4 +1,5 @@
 import React from 'react';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	type: React.PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger']),
@@ -15,7 +16,7 @@ const AppNotification = (props) => {
 	return (
 		<div className={typeClassName}>
 			<button className="delete" />
-			{props.text}
+			{capitalizeFirst(props.text)}
 		</div>
 	);
 };

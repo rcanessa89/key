@@ -1,4 +1,5 @@
 import React from 'react';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	type: React.PropTypes.oneOf(['dark', 'primary', 'info', 'success', 'warning', 'danger']),
@@ -18,7 +19,7 @@ const Message = (props) => {
 	if (props.header) {
 		header = (
 			<div className="message-header">
-				<p>{props.header}</p>
+				<p>{capitalizeFirst(props.header)}</p>
 				<button className="delete" />
 			</div>
 		);
