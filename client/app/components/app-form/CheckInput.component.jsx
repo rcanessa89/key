@@ -7,10 +7,9 @@ const propTypes = {
 	name: React.PropTypes.string.isRequired,
 	formId: React.PropTypes.string.isRequired,
 	fieldId: React.PropTypes.string.isRequired,
-	options: React.PropTypes.arrayOf(React.PropTypes.shape({ label: React.PropTypes.string, value: React.PropTypes.string })),
+	options: React.PropTypes.arrayOf(React.PropTypes.shape({ label: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired })),
 	required: React.PropTypes.bool,
 	state: React.PropTypes.object.isRequired,
-	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
 	onChange: React.PropTypes.func.isRequired,
 	columns: React.PropTypes.string,
 	columnsTable: React.PropTypes.string,
@@ -20,12 +19,10 @@ const propTypes = {
 const defaultProps = {
 	options: [],
 	required: false,
-	size: null,
-	succesMessage: React.PropTypes.string,
 	state: {
 		id: null,
 		name: null,
-		value: null,
+		value: [],
 		valid: true,
 		required: false,
 	},
@@ -43,64 +40,51 @@ const dispatchMap = dispatch => ({
 	onChange: field => dispatch(actionCreators.onChangeField(field)),
 });
 
-class SelectInput extends React.PureComponent {
-	constructor() {
-		super();
+class CheckInput extends React.PureComponent {
+	constructor(props) {
+		super(props);
 		this.onChange = this.onChange.bind(this);
-		this.onBlur = this.onBlur.bind(this);
 	}
 
 	componentWillMount() {
 		this.props.registry({
 			formId: this.props.formId,
 			fieldId: this.props.fieldId,
-			value: null,
+			value: [],
 			valid: true,
 			required: false,
 		});
 	}
 
 	onChange(e) {
+		let value = [];
+		const index = this.props.state.value.indexOf(e.target.value);
+
+		if (index < 0) {
+			value = [ ...this.props.state.value, e.target.value ];
+		} else {
+			value = [
+				...this.props.state.value.slice(0, index),
+				...this.props.state.value.slice(index + 1),
+			];
+		}
+
 		const state = {
 			formId: this.props.formId,
 			fieldId: this.props.fieldId,
 			name: this.props.name,
-			value: e.target.value,
-			required: this.props.required,
+			value: value,
+			required: value.length ? false : true,
 		};
-
-		this.props.onChange(state);
-	}
-
-	onBlur(e) {
-		let state = {
-			formId: this.props.formId,
-			fieldId: this.props.fieldId,
-			name: this.props.name,
-		};
-
-		if (!this.props.state.value && this.props.required) {
-			state.value = null;
-			state.valid = null;
-			state.required = true;
-		} else {
-			state.value = this.props.state.value;
-			state.valid = true;
-			state.required = false;
-		}
 
 		this.props.onChange(state);
 	}
 
 	render() {
-		const requiredMessage = this.props.state.required && !this.props.state.value ? (<p className="help is-danger">{`The ${this.props.label} field is required.`}</p>) : null;
-
-		const selectClassName = classnames({
-			select: true,
-			[`is-${this.props.size}`]: this.props.size,
-		});
+		const requiredError = this.props.state.required ? (<p className="help is-danger">{`At least 1 option is required for ${this.props.name} field`}</p>) : null;
 
 		const fieldClassName = classnames({
+			'app-check-input': true,
 			column: true,
 			[`is-${this.props.columns}-desktop`]: true,
 			[`is-${this.props.columnsTable}-tablet`]: true,
@@ -110,25 +94,27 @@ class SelectInput extends React.PureComponent {
 		return (
 			<div className={fieldClassName}>
 				<div className="field">
-					<label className="label">Subject</label>
+					<p className="label">{this.props.label}</p>
 					<p className="control">
-						<span className={selectClassName}>
-							<select onChange={this.onChange} onBlur={this.onBlur}>
-								<option value="">Select...</option>
-								{
-									this.props.options.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)
-								}
-							</select>
-						</span>
+					{
+						this.props.options.map((option, index) => (
+							<label className="checkbox" key={index}>
+								<span >
+									<input type="checkbox" name={this.props.name} value={option.value} onChange={this.onChange} />
+									{option.label}
+								</span>
+							</label>	
+						))	
+					}
 					</p>
-					{requiredMessage}
+					{requiredError}
 				</div>
 			</div>
 		);
 	}
 }
 
-SelectInput.propTypes = propTypes;
-SelectInput.defaultProps = defaultProps;
+CheckInput.propTypes = propTypes;
+CheckInput.defaultProps = defaultProps;
 
-export default connect(stateMap, dispatchMap)(SelectInput);
+export default connect(stateMap, dispatchMap)(CheckInput);
