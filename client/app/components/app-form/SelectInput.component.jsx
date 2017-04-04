@@ -6,12 +6,16 @@ import * as actionCreators from './action-creators';
 
 const propTypes = {
 	name: React.PropTypes.string.isRequired,
-	selectInputId: React.PropTypes.string.isRequired,
+	formId: React.PropTypes.string.isRequired,
+	fieldId: React.PropTypes.string.isRequired,
 	options: React.PropTypes.arrayOf(React.PropTypes.shape({ label: React.PropTypes.string, value: React.PropTypes.string })),
 	required: React.PropTypes.bool,
 	state: React.PropTypes.object.isRequired,
 	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
 	onChange: React.PropTypes.func.isRequired,
+	columns: React.PropTypes.string,
+	columnsTable: React.PropTypes.string,
+	columnsMobile: React.PropTypes.string,
 };
 
 const defaultProps = {
@@ -24,14 +28,21 @@ const defaultProps = {
 		name: null,
 		value: null,
 		valid: true,
+		required: false,
 	},
+	columns: '12',
+	columnsTable: '12',
+	columnsMobile: '12',
 };
 
 const stateMap = (state, ownProps) => ({
-	state: state.selectInput[ownProps.selectInputId],
+	state: state.forms[ownProps.formId].fields[ownProps.fieldId],
 });
 
-const dispatchMap = dispatch => bindActionCreators(actionCreators, dispatch);
+const dispatchMap = dispatch => ({
+	registry: field => dispatch(actionCreators.registryField(field)),
+	onChange: field => dispatch(actionCreators.onChangeField(field)),
+});
 
 class SelectInput extends React.PureComponent {
 	constructor() {
@@ -41,21 +52,19 @@ class SelectInput extends React.PureComponent {
 	}
 
 	componentWillMount() {
-		this.props.init({
-			id: this.props.selectInputId,
+		this.props.registry({
+			formId: this.props.formId,
+			fieldId: this.props.fieldId,
 			value: null,
 			valid: true,
 			required: false,
 		});
 	}
 
-	componentWillUnmount() {
-		this.props.destroy(this.props.textInputId);
-	}
-
 	onChange(e) {
 		const state = {
-			id: this.props.selectInputId,
+			formId: this.props.formId,
+			fieldId: this.props.fieldId,
 			name: this.props.name,
 			value: e.target.value,
 			required: this.props.required,
@@ -66,7 +75,8 @@ class SelectInput extends React.PureComponent {
 
 	onBlur(e) {
 		let state = {
-			id: this.props.selectInputId,
+			formId: this.props.formId,
+			fieldId: this.props.fieldId,
 			name: this.props.name,
 		};
 
@@ -84,27 +94,36 @@ class SelectInput extends React.PureComponent {
 	}
 
 	render() {
-		const requiredMessage = this.props.state.required && !this.props.state.value ? (<p className="help is-danger">{`The ${this.props.name} field is required.`}</p>) : null;
+		const requiredMessage = this.props.state.required && !this.props.state.value ? (<p className="help is-danger">{`The ${this.props.label} field is required.`}</p>) : null;
 
 		const selectClassName = classnames({
 			select: true,
 			[`is-${this.props.size}`]: this.props.size,
 		});
 
+		const fieldClassName = classnames({
+			column: true,
+			[`is-${this.props.columns}-desktop`]: true,
+			[`is-${this.props.columnsTable}-tablet`]: true,
+			[`is-${this.props.columnsMobile}-mobile`]: true,
+		});
+
 		return (
-			<div className="field">
-				<label className="label">Subject</label>
-				<p className="control">
-					<span className={selectClassName}>
-						<select onChange={this.onChange} onBlur={this.onBlur}>
-							<option value="">Select...</option>
-							{
-								this.props.options.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)
-							}
-						</select>
-					</span>
-				</p>
-				{requiredMessage}
+			<div className={fieldClassName}>
+				<div className="field">
+					<label className="label">Subject</label>
+					<p className="control">
+						<span className={selectClassName}>
+							<select onChange={this.onChange} onBlur={this.onBlur}>
+								<option value="">Select...</option>
+								{
+									this.props.options.map((option, index) => <option key={index} value={option.value}>{option.label}</option>)
+								}
+							</select>
+						</span>
+					</p>
+					{requiredMessage}
+				</div>
 			</div>
 		);
 	}

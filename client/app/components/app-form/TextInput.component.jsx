@@ -1,24 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
-import TextValidator from '../../../util/TextValidator';
+import TextValidator from '../../util/TextValidator';
 
 const propTypes = {
-	type: React.PropTypes.oneOf(['text', 'letters', 'email']),
+	formId: React.PropTypes.string.isRequired,
+	fieldId: React.PropTypes.string.isRequired,
 	name: React.PropTypes.string.isRequired,
-	pattern: React.PropTypes.string,
-	textInputId: React.PropTypes.string.isRequired,
-	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
 	label: React.PropTypes.string.isRequired,
+	placeholer: React.PropTypes.string.isRequired,
+	type: React.PropTypes.oneOf(['text', 'letters', 'email']),
+	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
 	placeholer: React.PropTypes.string,
 	errorMessage: React.PropTypes.string,
 	succesMessage: React.PropTypes.string,
-	init: React.PropTypes.func.isRequired,
-	destroy: React.PropTypes.func.isRequired,
 	required: React.PropTypes.bool,
-	onChange: React.PropTypes.func.isRequired,
+	pattern: React.PropTypes.string,
 	state: React.PropTypes.shape({
 		id: React.PropTypes.string,
 		name: React.PropTypes.string,
@@ -26,6 +24,9 @@ const propTypes = {
 		value: React.PropTypes.string,
 		required: React.PropTypes.bool,
 	}),
+	columns: React.PropTypes.string,
+	columnsTable: React.PropTypes.string,
+	columnsMobile: React.PropTypes.string,
 };
 
 const defaultProps = {
@@ -43,13 +44,19 @@ const defaultProps = {
 		valid: true,
 		required: false,
 	},
+	columns: '12',
+	columnsTable: '12',
+	columnsMobile: '12',
 };
 
 const stateMap = (state, ownProps) => ({
-	state: state.textInput[ownProps.textInputId],
+	state: state.forms[ownProps.formId].fields[ownProps.fieldId],
 });
 
-const dispatchMap = dispatch => bindActionCreators(actionCreators, dispatch);
+const dispatchMap = dispatch => ({
+	registry: field => dispatch(actionCreators.registryField(field)),
+	onChange: field => dispatch(actionCreators.onChangeField(field)),
+});
 
 class TextInput extends React.PureComponent {
 	constructor() {
@@ -75,8 +82,9 @@ class TextInput extends React.PureComponent {
 			this.errorMessage = 'Invalid email.';
 		}
 
-		this.props.init({
-			id: this.props.textInputId,
+		this.props.registry({
+			formId: this.props.formId,
+			fieldId: this.props.fieldId,
 			name: this.props.name,
 			valid: true,
 			value: '',
@@ -84,13 +92,10 @@ class TextInput extends React.PureComponent {
 		});
 	}
 
-	componentWillUnmount() {
-		this.props.destroy(this.props.textInputId);
-	}
-
 	onChange(e) {
 		const state = {
-			id: this.props.textInputId,
+			formId: this.props.formId,
+			fieldId: this.props.fieldId,
 			name: this.props.name,
 			value: e.target.value,
 			valid: this.props.type === 'text' ? true : this.validator.test(e.target.value),
@@ -119,16 +124,25 @@ class TextInput extends React.PureComponent {
 			'is-danger': !this.props.state.valid || this.props.state.required,
 		});
 
+		const fieldClassName = classnames({
+			column: true,
+			[`is-${this.props.columns}-desktop`]: true,
+			[`is-${this.props.columnsTable}-tablet`]: true,
+			[`is-${this.props.columnsMobile}-mobile`]: true,
+		});
+
 		return (
-			<div className="field">
-				<label className="label" htmlFor={this.props.textInputId}>{this.props.label}</label>
-				<p className="control has-icon has-icon-right">
-					<input id={this.props.textInputId} className={inputClassName} type={this.props.type} placeholder={this.props.placeholer} onChange={this.onChange} />
-					{validIcon}
-					{errorIcon}
-				</p>
-				{errorMessage}
-				{validMessage}
+			<div className={fieldClassName}>
+				<div className="field">
+					<label className="label" htmlFor={this.props.fieldId}>{this.props.label}</label>
+					<p className="control has-icon has-icon-right">
+						<input id={this.props.fieldId} className={inputClassName} type={this.props.type} placeholder={this.props.placeholer} onChange={this.onChange} />
+						{validIcon}
+						{errorIcon}
+					</p>
+					{errorMessage}
+					{validMessage}
+				</div>
 			</div>
 		);
 	}
