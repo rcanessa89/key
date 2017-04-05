@@ -1,7 +1,46 @@
 .app-header {
 	background-color: $primary;
+	color: $white;
+	display: flex;
 	height: $app-header-height;
 	margin-top: -$app-header-height;
+	padding: 5px 15px;
 	position: fixed;
 	width: 100%;
+	z-index: z-index(header);
+
+	.header-section {
+		align-items: center;
+		display: flex;
+		width: 33.33%;
+	}
+
+	.logo-container {
+		justify-content: flex-start;
+	}
+
+	.route-text-container {
+		justify-content: center;
+	}
+
+	.menu-button-container {
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.nav-toggle {
+		&.is-active {
+			span {
+				background-color: $white;
+			}
+		}
+
+		&:hover {
+			background-color: $primary;
+		}
+
+		span {
+			background-color: $white;
+		}
+	}
 }

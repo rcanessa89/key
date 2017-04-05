@@ -7,10 +7,22 @@
 
 	.main-page-col-1 {
 		width: $app-nav-width;
+		min-width: $app-nav-width;
+		transition: margin-left $transition-duration;
+
+		@include bp-sm {
+			margin-left: -#{$app-nav-width};
+		}
 	}
 
 	.main-page-col-2 {
 		padding: 30px 15px;
 		width: $app-main-width;
+		min-width: $app-main-width;
+		transition: min-width $transition-duration;
+
+		@include bp-sm {
+			min-width: 100%;
+		}
 	}
 }

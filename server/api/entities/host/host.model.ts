@@ -28,6 +28,11 @@ const hostSchema: mongoose.Schema = new mongoose.Schema({
 		}
 	},
 
+	department: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Department'
+	},
+
 	created_at: {
 		type: Date,
 		default: Date.now

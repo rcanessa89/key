@@ -1,0 +1,15 @@
+// Levels
+$z1: 1;
+$z10: 10;
+$z100: 100;
+$zMax: 9999999;
+
+$z-index: (
+	modal: $z100,
+	header: $z100 - 1,
+	sidebar: $z100 - 1,
+);
+
+@function z-index($key) {
+	@return map-get($z-index, $key);
+}
