@@ -33,7 +33,7 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 	rol: {
 		type: String,
 		required: true,
-		enum: ['admin', 'viewer'],
+		enum: ['super_admin', 'admin', 'viewer'],
 		default: 'viewer'
 	},
 

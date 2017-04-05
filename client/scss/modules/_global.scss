@@ -2,11 +2,9 @@
 	box-sizing: border-box;
 }
 
-$red: #f00;
-
 .app-main-container {
 	@include bp-sm {
-		background: $red;
+		min-width: 100%;
 	}
 	margin: 0 auto;
 	max-width: 1024px;

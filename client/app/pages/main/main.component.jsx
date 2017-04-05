@@ -7,10 +7,10 @@ export default () => (
 	<div className="main-page">
 		<AppHeader />
 		<div className="main-page-row">
-			<div className="main-page-col-1">
+			<div className="main-page-col main-page-col-1">
 				<AppNav />
 			</div>
-			<div className="main-page-col-2">
+			<div className="main-page-col main-page-col-2">
 				<div className="app-main-container">
 					<UIView />
 				</div>

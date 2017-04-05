@@ -6,6 +6,7 @@
 	padding: 15px;
 	position: fixed;
 	width: $app-nav-width;
+	z-index: z-index(sidebar);
 
 	a {
 		line-height: 24px;

@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 enum Rol {
+	super_admin,
 	admin,
 	viewer
 }
