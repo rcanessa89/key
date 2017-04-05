@@ -53,6 +53,11 @@ const defaultProps = {
 
 const stateMap = (state, ownProps) => ({
 	state: state.forms[ownProps.formId].fields[ownProps.fieldId],
+	formState: {
+		id: state.forms[ownProps.formId].id,
+		sumitted: state.forms[ownProps.formId].sumitted,
+		valid: state.forms[ownProps.formId].valid,
+	},
 });
 
 const dispatchMap = dispatch => ({

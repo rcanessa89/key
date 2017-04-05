@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
 import capitalizeFirst from '../../util/capitalize-first';
+import guid from '../../util/guid';
 
 const propTypes = {
 	name: React.PropTypes.string.isRequired,
 	formId: React.PropTypes.string.isRequired,
 	fieldId: React.PropTypes.string.isRequired,
-	options: React.PropTypes.arrayOf(React.PropTypes.shape({ label: React.PropTypes.string, value: React.PropTypes.string })),
+	label: React.PropTypes.string.isRequired,
+	options: React.PropTypes.arrayOf(React.PropTypes.shape({ label: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired })),
 	required: React.PropTypes.bool,
 	state: React.PropTypes.object.isRequired,
-	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
-	label: React.PropTypes.string.isRequired,
-	registry: React.PropTypes.func.isRequired,
 	onChange: React.PropTypes.func.isRequired,
+	registry: React.PropTypes.func.isRequired,
 	columns: React.PropTypes.string,
 	columnsTable: React.PropTypes.string,
 	columnsMobile: React.PropTypes.string,
@@ -23,8 +23,6 @@ const propTypes = {
 const defaultProps = {
 	options: [],
 	required: false,
-	size: null,
-	succesMessage: React.PropTypes.string,
 	state: {
 		id: null,
 		name: null,
@@ -51,11 +49,10 @@ const dispatchMap = dispatch => ({
 	onChange: field => dispatch(actionCreators.onChangeField(field)),
 });
 
-class SelectInput extends React.PureComponent {
-	constructor() {
-		super();
+class RadioInput extends React.PureComponent {
+	constructor(props) {
+		super(props);
 		this.onChange = this.onChange.bind(this);
-		this.onBlur = this.onBlur.bind(this);
 	}
 
 	componentWillMount() {
@@ -75,40 +72,14 @@ class SelectInput extends React.PureComponent {
 			fieldId: this.props.fieldId,
 			name: this.props.name,
 			value: e.target.value,
-			required: this.props.required,
+			valid: e.target.value !== undefined && e.target.value !== null,
+			required: false,
 		};
-
-		this.props.onChange(state);
-	}
-
-	onBlur() {
-		const state = {
-			formId: this.props.formId,
-			fieldId: this.props.fieldId,
-			name: this.props.name,
-		};
-
-		if (!this.props.state.value && this.props.required) {
-			state.value = null;
-			state.valid = null;
-			state.required = true;
-		} else {
-			state.value = this.props.state.value;
-			state.valid = true;
-			state.required = false;
-		}
 
 		this.props.onChange(state);
 	}
 
 	render() {
-		const requiredMessage = this.props.state.required && !this.props.state.value ? (<p className="help is-danger">{`The ${this.props.label} field is required.`}</p>) : null;
-
-		const selectClassName = classnames({
-			select: true,
-			[`is-${this.props.size}`]: this.props.size,
-		});
-
 		const fieldClassName = classnames({
 			column: true,
 			[`is-${this.props.columns}-desktop`]: true,
@@ -121,26 +92,26 @@ class SelectInput extends React.PureComponent {
 				<div className="field">
 					<p className="label">{capitalizeFirst(this.props.label)}</p>
 					<p className="control">
-						<span className={selectClassName}>
-							<select onChange={this.onChange} onBlur={this.onBlur}>
-								<option value="">Select...</option>
-								{
-									this.props.options.map((option, index) => {
-										const key = `key-${index}`;
-										return <option key={key} value={option.value}>{capitalizeFirst(option.label)}</option>;
-									})
-								}
-							</select>
-						</span>
+						{
+							this.props.options.map((option, index) => {
+								const key = `key-${index}`;
+								const id = guid();
+								return (
+									<label className="radio" htmlFor={id} key={key}>
+										<input id={id} type="radio" name={this.props.name} value={option.value} onChange={this.onChange} />
+										{capitalizeFirst(option.label)}
+									</label>
+								);
+							})
+						}
 					</p>
-					{requiredMessage}
 				</div>
 			</div>
 		);
 	}
 }
 
-SelectInput.propTypes = propTypes;
-SelectInput.defaultProps = defaultProps;
+RadioInput.propTypes = propTypes;
+RadioInput.defaultProps = defaultProps;
 
-export default connect(stateMap, dispatchMap)(SelectInput);
+export default connect(stateMap, dispatchMap)(RadioInput);

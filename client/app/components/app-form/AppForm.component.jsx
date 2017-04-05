@@ -18,6 +18,12 @@ const defaultProps = {
 	subtitle: null,
 };
 
+const stateMap = state => {
+	return (
+		form: 
+	)
+}
+
 const dispatchMap = dispatch => ({
 	init: state => dispatch(actionCreators.init(state)),
 	destroy: id => dispatch(actionCreators.destroy(id)),
@@ -26,6 +32,8 @@ const dispatchMap = dispatch => ({
 class AppForm extends React.PureComponent {
 	constructor(props) {
 		super(props);
+
+		console.log(this)
 
 		this.id = this.props.formId || guid();
 		this.fields = React.Children.map(this.props.children, child => React.cloneElement(child, { ...child.props, formId: this.id, fieldId: guid() }));
@@ -45,6 +53,8 @@ class AppForm extends React.PureComponent {
 	componentWillUnmount() {
 		this.props.destroy(this.id);
 	}
+
+
 
 	render() {
 		const subtitle = this.props.subtitle ? (<h3 className="title is-3">{capitalizeFirst(this.props.subtitle)}</h3>) : null;

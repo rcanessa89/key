@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
 import capitalizeFirst from '../../util/capitalize-first';
+import guid from '../../util/guid';
 
 const propTypes = {
 	name: React.PropTypes.string.isRequired,
@@ -36,6 +37,11 @@ const defaultProps = {
 
 const stateMap = (state, ownProps) => ({
 	state: state.forms[ownProps.formId].fields[ownProps.fieldId],
+	formState: {
+		id: state.forms[ownProps.formId].id,
+		sumitted: state.forms[ownProps.formId].sumitted,
+		valid: state.forms[ownProps.formId].valid,
+	},
 });
 
 const dispatchMap = dispatch => ({
@@ -53,6 +59,7 @@ class CheckInput extends React.PureComponent {
 		this.props.registry({
 			formId: this.props.formId,
 			fieldId: this.props.fieldId,
+			name: this.props.name,
 			value: [],
 			valid: true,
 			required: false,
@@ -77,6 +84,7 @@ class CheckInput extends React.PureComponent {
 			fieldId: this.props.fieldId,
 			name: this.props.name,
 			value,
+			valid: e.target.value !== undefined && e.target.value !== null,
 			required: !value.length,
 		};
 
@@ -102,10 +110,11 @@ class CheckInput extends React.PureComponent {
 						{
 							this.props.options.map((option, index) => {
 								const key = `key-${index}`;
+								const id = guid();
 								return (
-									<label className="checkbox" htmlFor={this.props.name} key={key}>
+									<label className="checkbox" htmlFor={id} key={key}>
 										<span >
-											<input type="checkbox" id={this.props.name} name={this.props.name} value={option.value} onChange={this.onChange} />
+											<input type="checkbox" id={id} name={this.props.name} value={option.value} onChange={this.onChange} />
 											{capitalizeFirst(option.label)}
 										</span>
 									</label>
