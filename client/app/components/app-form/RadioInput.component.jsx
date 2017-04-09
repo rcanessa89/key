@@ -80,6 +80,8 @@ class RadioInput extends React.PureComponent {
 	}
 
 	render() {
+		const requiredError = this.props.state.required ? (<p className="help is-danger">{`The field ${this.props.name} is required`}</p>) : null;
+
 		const fieldClassName = classnames({
 			column: true,
 			[`is-${this.props.columns}-desktop`]: true,
@@ -105,6 +107,7 @@ class RadioInput extends React.PureComponent {
 							})
 						}
 					</p>
+					{requiredError}
 				</div>
 			</div>
 		);

@@ -13,6 +13,7 @@ const propTypes = {
 	columns: React.PropTypes.string,
 	columnsTable: React.PropTypes.string,
 	columnsMobile: React.PropTypes.string,
+	content: React.PropTypes.element,
 };
 
 const defaultProps = {
@@ -21,22 +22,23 @@ const defaultProps = {
 	columns: '4',
 	columnsTable: '6',
 	columnsMobile: '12',
+	content: null,
 };
 
-const getFooterItems = items => {
+const getFooterItems = (items) => {
 	let footerItems = null;
 
 	if (items.length) {
 		footerItems = items.map((item, index) => {
 			const key = `key-${index}`;
-			return <a key={key} className="card-footer-item" onClick={item.action}>{item.label}</a>
+			return <a key={key} className="card-footer-item" onClick={item.action}>{item.label}</a>;
 		});
 	}
 
 	return <footer className="card-footer">{footerItems}</footer>;
 };
 
-const PersonCard = props => {
+const PersonCard = (props) => {
 	const footerItems = getFooterItems(props.footerItems);
 	const content = props.content ? (<div className="content">{props.content}</div>) : null;
 	const columnClassName = classnames({

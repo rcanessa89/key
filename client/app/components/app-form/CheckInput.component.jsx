@@ -26,7 +26,7 @@ const defaultProps = {
 	state: {
 		id: null,
 		name: null,
-		value: [],
+		value: null,
 		valid: true,
 		required: false,
 	},
@@ -60,7 +60,7 @@ class CheckInput extends React.PureComponent {
 			formId: this.props.formId,
 			fieldId: this.props.fieldId,
 			name: this.props.name,
-			value: [],
+			value: null,
 			valid: true,
 			required: false,
 		});
@@ -68,15 +68,21 @@ class CheckInput extends React.PureComponent {
 
 	onChange(e) {
 		let value = [];
-		const index = this.props.state.value.indexOf(e.target.value);
+
+		const stateValue = this.props.state.value ? this.props.state.value : [];
+		const index = stateValue.indexOf(e.target.value);
 
 		if (index < 0) {
-			value = [...this.props.state.value, e.target.value];
+			value = [...stateValue, e.target.value];
 		} else {
 			value = [
 				...this.props.state.value.slice(0, index),
 				...this.props.state.value.slice(index + 1),
 			];
+		}
+
+		if (!value.length) {
+			value = null;
 		}
 
 		const state = {

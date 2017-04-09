@@ -23,6 +23,8 @@ export default (state = {}, action) => {
 
 		return { ...state, [action.payload.formId]: form };
 	}
+	case actions.evalForm:
+		return { ...state, [action.payload.id]: action.payload };
 	default:
 		return state;
 	}

@@ -119,10 +119,10 @@ class TextInput extends React.PureComponent {
 
 		let errorMessage = null;
 
-		if (!this.props.state.valid && !this.props.state.required) {
-			errorMessage = <p className="help is-danger">{capitalizeFirst(this.errorMessage)}</p>;
-		} else if (this.props.state.valid && this.props.state.required) {
+		if (this.props.state.required) {
 			errorMessage = <p className="help is-danger">{`The ${this.props.name} field is required.`}</p>;
+		} else if (!this.props.state.valid) {
+			errorMessage = <p className="help is-danger">{this.errorMessage ? capitalizeFirst(this.errorMessage) : 'Invalid value.' }</p>;
 		}
 
 		const inputClassName = classnames({

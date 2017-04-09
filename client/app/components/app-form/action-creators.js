@@ -20,4 +20,9 @@ const onChangeField = field => ({
 	payload: field,
 });
 
-export { init, destroy, registryField, onChangeField };
+const evalForm = form => ({
+	type: actions.evalForm,
+	payload: form,
+});
+
+export { init, destroy, registryField, onChangeField, evalForm };

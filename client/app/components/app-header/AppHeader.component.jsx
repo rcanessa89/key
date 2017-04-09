@@ -1,7 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import * as actionCreators from './action-creators';
-import capitalizeFirst from '../../util/capitalize-first';
 
 export default () => (
 	<div className="app-header">
@@ -15,9 +12,9 @@ export default () => (
 		</div>
 		<div className="header-section menu-button-container">
 			<span className="nav-toggle">
-				<span></span>
-				<span></span>
-				<span></span>
+				<span />
+				<span />
+				<span />
 			</span>
 		</div>
 	</div>

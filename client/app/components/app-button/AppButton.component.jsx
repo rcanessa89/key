@@ -37,11 +37,11 @@ const AppButton = (props) => {
 
 	const iconSizeClassName = props.iconSize ? `icon is-${props.iconSize}` : 'icon';
 	const iconClassName = props.iconClass ? `fa fa-${props.iconClass}` : null;
-	let buttonEl = <button className={buttonClassName} onClick={props.action}>{props.text}</button>;
+	let buttonEl = <button className={buttonClassName} type="button" onClick={props.action}>{capitalizeFirst(props.text)}</button>;
 
 	if (props.iconClass) {
 		buttonEl = (
-			<button className={buttonClassName} onClick={props.action}>
+			<button className={buttonClassName} type="button" onClick={props.action}>
 				<span className={iconSizeClassName}>
 					<i className={iconClassName} />
 				</span>
