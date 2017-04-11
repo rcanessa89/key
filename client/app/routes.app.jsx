@@ -12,12 +12,18 @@ const notFound = {
 	name: 'not-found',
 	url: '/not-found',
 	component: NotFoundPage,
+	data: {
+		title: 'Nout Found',
+	},
 };
 
 const login = {
 	name: 'login',
 	url: '/login',
 	component: LoginPage,
+	data: {
+		title: 'Login',
+	},
 };
 
 const main = {
@@ -30,36 +36,54 @@ const company = {
 	name: 'main.company',
 	url: '/company',
 	component: CompanyPage,
+	data: {
+		title: 'Company',
+	},
 };
 
 const assets = {
 	name: 'main.assets',
 	url: '/assets',
 	component: AssetsPage,
+	data: {
+		title: 'Assets',
+	},
 };
 
 const departments = {
 	name: 'main.departments',
 	url: '/departments',
 	component: DepartmentsPage,
+	data: {
+		title: 'Departments',
+	},
 };
 
 const hosts = {
 	name: 'main.hosts',
 	url: '/hosts',
 	component: HostsPage,
+	data: {
+		title: 'Hosts',
+	},
 };
 
 const people = {
 	name: 'main.people',
 	url: '/people',
 	component: PeoplePage,
+	data: {
+		title: 'People',
+	},
 };
 
 const users = {
 	name: 'main.users',
 	url: '/users',
 	component: UsersPage,
+	data: {
+		title: 'Users',
+	},
 };
 
 const states = [

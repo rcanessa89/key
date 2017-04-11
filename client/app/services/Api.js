@@ -23,7 +23,7 @@ export default class Api {
 	call(method = 'get', url = '/', data = null) {
 		return this.axios({
 			method,
-			url: this.formatUrl(url),
+			url: Api.formatUrl(url),
 			data,
 		});
 	}

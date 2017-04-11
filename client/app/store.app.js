@@ -2,13 +2,13 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import constants from './constants.app';
+import storeSubscribeEvents from './services/store-subscribe-events';
 
 // Reducers
 import modal from './components/modal/reducer';
 import forms from './components/app-form/reducer';
-
-// import textInput from './components/app-form/text-input/reducer';
-// import selectInput from './components/app-form/select-input/reducer';
+import mobileNav from './components/mobile-nav/reducer';
+import header from './components/app-header/reducer';
 
 let middleware = applyMiddleware(thunk);
 
@@ -19,6 +19,17 @@ if (constants.environment === 'dev') {
 const reducers = combineReducers({
 	modal,
 	forms,
+	mobileNav,
+	header,
 });
 
-export default createStore(reducers, middleware);
+const store = createStore(reducers, middleware);
+
+const unsubscribe = store.subscribe(() => {
+	const state = store.getState();
+
+	storeSubscribeEvents(state);
+});
+
+export { unsubscribe };
+export default store;

@@ -2,10 +2,12 @@ import React from 'react';
 import { UIView } from 'ui-router-react';
 import AppHeader from '../../components/app-header/AppHeader.component';
 import AppNav from '../../components/app-nav/AppNav.component';
+import MobileNav from '../../components/mobile-nav/MobileNav.component';
 
 export default () => (
 	<div className="main-page">
 		<AppHeader />
+		<MobileNav />
 		<div className="main-page-row">
 			<div className="main-page-col main-page-col-1">
 				<AppNav />

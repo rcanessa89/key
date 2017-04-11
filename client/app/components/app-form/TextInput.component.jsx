@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
-import TextValidator from '../../util/TextValidator';
+import TextValidator from '../../services/TextValidator';
 import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {

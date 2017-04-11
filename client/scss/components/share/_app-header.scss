@@ -20,6 +20,12 @@
 	}
 
 	.route-text-container {
+		@include bp-sm {
+			display: block;
+		}
+		display: none;
+		font-size: 28px;
+		font-weight: bold;
 		justify-content: center;
 	}
 
@@ -37,6 +43,10 @@
 
 		&:hover {
 			background-color: $primary;
+		}
+
+		@include bp-sm {
+			display: block;
 		}
 
 		span {
