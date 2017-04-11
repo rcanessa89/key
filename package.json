@@ -45,6 +45,7 @@
     "gulp-uglify": "^2.0.1",
     "lazypipe": "^1.0.1",
     "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.5.1",
     "run-sequence": "^1.2.2",
     "ts-node": "^3.0.2",
     "tslint": "^4.5.1",
