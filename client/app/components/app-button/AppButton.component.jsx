@@ -20,6 +20,10 @@ const propTypes = {
 	action: PropTypes.func.isRequired,
 };
 
+const defaultProps = {
+	disabled: false,
+};
+
 const AppButton = (props) => {
 	const buttonClassName = classnames({
 		[`is-${props.type}`]: props.type,
@@ -28,21 +32,19 @@ const AppButton = (props) => {
 		'is-outlined': props.outlined,
 		[`is-${props.state}`]: props.state,
 		'is-focused': props.focused,
+		'is-hovered': props.hovered,
 		'is-active': props.active,
 		'is-loading': props.loading,
-		'is-disabled': props.disabled,
-		[`is-${props.iconSize}`]: props.iconSize,
-		[`${props.iconClass}`]: props.iconClass,
 		button: true,
 	});
 
 	const iconSizeClassName = props.iconSize ? `icon is-${props.iconSize}` : 'icon';
 	const iconClassName = props.iconClass ? `fa fa-${props.iconClass}` : null;
-	let buttonEl = <button className={buttonClassName} type="button" onClick={props.action}>{capitalizeFirst(props.text)}</button>;
+	let buttonEl = <button className={buttonClassName} type="button" onClick={props.action} disabled={props.disabled}>{capitalizeFirst(props.text)}</button>;
 
 	if (props.iconClass) {
 		buttonEl = (
-			<button className={buttonClassName} type="button" onClick={props.action}>
+			<button className={buttonClassName} type="button" onClick={props.action} disabled={props.disabled}>
 				<span className={iconSizeClassName}>
 					<i className={iconClassName} />
 				</span>
