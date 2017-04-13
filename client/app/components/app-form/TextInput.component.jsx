@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
@@ -6,29 +7,29 @@ import TextValidator from '../../services/TextValidator';
 import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
-	formId: React.PropTypes.string.isRequired,
-	fieldId: React.PropTypes.string.isRequired,
-	name: React.PropTypes.string.isRequired,
-	label: React.PropTypes.string.isRequired,
-	placeholer: React.PropTypes.string.isRequired,
-	type: React.PropTypes.oneOf(['text', 'letters', 'email']),
-	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
-	errorMessage: React.PropTypes.string,
-	succesMessage: React.PropTypes.string,
-	required: React.PropTypes.bool,
-	pattern: React.PropTypes.string,
-	registry: React.PropTypes.func.isRequired,
-	onChange: React.PropTypes.func.isRequired,
-	state: React.PropTypes.shape({
-		id: React.PropTypes.string,
-		name: React.PropTypes.string,
-		valid: React.PropTypes.bool,
-		value: React.PropTypes.string,
-		required: React.PropTypes.bool,
+	formId: PropTypes.string.isRequired,
+	fieldId: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	label: PropTypes.string.isRequired,
+	placeholer: PropTypes.string.isRequired,
+	type: PropTypes.oneOf(['text', 'letters', 'email']),
+	size: PropTypes.oneOf(['small', 'medium', 'large']),
+	errorMessage: PropTypes.string,
+	succesMessage: PropTypes.string,
+	required: PropTypes.bool,
+	pattern: PropTypes.string,
+	registry: PropTypes.func.isRequired,
+	onChange: PropTypes.func.isRequired,
+	state: PropTypes.shape({
+		id: PropTypes.string,
+		name: PropTypes.string,
+		valid: PropTypes.bool,
+		value: PropTypes.string,
+		required: PropTypes.bool,
 	}),
-	columns: React.PropTypes.string,
-	columnsTable: React.PropTypes.string,
-	columnsMobile: React.PropTypes.string,
+	columns: PropTypes.string,
+	columnsTable: PropTypes.string,
+	columnsMobile: PropTypes.string,
 };
 
 const defaultProps = {

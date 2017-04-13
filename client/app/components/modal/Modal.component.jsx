@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from './action-creators';
@@ -6,19 +7,19 @@ import ModalImage from './ModalImage.component';
 import ModalCard from './ModalCard.component';
 
 const propTypes = {
-	type: React.PropTypes.oneOf(['normal', 'image', 'card']),
-	modalId: React.PropTypes.string.isRequired,
-	modalButton: React.PropTypes.element,
-	isOpen: React.PropTypes.bool.isRequired,
-	init: React.PropTypes.func.isRequired,
-	children: React.PropTypes.element,
-	open: React.PropTypes.func.isRequired,
-	close: React.PropTypes.func.isRequired,
-	destroy: React.PropTypes.func.isRequired,
-	ratio: React.PropTypes.string,
-	source: React.PropTypes.string,
-	title: React.PropTypes.string,
-	footer: React.PropTypes.element,
+	type: PropTypes.oneOf(['normal', 'image', 'card']),
+	modalId: PropTypes.string.isRequired,
+	modalButton: PropTypes.element,
+	isOpen: PropTypes.bool.isRequired,
+	init: PropTypes.func.isRequired,
+	children: PropTypes.element,
+	open: PropTypes.func.isRequired,
+	close: PropTypes.func.isRequired,
+	destroy: PropTypes.func.isRequired,
+	ratio: PropTypes.string,
+	source: PropTypes.string,
+	title: PropTypes.string,
+	footer: PropTypes.element,
 };
 
 const defaultProps = {

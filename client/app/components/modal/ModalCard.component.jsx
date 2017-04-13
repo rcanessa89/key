@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
-	title: React.PropTypes.string,
-	children: React.PropTypes.element.isRequired,
-	footer: React.PropTypes.element,
-	close: React.PropTypes.func.isRequired,
+	title: PropTypes.string,
+	children: PropTypes.element.isRequired,
+	footer: PropTypes.element,
+	close: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

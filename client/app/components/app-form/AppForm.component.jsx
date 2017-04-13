@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actionCreators from './action-creators';
 import guid from '../../util/guid';
@@ -7,17 +8,17 @@ import AppButton from '../app-button/AppButton.component';
 import store from '../../store.app';
 
 const propTypes = {
-	title: React.PropTypes.string.isRequired,
-	subtitle: React.PropTypes.string,
-	children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
-	formId: React.PropTypes.string,
-	init: React.PropTypes.func.isRequired,
-	destroy: React.PropTypes.func.isRequired,
-	onSubmit: React.PropTypes.func.isRequired,
-	onCancel: React.PropTypes.func,
-	withButtons: React.PropTypes.bool,
-	selfDEstroy: React.PropTypes.bool,
-	evalForm: React.PropTypes.func.isRequired,
+	title: PropTypes.string.isRequired,
+	subtitle: PropTypes.string,
+	children: PropTypes.arrayOf(PropTypes.element).isRequired,
+	formId: PropTypes.string,
+	init: PropTypes.func.isRequired,
+	destroy: PropTypes.func.isRequired,
+	onSubmit: PropTypes.func.isRequired,
+	onCancel: PropTypes.func,
+	withButtons: PropTypes.bool,
+	selfDEstroy: PropTypes.bool,
+	evalForm: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

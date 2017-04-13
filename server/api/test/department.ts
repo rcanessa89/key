@@ -1,11 +1,11 @@
-/// <reference path="../typings/index.d.ts" />
+/// <reference path="../../../typings/index.d.ts" />
 
 process.env.ENVIRONMENT = 'test';
 
 import * as mocha from 'mocha';
 import * as chai from 'chai';
-import app from '../server/index';
-import Department from '../server/api/entities/department/department.model';
+import app from '../../index';
+import Department from '../entities/department/department.model';
 
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -13,16 +13,16 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Department', ()=> {
+describe('Department', () => {
 	const testDepartment = {
 		name: 'development',
 		hosts: []
 	};
 
 	beforeEach((done) => {
-		Department.remove({}, (err) => { 
-		   done();    
-		});     
+		Department.remove({}, (err) => {
+			done();
+		});
 	});
 
 	describe('/GET /department', () => {
@@ -33,11 +33,10 @@ describe('Department', ()=> {
 					res.should.have.status(200);
 					res.body.should.be.a('array');
 					res.body.length.should.be.eql(0);
-					
 					done();
 				});
-		  });
-	  });
+		});
+	});
 
 	describe('/GET /department/:id', () => {
 		it('it should GET an department by _id', done => {
@@ -118,7 +117,7 @@ describe('Department', ()=> {
 						res.body.should.have.property('message').eql('Entity deleted.');
 
 						done();
-					})
+					});
 			});
 		});
 	});

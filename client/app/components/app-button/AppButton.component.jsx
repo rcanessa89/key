@@ -1,22 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
-	text: React.PropTypes.string.isRequired,
-	type: React.PropTypes.oneOf(['white', 'light', 'dark', 'black', 'link']),
-	size: React.PropTypes.oneOf(['small', 'medium', 'large']),
-	inverted: React.PropTypes.bool,
-	outlined: React.PropTypes.bool,
-	state: React.PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger']),
-	hovered: React.PropTypes.bool,
-	focused: React.PropTypes.bool,
-	active: React.PropTypes.bool,
-	loading: React.PropTypes.bool,
-	disabled: React.PropTypes.bool,
-	iconSize: React.PropTypes.oneOf(['small', 'medium', 'large']),
-	iconClass: React.PropTypes.string,
-	action: React.PropTypes.func.isRequired,
+	text: PropTypes.string.isRequired,
+	type: PropTypes.oneOf(['white', 'light', 'dark', 'black', 'link']),
+	size: PropTypes.oneOf(['small', 'medium', 'large']),
+	inverted: PropTypes.bool,
+	outlined: PropTypes.bool,
+	state: PropTypes.oneOf(['primary', 'info', 'success', 'warning', 'danger']),
+	hovered: PropTypes.bool,
+	focused: PropTypes.bool,
+	active: PropTypes.bool,
+	loading: PropTypes.bool,
+	disabled: PropTypes.bool,
+	iconSize: PropTypes.oneOf(['small', 'medium', 'large']),
+	iconClass: PropTypes.string,
+	action: PropTypes.func.isRequired,
 };
 
 const AppButton = (props) => {

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-	icon: React.PropTypes.string.isRequired,
-	size: React.PropTypes.string,
+	icon: PropTypes.string.isRequired,
+	size: PropTypes.string,
 };
 
 const defaultProps = {

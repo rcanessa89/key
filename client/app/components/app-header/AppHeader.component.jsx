@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { toggle } from '../mobile-nav/action-creators';
 
 const propTypes = {
-	mobileNav: React.PropTypes.bool.isRequired,
-	toggleNav: React.PropTypes.func.isRequired,
-	pageTitle: React.PropTypes.string.isRequired,
+	mobileNav: PropTypes.bool.isRequired,
+	toggleNav: PropTypes.func.isRequired,
+	pageTitle: PropTypes.string.isRequired,
 };
 
 const stateMap = state => ({

@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 const propTypes = {
-	photo: React.PropTypes.string.isRequired,
-	name: React.PropTypes.string.isRequired,
-	lastName: React.PropTypes.string.isRequired,
-	label: React.PropTypes.string,
-	footerItems: React.PropTypes.arrayOf(React.PropTypes.shape({
-		label: React.PropTypes.string.isRequired,
-		action: React.PropTypes.func.isRequired,
+	photo: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	lastName: PropTypes.string.isRequired,
+	label: PropTypes.string,
+	footerItems: PropTypes.arrayOf(PropTypes.shape({
+		label: PropTypes.string.isRequired,
+		action: PropTypes.func.isRequired,
 	})),
-	columns: React.PropTypes.string,
-	columnsTable: React.PropTypes.string,
-	columnsMobile: React.PropTypes.string,
-	content: React.PropTypes.element,
+	columns: PropTypes.string,
+	columnsTable: PropTypes.string,
+	columnsMobile: PropTypes.string,
+	content: PropTypes.element,
 };
 
 const defaultProps = {

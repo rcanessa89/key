@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { UISref } from 'ui-router-react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
@@ -6,8 +7,8 @@ import { close } from '../mobile-nav/action-creators';
 import Icon from '../icon/Icon.component';
 
 const propTypes = {
-	isOpen: React.PropTypes.bool.isRequired,
-	close: React.PropTypes.func.isRequired,
+	isOpen: PropTypes.bool.isRequired,
+	close: PropTypes.func.isRequired,
 };
 
 const stateMap = state => ({

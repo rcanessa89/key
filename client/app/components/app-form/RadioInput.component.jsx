@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import * as actionCreators from './action-creators';
@@ -6,18 +7,18 @@ import capitalizeFirst from '../../util/capitalize-first';
 import guid from '../../util/guid';
 
 const propTypes = {
-	name: React.PropTypes.string.isRequired,
-	formId: React.PropTypes.string.isRequired,
-	fieldId: React.PropTypes.string.isRequired,
-	label: React.PropTypes.string.isRequired,
-	options: React.PropTypes.arrayOf(React.PropTypes.shape({ label: React.PropTypes.string.isRequired, value: React.PropTypes.string.isRequired })),
-	required: React.PropTypes.bool,
-	state: React.PropTypes.object.isRequired,
-	onChange: React.PropTypes.func.isRequired,
-	registry: React.PropTypes.func.isRequired,
-	columns: React.PropTypes.string,
-	columnsTable: React.PropTypes.string,
-	columnsMobile: React.PropTypes.string,
+	name: PropTypes.string.isRequired,
+	formId: PropTypes.string.isRequired,
+	fieldId: PropTypes.string.isRequired,
+	label: PropTypes.string.isRequired,
+	options: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired })),
+	required: PropTypes.bool,
+	state: PropTypes.object.isRequired,
+	onChange: PropTypes.func.isRequired,
+	registry: PropTypes.func.isRequired,
+	columns: PropTypes.string,
+	columnsTable: PropTypes.string,
+	columnsMobile: PropTypes.string,
 };
 
 const defaultProps = {

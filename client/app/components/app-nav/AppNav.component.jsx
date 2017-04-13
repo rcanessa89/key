@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { UISref, UISrefActive } from 'ui-router-react';
 
 export default () => (

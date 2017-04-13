@@ -1,11 +1,11 @@
-/// <reference path="../typings/index.d.ts" />
+/// <reference path="../../../typings/index.d.ts" />
 
 process.env.ENVIRONMENT = 'test';
 
 import * as mocha from 'mocha';
 import * as chai from 'chai';
-import app from '../server/index';
-import Host from '../server/api/entities/host/host.model';
+import app from '../../index';
+import Host from '../entities/host/host.model';
 
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -13,7 +13,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Host', ()=> {
+describe('Host', () => {
 	const testHost = {
 		name: 'popin',
 		last_name: 'canessa',
@@ -21,10 +21,10 @@ describe('Host', ()=> {
 	};
 
 	beforeEach((done) => {
-        Host.remove({}, (err) => { 
-           done();         
-        });     
-    });
+		Host.remove({}, (err) => {
+			done();
+		});
+	});
 
 	describe('/GET /host', () => {
 		it('it should GET all the hosts', done => {
@@ -34,11 +34,10 @@ describe('Host', ()=> {
 					res.should.have.status(200);
 					res.body.should.be.a('array');
 					res.body.length.should.be.eql(0);
-					
 					done();
 				});
-		  });
-	  });
+		});
+	});
 
 	describe('/GET /host/:id', () => {
 		it('it should GET an host by _id', done => {
@@ -51,13 +50,13 @@ describe('Host', ()=> {
 					.get(endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
-                		res.body.should.be.a('object');
-                		res.body.should.have.property('_id').eql(host._id.toString());
-                		res.body.should.have.property('name').eql(testHost.name);
-                		res.body.should.have.property('last_name').eql(testHost.last_name);
-                		res.body.should.have.property('email').eql(testHost.email);
-                		res.body.should.have.property('created_at');
-                		res.body.should.have.property('updated_at');
+						res.body.should.be.a('object');
+						res.body.should.have.property('_id').eql(host._id.toString());
+						res.body.should.have.property('name').eql(testHost.name);
+						res.body.should.have.property('last_name').eql(testHost.last_name);
+						res.body.should.have.property('email').eql(testHost.email);
+						res.body.should.have.property('created_at');
+						res.body.should.have.property('updated_at');
 
 						done();
 					});
@@ -69,18 +68,18 @@ describe('Host', ()=> {
 		it('it should POST an host', done => {
 			chai.request(app)
 				.post('/api/host')
-	            .send(testHost)
-	            .end((err, res) => {
-	                res.should.have.status(200);
-            		res.body.should.be.a('object');
-            		res.body.should.have.property('name').eql(testHost.name);
-            		res.body.should.have.property('last_name').eql(testHost.last_name);
-            		res.body.should.have.property('email').eql(testHost.email);
-            		res.body.should.have.property('created_at');
-            		res.body.should.have.property('updated_at');
+				.send(testHost)
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.body.should.be.a('object');
+					res.body.should.have.property('name').eql(testHost.name);
+					res.body.should.have.property('last_name').eql(testHost.last_name);
+					res.body.should.have.property('email').eql(testHost.email);
+					res.body.should.have.property('created_at');
+					res.body.should.have.property('updated_at');
 
-	              	done();
-	            });
+					done();
+				});
 		});
 	});
 
@@ -96,11 +95,11 @@ describe('Host', ()=> {
 					.send({_id: host._id, name: newName, email: newEmail})
 					.end((error, res) => {
 						res.should.have.status(200);
-	                	res.body.should.be.a('object');
-	                	res.body.should.have.property('name').eql(newName);
-	                	res.body.should.have.property('email').eql(newEmail);
+						res.body.should.be.a('object');
+						res.body.should.have.property('name').eql(newName);
+						res.body.should.have.property('email').eql(newEmail);
 
-                		done();
+						done();
 					});
 			});
 		});
@@ -117,12 +116,12 @@ describe('Host', ()=> {
 					['delete'](endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
-	                	res.body.should.be.a('object');
-	                	res.body.should.have.property('_id').eql(host._id.toString());
-	                	res.body.should.have.property('message').eql('Entity deleted.');
+						res.body.should.be.a('object');
+						res.body.should.have.property('_id').eql(host._id.toString());
+						res.body.should.have.property('message').eql('Entity deleted.');
 
-	                	done();
-					})
+						done();
+					});
 			});
 		});
 	});

@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-	ratio: React.PropTypes.oneOf(['square', '1by1', '4by3', '3by2', '16by9', '2by1']),
-	source: React.PropTypes.string.isRequired,
+	ratio: PropTypes.oneOf(['square', '1by1', '4by3', '3by2', '16by9', '2by1']),
+	source: PropTypes.string.isRequired,
 };
 
 const defaultProps = {

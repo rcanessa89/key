@@ -31,7 +31,8 @@ var config = {
 
 			watch: [
 				'./client/app/**/*.jsx',
-				'./client/app/**/*.js'
+				'./client/app/**/*.js',
+				'!./client/app/**/*.spec.js'
 			],
 
 			extensions: [
@@ -62,7 +63,8 @@ var config = {
 				'redux-thunk',
 				'redux-logger',
 				'redux',
-				'axios'
+				'axios',
+				'prop-types'
 			],
 
 			lint: {

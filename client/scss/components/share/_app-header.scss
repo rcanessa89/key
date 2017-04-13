@@ -21,12 +21,14 @@
 
 	.route-text-container {
 		@include bp-sm {
-			display: block;
+			display: flex;
 		}
 		display: none;
 		font-size: 28px;
 		font-weight: bold;
 		justify-content: center;
+		align-items: center;
+		text-align: center;
 	}
 
 	.menu-button-container {

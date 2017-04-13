@@ -1,11 +1,11 @@
-/// <reference path="../typings/index.d.ts" />
+/// <reference path="../../../typings/index.d.ts" />
 
 process.env.ENVIRONMENT = 'test';
 
 import * as mocha from 'mocha';
 import * as chai from 'chai';
-import app from '../server/index';
-import Registry from '../server/api/entities/registry/registry.model';
+import app from '../../index';
+import Registry from '../entities/registry/registry.model';
 
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -23,10 +23,10 @@ describe('Registry', () => {
 	};
 
 	beforeEach((done) => {
-        Registry.remove({}, (err) => { 
-           done();         
-        });     
-    });
+		Registry.remove({}, (err) => {
+			done();
+		});
+	});
 
 	describe('/GET /registry', () => {
 		it('it should GET all the resgistries', done => {
@@ -36,11 +36,10 @@ describe('Registry', () => {
 					res.should.have.status(200);
 					res.body.should.be.a('array');
 					res.body.length.should.be.eql(0);
-					
 					done();
 				});
-		  });
-	  });
+		});
+	});
 
 	describe('/GET /registry/:id', () => {
 		it('it should GET an registry by _id', done => {
@@ -53,15 +52,15 @@ describe('Registry', () => {
 					.get(endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
-                		res.body.should.be.a('object');
-                		res.body.should.have.property('_id').eql(registry._id.toString());
-                		res.body.should.have.property('name').eql(testRegistry.name);
-                		res.body.should.have.property('last_name').eql(testRegistry.last_name);
-                		res.body.should.have.property('document_id').eql(testRegistry.document_id);
-                		res.body.should.have.property('sign').eql(testRegistry.sign);
-                		res.body.should.have.property('host');
-                		res.body.should.have.property('created_at');
-                		res.body.should.have.property('updated_at');
+						res.body.should.be.a('object');
+						res.body.should.have.property('_id').eql(registry._id.toString());
+						res.body.should.have.property('name').eql(testRegistry.name);
+						res.body.should.have.property('last_name').eql(testRegistry.last_name);
+						res.body.should.have.property('document_id').eql(testRegistry.document_id);
+						res.body.should.have.property('sign').eql(testRegistry.sign);
+						res.body.should.have.property('host');
+						res.body.should.have.property('created_at');
+						res.body.should.have.property('updated_at');
 
 						done();
 					});
@@ -73,20 +72,20 @@ describe('Registry', () => {
 		it('it should POST an registry', done => {
 			chai.request(app)
 				.post('/api/registry')
-	            .send(testRegistry)
-	            .end((err, res) => {
-	                res.should.have.status(200);
-            		res.body.should.be.a('object');
-            		res.body.should.have.property('name').eql(testRegistry.name);
-            		res.body.should.have.property('last_name').eql(testRegistry.last_name);
-            		res.body.should.have.property('document_id').eql(testRegistry.document_id);
-            		res.body.should.have.property('sign').eql(testRegistry.sign);
-            		res.body.should.have.property('host');
-            		res.body.should.have.property('created_at');
-            		res.body.should.have.property('updated_at');
+				.send(testRegistry)
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.body.should.be.a('object');
+					res.body.should.have.property('name').eql(testRegistry.name);
+					res.body.should.have.property('last_name').eql(testRegistry.last_name);
+					res.body.should.have.property('document_id').eql(testRegistry.document_id);
+					res.body.should.have.property('sign').eql(testRegistry.sign);
+					res.body.should.have.property('host');
+					res.body.should.have.property('created_at');
+					res.body.should.have.property('updated_at');
 
-	              	done();
-	            });
+					done();
+				});
 		});
 	});
 
@@ -101,10 +100,10 @@ describe('Registry', () => {
 					.send({_id: registry._id, name: newName})
 					.end((error, res) => {
 						res.should.have.status(200);
-	                	res.body.should.be.a('object');
-	                	res.body.should.have.property('name').eql(newName);
+						res.body.should.be.a('object');
+						res.body.should.have.property('name').eql(newName);
 
-                		done();
+						done();
 					});
 			});
 		});
@@ -121,12 +120,12 @@ describe('Registry', () => {
 					['delete'](endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
-	                	res.body.should.be.a('object');
-	                	res.body.should.have.property('_id').eql(registry._id.toString());
-	                	res.body.should.have.property('message').eql('Entity deleted.');
+						res.body.should.be.a('object');
+						res.body.should.have.property('_id').eql(registry._id.toString());
+						res.body.should.have.property('message').eql('Entity deleted.');
 
-	                	done();
-					})
+						done();
+					});
 			});
 		});
 	});
