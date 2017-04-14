@@ -57,5 +57,6 @@ const AppButton = (props) => {
 };
 
 AppButton.propTypes = propTypes;
+AppButton.defaultProps = defaultProps;
 
 export default AppButton;

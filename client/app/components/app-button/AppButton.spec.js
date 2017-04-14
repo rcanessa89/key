@@ -17,12 +17,12 @@ describe('AppButton Component', () => {
 				action={() => false}
 				size="small"
 				state="primary"
-				inverted={true}
-				outlined={true}
-				hovered={true}
-				focused={true}
-				active={true}
-				loading={true}
+				inverted
+				outlined
+				hovered
+				focused
+				active
+				loading
 			/>
 		);
 

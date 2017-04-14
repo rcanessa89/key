@@ -23,11 +23,11 @@
 		@include bp-sm {
 			display: flex;
 		}
+		align-items: center;
 		display: none;
 		font-size: 28px;
 		font-weight: bold;
 		justify-content: center;
-		align-items: center;
 		text-align: center;
 	}
 
