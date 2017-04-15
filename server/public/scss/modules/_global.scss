@@ -1,0 +1,12 @@
+* {
+	box-sizing: border-box;
+}
+
+.app-main-container {
+	@include bp-sm {
+		min-width: 100%;
+	}
+	margin: 0 auto;
+	max-width: 1024px;
+	min-width: 713px;
+}

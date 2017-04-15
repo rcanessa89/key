@@ -1,0 +1,9 @@
+// layout - sizes
+$app-nav-width: 220px;
+$app-main-width: calc(100% - #{$app-nav-width});
+$app-header-height: 70px;
+$app-nav-height: calc(100% - #{$app-header-height});
+$mobile-nav-height: calc(100% - #{$app-header-height});
+
+// Others
+$transition-duration: .3s;

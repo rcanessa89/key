@@ -10,8 +10,14 @@ var config = {
 
 		code: {
 			distName: 'server.js',
-			src: ['./server/index.ts', './server/**/*.ts', '!./server/dist'],
+			src: ['./server/index.ts', './server/**/*.ts', './server/**/*.tsx', '!./server/dist'],
 			dest: './server/dist'
+		},
+
+		scss: {
+			main: './server/public/scss/main.scss',
+			dest: './server/dist/public/assets/css/',
+			watch: './server/public/scss/**/*.scss'
 		},
 
 		lint: {

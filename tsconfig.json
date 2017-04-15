@@ -1,12 +1,9 @@
 {
 	"compilerOptions": {
 		"target": "es6",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"sourceMap": false,
-		"declaration": true,
-		"allowUnusedLabels": true,
-		"types": []
+    	"module": "commonjs",
+		"jsx": "react",
+		"moduleResolution": "node"
 	},
 	"files": [
 		"typings-custom/index.d.ts",

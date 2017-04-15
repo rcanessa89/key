@@ -72,6 +72,7 @@
     "compression": "^1.6.2",
     "cors": "^2.8.1",
     "express": "^4.15.2",
+    "express-react-views": "^0.10.2",
     "helmet": "^3.5.0",
     "mongoose": "^4.9.1",
     "morgan": "^1.8.1",

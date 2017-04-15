@@ -35,17 +35,19 @@ process.env.NODE_ENV = isProd ? 'production' : 'develop';
 
 // Client tasks
 gulp.task('client-server', clientServerTask);
-gulp.task('build-css', scssTask());
-gulp.task('build-app', appTask());
+gulp.task('build-css', scssTask(configClient.scss.main, configClient.scss.dest));
+gulp.task('build-app', appTask(configClient.code.main, configClient.code.dest));
 gulp.task('build-vendor', vendorTask);
 gulp.task('svg-font', svgFont());
 gulp.task('copy', copyFiles);
 gulp.task('reload', reload);
-gulp.task('watch', watch);
+gulp.task('watch', watchClient);
 gulp.task('build-constants', buildEnvVar);
 
 // Server Tasks
 gulp.task('build-server', buildServerTask());
+gulp.task('build-server-css', scssTask(configServer.scss.main, configServer.scss.dest));
+gulp.task('watch-server', watchServer);
 gulp.task('run-server', runServer);
 
 // Dev tasks
@@ -75,18 +77,18 @@ function clientTask() {
 
 function serverTask() {
 	del('server/dist').then(function() {
-		runSequence('build-server', 'run-server');
+		runSequence('build-server-css', 'build-server', 'run-server', 'watch-server');
 	});
 }
 
-function appTask() {
+function appTask(mainEntries, dest) {
 	var packageJson = require('./package.json'),
 		dependencies = Object.keys(packageJson && packageJson.dependencies || {});
 
 	return lazypipe()
 		.pipe(function() {
 			return browserify({
-			    entries: configClient.code.main,
+			    entries: mainEntries,
 				extensions: configClient.code.extensions,
 				debug: !isProd
 			})
@@ -106,13 +108,13 @@ function appTask() {
 		.pipe(function() {
 			return sourcemaps.write('./');
 		})
-		.pipe(gulp.dest, configClient.code.dest)
+		.pipe(gulp.dest, dest)
 		.pipe(connect.reload);
 }
 
-function scssTask() {
+function scssTask(mainFile, dest) {
 	return lazypipe()
-		.pipe(gulp.src, configClient.scss.main)
+		.pipe(gulp.src, mainFile)
 		.pipe(function() {
 			return gulpif(!isProd, sourcemaps.init());
 		})
@@ -123,7 +125,7 @@ function scssTask() {
 		.pipe(function() {
 			return gulpif(!isProd, sourcemaps.write('./'));
 		})
-		.pipe(gulp.dest, configClient.scss.dest)
+		.pipe(gulp.dest, dest)
 	    .pipe(connect.reload);
 }
 
@@ -142,7 +144,9 @@ function buildServerTask() {
 
 	return lazypipe()
 		.pipe(gulp.src, configServer.code.src)
-		.pipe(ts)
+		.pipe(function() {
+			return tsProject();
+		})
 		.pipe(function() {
 			return gulpif(isProd, uglify());
 		})
@@ -182,7 +186,7 @@ function vendorTask() {
 function runServer() {
 	return nodemon({
 		script: configServer.main.src,
-		ext:    'ts',
+		ext:    'ts tsx',
 		ignore: ['./server/dist'],
 		watch: ['./server'],
 		tasks: ['build-server']
@@ -229,10 +233,13 @@ function reload(){
 		.pipe(connect.reload());
 }
 
-function watch(){
+function watchClient() {
 	gulp.watch(configClient.scss.watch, ['build-css']);
 	gulp.watch(configClient.code.watch, ['build-app']);
 	gulp.watch(configClient.main.src, ['reload']);
+}
+function watchServer() {
+	gulp.watch(configServer.scss.watch, ['build-server-css']);
 }
 
 function buildEnvVar() {
