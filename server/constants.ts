@@ -16,5 +16,12 @@ export default {
 	DB_URI: process.env.DB_URI || 'mongodb://localhost:27017/' + dbName,
 	ORIGINS: origins,
 	CLIENT_ROOT: __dirname + '/../../client/dist',
-	MORGAN: process.env.ENVIRONMENT || 'dev'
+	MORGAN: process.env.ENVIRONMENT || 'dev',
+	SESSION_SECRET: 'Xowq3p01',
+	GOOGLE_AUTH: {
+		id: '191151473168-bk71j5i4ehm32o14d0b9i21rtbb59juh.apps.googleusercontent.com',
+		secret: '9DMOYs6zY_dlfRaOC34k-JiU',
+		redirect_url: 'http://localhost:8000/auth/google/callback',
+		key: 'AIzaSyAShBjZH6RzSPyBPZPc2fxd-wmBlgYt7BU',
+	},
 };

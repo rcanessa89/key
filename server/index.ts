@@ -24,7 +24,7 @@ async.series(
 		cb => { viewsRoutes(server.app); cb(null); },
 		cb => { cors(server.app); cb(null); },
 		cb => { helmet(server.app); cb(null); },
-		cb => { const db = new Db(() => server.run()); db.connect(); cb(null); }
+		cb => { const db = new Db(() => server.run(), server.app); db.connect(); cb(null); }
 	]
 );
 
