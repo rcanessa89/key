@@ -7,27 +7,7 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true,
-		unique: true,
-		validate: {
-			validator: function(v) {
-				return regex.letters.test(v);
-			},
-
-			message: '{VALUE} is not a valid, only letters allowed.'
-		}
-	},
-
-	email: {
-		type: String,
-		unique: true,
-		required: true,
-		validate: {
-			validator: function(v) {
-				return regex.email.test(v);
-			},
-
-			message: '{VALUE} is not a valid email'
-		}
+		unique: true
 	},
 
 	departments: [{

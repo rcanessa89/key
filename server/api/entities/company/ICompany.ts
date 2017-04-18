@@ -5,7 +5,6 @@ import IAsset from '../asset/IAsset';
 
 interface ICompany extends mongoose.Document {
 	name: string;
-	email: string;
 	departments: IDepartment[];
 	registries: IRegistry[];
 	assets: IAsset[];

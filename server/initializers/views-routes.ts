@@ -7,8 +7,8 @@ export default (app: express.Application) => {
 
 	const auth = new Auth();
 
-	app.get('/', (req, res) => {console.log(req.session); res.render('home')});
+	app.get('/', (req, res) => res.render('home'));
 	app.get('/login', (req, res) => res.render('login'));
-	app.get('/signin', (req, res) => res.redirect(auth.redirectUrl));
+	app.get('/signin', (req, res) => res.render('signin'));
 	app.get('/auth/google/callback', auth.resHandler.bind(auth));
 }

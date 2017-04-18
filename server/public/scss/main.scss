@@ -1,7 +1,6 @@
 // Vendors
 
 // Partials
-@import 'partials/reset';
 @import 'partials/breakpoints';
 @import 'partials/reset-button';
 @import 'partials/clearfix';
@@ -19,6 +18,7 @@
 
 // Components
 @import 'components/header';
+@import 'components/text-field';
 
 // Pages
 @import 'pages/home';
