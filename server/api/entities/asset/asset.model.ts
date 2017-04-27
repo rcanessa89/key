@@ -47,4 +47,10 @@ const assetSchema: mongoose.Schema = new mongoose.Schema({
 	}
 });
 
+assetSchema.pre('save', next => {
+	this.updated_at = new Date();
+
+	next();
+});
+
 export default mongoose.model <IAsset> ('Asset', assetSchema);

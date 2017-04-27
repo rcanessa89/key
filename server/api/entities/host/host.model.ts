@@ -44,4 +44,10 @@ const hostSchema: mongoose.Schema = new mongoose.Schema({
 	}
 });
 
+hostSchema.pre('save', next => {
+	this.updated_at = new Date();
+
+	next();
+});
+
 export default mongoose.model <IHost> ('Host', hostSchema);

@@ -8,13 +8,14 @@ export default class Signin extends React.Component<undefined, undefined> {
 			<Index
 				title="Sign in"
 				script="signin"
+				wrapperClass="signin-page"
 			>
 
 				<section className="hero is-medium is-info is-bold">
 					<div className="hero-body">
 						<div className="container">
 							<h1 className="title">Register</h1>
-							<h2 className="subtitle">Fill the fields with your company name and your admin info or use your <strong>Google</strong> account</h2>
+							<h2 className="subtitle">Fill the fields with your company name and your admin info</h2>
 						</div>
 					</div>
 				</section>
@@ -52,12 +53,18 @@ export default class Signin extends React.Component<undefined, undefined> {
 								/>
 								<TextField
 									id="account-admin-last-name-field"
-									name="lastname"
+									name="last_name"
 									placeholder="Last name..."
 									label="Admin Last Name"
 								/>
+								<div className="field text-field">
+									<label className="label">Admin Photo</label>
+									<label className="button" htmlFor="admin-photo">Upload...</label>
+									<span></span>
+									<input style={{display: 'none'}} id="admin-photo" type="file" />
+								</div>
 								<div className="field is-grouped">
-									<p className="control"><button type="submit" className="button is-primary">Submit</button></p>
+									<p className="control"><button id="form-submit-button" type="button" className="button is-primary">Submit</button></p>
 									<p className="control"><a href="/" className="button is-link">Cancel</a></p>
 								</div>
 							</div>

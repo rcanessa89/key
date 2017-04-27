@@ -1,6 +1,16 @@
 .text-field {
 	.help {
-		display: none;
+		font-size: 1rem;
+
+		& + span + .is-warning {
+			display: flex;
+		}
+	}
+
+	label {
+		&.help {
+			font-size: .75rem;
+		}
 	}
 
 	.is-right {

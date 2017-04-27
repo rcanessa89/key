@@ -24,4 +24,10 @@ const departmentSchema: mongoose.Schema = new mongoose.Schema({
 	}
 });
 
+departmentSchema.pre('save', next => {
+	this.updated_at = new Date();
+
+	next();
+});
+
 export default mongoose.model <IDepartment> ('Department', departmentSchema);

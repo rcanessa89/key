@@ -51,4 +51,10 @@ const registrySchema: mongoose.Schema = new mongoose.Schema({
 	}
 });
 
+registrySchema.pre('save', next => {
+	this.updated_at = new Date();
+
+	next();
+});
+
 export default mongoose.model <IRegistry> ('Registry', registrySchema, 'Registries');

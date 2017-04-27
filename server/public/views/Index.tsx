@@ -6,6 +6,7 @@ interface IndexDocumentProps {
 	title?: string,
 	children?: any,
 	script?: string,
+	wrapperClass?: string,
 };
 
 class IndexDocument extends React.Component<IndexDocumentProps, undefined> {
@@ -19,11 +20,12 @@ class IndexDocument extends React.Component<IndexDocumentProps, undefined> {
 					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 					<link rel="stylesheet" href="assets/css/main.css" />
 				</head>
-				<body>
+				<body className={this.props.wrapperClass}>
 					<HeaderNav />
 					{this.props.children}
 					<Footer />
-					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
+					<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js" />
 					<script src="assets/js/app.js" />
 					<script src={`assets/js/${this.props.script}.js`} />
 				</body>
