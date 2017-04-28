@@ -2,6 +2,7 @@
 node_modules
 client/dist
 server/dist
+server/api/users-img
 typings
 npm-debug.log
 yarn-error.log

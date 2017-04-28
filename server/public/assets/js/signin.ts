@@ -47,6 +47,8 @@
 				type: reader.result.split(';')[0].split(':')[1],
 				format: reader.result.split(';')[0].split(':')[1].split('/')[1]
 			};
+
+			document.getElementById('photo-name').innerHTML = photo.fileName;
 		}
 	}
 
@@ -61,21 +63,16 @@
 				}
 			});
 
-			app.apiCall('post', '/company', { name: values.company })
-				.then(function (company) {
-					console.log(company);
-
-					return app.apiCall('post', '/user', { 
-						company: company._id,
-						name: values.name,
-						last_name: values.last_name,
-						email: values.email,
-						rol: 'super_admin',
-						photo: photo
-					});
+			app.apiCall('post', '/company/company-admin', { 
+					company: values.company,
+					name: values.name,
+					last_name: values.last_name,
+					email: values.email,
+					rol: 'super_admin',
+					photo: photo
 				})
-				.then(function (superAdmin) {
-					console.log(superAdmin);
+				.then(function(res) {
+					console.log(res);
 				});
 		}
 	}

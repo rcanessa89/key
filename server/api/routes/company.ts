@@ -10,4 +10,7 @@ module.exports = function(router: express.Router) {
 	router.route('/:id')
 		.get(companyHandler.getById)
 		.delete(companyHandler.deleteById);
+
+	router.route('/company-admin')
+		.post(companyHandler.createCompanyUser.bind(companyHandler));
 };

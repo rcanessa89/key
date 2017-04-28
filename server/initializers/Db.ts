@@ -27,6 +27,7 @@ export default class Db {
 					secret: constants.SESSION_SECRET,
 					resave: false,
 					saveUninitialized: false,
+					maxAge: 60000,
 					store: new MongoStore({ mongooseConnection: this.db }),
 				}));
 

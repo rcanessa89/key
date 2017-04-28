@@ -4,6 +4,7 @@ import * as morgan from 'morgan';
 import * as compression from 'compression';
 import * as path from 'path';
 import * as expressReactViews from 'express-react-views';
+import * as cookieParser from 'cookie-parser';
 import logger from '../api/util/logger';
 import constants from '../constants';
 
@@ -31,6 +32,7 @@ export default class Config {
 
 		this.app.use(bodyParser.urlencoded({extended: true}));
 		this.app.use(bodyParser.json());
+		this.app.use(cookieParser());
 		this.app.use(this.onAppError);
 		this.app.use('/app', express.static(path.join(constants.CLIENT_ROOT)));
 		this.app.use('/', express.static(path.join(__dirname + '/../public')));

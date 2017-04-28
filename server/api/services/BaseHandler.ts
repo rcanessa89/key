@@ -26,6 +26,32 @@ export default class BaseHandler {
 		return resData;
 	}
 
+	public ifExist(query: any, model?: mongoose.Model<mongoose.Document>, ifTrue?: any, ifFalse?: any): Promise<boolean> {
+		if (!model) {
+			model = this.model;
+		}
+
+		return new Promise((resolve, reject) => {
+			let resoved: boolean;
+
+			model.find(query, (error, docs) => {
+				if (docs.length) {
+					resoved = true;
+				} else {
+					resoved = false;
+				}
+
+				if (resoved && ifTrue) {
+					ifTrue();
+				} else if (!resoved && ifFalse) {
+					ifFalse();
+				}
+
+				resolve(resoved);
+			});
+		});
+	}
+
 	public get(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
 		this.model.find({}, (error, data) => res.json(this.queryCallback(error, data)));
 	}

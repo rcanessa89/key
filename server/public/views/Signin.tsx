@@ -60,7 +60,7 @@ export default class Signin extends React.Component<undefined, undefined> {
 								<div className="field text-field">
 									<label className="label">Admin Photo</label>
 									<label className="button" htmlFor="admin-photo">Upload...</label>
-									<span></span>
+									<span id="photo-name"></span>
 									<input style={{display: 'none'}} id="admin-photo" type="file" />
 								</div>
 								<div className="field is-grouped">
