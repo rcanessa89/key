@@ -9,7 +9,7 @@ import logger from '../api/util/logger';
 import constants from '../constants';
 
 export default class Config {
-	constructor(app: express.Application) {
+	constructor(app: express.Application, db: any) {
 		this.app = app;
 	}
 

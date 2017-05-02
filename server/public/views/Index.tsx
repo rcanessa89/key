@@ -7,6 +7,7 @@ interface IndexDocumentProps {
 	children?: any,
 	script?: string,
 	wrapperClass?: string,
+	logged?: any,
 };
 
 class IndexDocument extends React.Component<IndexDocumentProps, undefined> {

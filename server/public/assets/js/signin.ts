@@ -68,11 +68,10 @@
 					name: values.name,
 					last_name: values.last_name,
 					email: values.email,
-					rol: 'super_admin',
 					photo: photo
 				})
 				.then(function(res) {
-					console.log(res);
+					window.location.href = '/';
 				});
 		}
 	}

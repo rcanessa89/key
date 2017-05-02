@@ -1,12 +1,19 @@
 import * as React from 'react';
 import Index from './index';
 
-export default class Home extends React.Component<undefined, undefined> {
+interface HomeProps {
+	logged?: any,
+};
+
+export default class Home extends React.Component<HomeProps, undefined> {
 	render() {
+		const logged = this.props.logged || null;
+
 		return (
 			<Index
 				title="Home"
 				script="home"
+				logged={logged}
 			>
 				<section className="hero is-medium is-primary is-bold">
 					<div className="hero-body">

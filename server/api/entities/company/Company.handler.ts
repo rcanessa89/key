@@ -58,23 +58,14 @@ class CompanyHandler extends BaseHandler {
 					res.send(error);
 				}
 
-				// console.log(req.session);
-
-				// const logged: any = {
-				// 	company,
-				// 	user
-				// };
-
-				// req.session.logged = logged;
-
-				// res.end();
-
-				// // res.redirect('/', logged);
-
-				res.json({
+				const logged: any = {
 					company,
 					user
-				});
+				};
+
+				req.session.logged = logged;
+				
+				res.end();
 			});
 		});
 	}

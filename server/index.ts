@@ -10,21 +10,24 @@ import Config from './initializers/Config';
 import Routes from './api/routes/index';
 import cors from './initializers/cors';
 import helmet from './initializers/helmet';
+import appSession from './initializers/session';
 import constants from './constants';
 import viewsRoutes from './initializers/views-routes';
 
 const server = Server.bootstrap();
-const config = new Config(server.app);
+const db = new Db(() => server.run(), server.app);
+const config = new Config(server.app, db);
 const apiRoutes = new Routes(server.app);
 
 async.series(
 	[
 		cb => { config.run(); cb(null); },
+		cb => { appSession(server.app); cb(null); },
 		cb => { apiRoutes.setRoutes(); cb(null); },
 		cb => { viewsRoutes(server.app); cb(null); },
 		cb => { cors(server.app); cb(null); },
 		cb => { helmet(server.app); cb(null); },
-		cb => { const db = new Db(() => server.run(), server.app); db.connect(); cb(null); }
+		cb => {  db.connect(); cb(null); }
 	]
 );
 
