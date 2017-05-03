@@ -4,6 +4,8 @@ import * as session from 'express-session';
 import companyModel from './company.model';
 import userModel from '../user/user.model';
 import BaseHandler from '../../services/BaseHandler';
+import Token from '../../services/Token';
+import email from '../../services/Email';
 
 class CompanyHandler extends BaseHandler {
 	constructor() {
@@ -57,15 +59,23 @@ class CompanyHandler extends BaseHandler {
 				if (error) {
 					res.send(error);
 				}
-
+				
+				const token = new Token({ payload: user._id }).token;
+				const emailLink: string = `http://${req.headers.host}/password?user_token=${token}`;
 				const logged: any = {
 					company,
 					user
 				};
 
 				req.session.logged = logged;
-				
-				res.end();
+
+				email.send({
+					to: 'rcanessa89@hotmail.com',
+					subject: 'Password setting',
+					text: 'A link to setup your password',
+					html: `<h1>Key App</h1><p>You are receiving this because you (or someone else) have requested the setup of the password for your account.Please click on the following link, or paste this into your browser to complete the process: <a href="${emailLink}">${emailLink}</a> </p>`
+				})
+				.then(info => res.end());
 			});
 		});
 	}

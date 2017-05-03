@@ -10,7 +10,7 @@ export default (app: express.Application): void => {
 	logger('[APP] Session Configuring...');
 
 	app.use(session({
-		secret: constants.SESSION_SECRET,
+		secret: constants.SECRET,
 		resave: false,
 		saveUninitialized: false,
 		maxAge: 60000,

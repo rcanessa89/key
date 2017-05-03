@@ -58,7 +58,12 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 		}
 	},
 
-	created_at: {
+	verified: {
+		type: Boolean,
+		default: false
+	},
+
+	createdAt: {
 		type: Date,
 		default: Date.now
 	},

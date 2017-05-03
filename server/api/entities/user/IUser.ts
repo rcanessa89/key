@@ -12,6 +12,7 @@ interface IUser extends mongoose.Document {
 	rol: Rol;
 	photoId: string;
 	email: string;
+	verified: boolean;
 	created_at: Date;
 	updated_at: Date;
 }

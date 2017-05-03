@@ -30,10 +30,10 @@ export default class Config {
 			this.app.use(morgan(constants.MORGAN));
 		}
 
+		this.app.use(this.onAppError);
 		this.app.use(bodyParser.urlencoded({extended: true}));
 		this.app.use(bodyParser.json());
 		this.app.use(cookieParser());
-		this.app.use(this.onAppError);
 		this.app.use('/app', express.static(path.join(constants.CLIENT_ROOT)));
 		this.app.use('/', express.static(path.join(__dirname + '/../public')));
 		this.app.engine('js', expressReactViews.createEngine());
