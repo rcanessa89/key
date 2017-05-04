@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import ICompany from '../company/ICompany';
 
 enum Rol {
 	super_admin,
@@ -7,11 +8,12 @@ enum Rol {
 }
 
 interface IUser extends mongoose.Document {
+	company: ICompany;
 	name: string;
 	last_name: string;
 	password: string;
 	rol: Rol;
-	photoId: string;
+	photo: string;
 	email: string;
 	verified: boolean;
 	created_at: Date;

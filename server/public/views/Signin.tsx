@@ -15,7 +15,7 @@ export default class Signin extends React.Component<undefined, undefined> {
 					<div className="hero-body">
 						<div className="container">
 							<h1 className="title">Register</h1>
-							<h2 className="subtitle">Fill the fields with your company name and your admin info</h2>
+							<h2 className="subtitle">Lorem Ipsum is simply dummy text of the printing and typesetting industry</h2>
 						</div>
 					</div>
 				</section>

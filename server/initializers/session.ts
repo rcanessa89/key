@@ -13,7 +13,9 @@ export default (app: express.Application): void => {
 		secret: constants.SECRET,
 		resave: false,
 		saveUninitialized: false,
-		maxAge: 60000,
 		store: new MongoStore({ mongooseConnection: mongoose.connection }),
+		cookie: {
+			maxAge: 60000
+		}
 	}));
 };

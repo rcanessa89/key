@@ -1,6 +1,5 @@
 import * as express from 'express';
 import { ParsedAsJson } from 'body-parser';
-import * as session from 'express-session';
 import companyModel from './company.model';
 import userModel from '../user/user.model';
 import BaseHandler from '../../services/BaseHandler';
@@ -37,7 +36,7 @@ class CompanyHandler extends BaseHandler {
 			});
 	}
 
-	private saveCompanyUser(req: express.Request & ParsedAsJson & session, res: express.Response) {
+	private saveCompanyUser(req: express.Request & ParsedAsJson, res: express.Response) {
 		const newCompany = new companyModel({
 			name: req.body.company
 		});
@@ -62,12 +61,6 @@ class CompanyHandler extends BaseHandler {
 
 				const token = new Token({ payload: user._id }).token;
 				const emailLink: string = `http://${req.headers.host}/password?user_token=${token}`;
-				const logged: any = {
-					company,
-					user
-				};
-
-				req.session.logged = logged;
 
 				email.send({
 					to: 'rcanessa89@hotmail.com',
