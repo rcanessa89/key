@@ -34,6 +34,8 @@
 				}
 			});
 
+			console.log(values);
+
 			app.apiCall('post', '/password', {
 					password: (<HTMLInputElement>document.getElementById('password')).value,
 					userToken: app.getParameterByName('user_token')
@@ -45,6 +47,6 @@
 	};
 
 	$(document).ready(function() {
-		$('#form-submit-button').on('click', submitForm.bind(this, $('#password-form ').validate(validateOptions)));
+		$('#form-submit-button').on('click', submitForm.bind(this, $('#password-form').validate(validateOptions)));
 	});
 })($);

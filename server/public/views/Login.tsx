@@ -25,13 +25,13 @@ export default class Login extends React.Component<undefined, undefined> {
 							<div className="column is-half">
 								<TextField
 									id="login-email"
-									name="login_email"
+									name="email"
 									placeholder="Email..."
 									label="Email"
 								/>
 								<TextField
 									id="login-password"
-									name="login_password"
+									name="password"
 									placeholder="Password..."
 									label="Password"
 									type="password"

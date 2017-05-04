@@ -3,6 +3,7 @@ var app: any = {};
 (function($) {
 	app.apiCall = apiCall;
 	app.getParameterByName = getParameterByName;
+	app.submitForm = submitForm;
 
 	function apiCall(method, url, data) {
 		var baseUrl = 'http://localhost:8000/api';
@@ -12,6 +13,29 @@ var app: any = {};
 			url: baseUrl + url,
 			data: data || null
 		});
+	}
+
+	function submitForm(validator, formSelector) {
+		var inputs = $(formSelector + ' :input'),
+			values = {};
+
+		inputs.each(function() {
+			if (this.name) {
+				values[this.name] = $(this).val();
+			}
+		});
+
+		if (validator.form()) {
+			return {
+				isValid: true,
+				values: values
+			};
+		}
+
+		return {
+			isValid: false,
+			values: values
+		};
 	}
 
 	function getParameterByName(name, url) {

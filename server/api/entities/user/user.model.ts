@@ -99,17 +99,17 @@ preHook.setHook((user, next) => {
 	});
 });
 
-userSchema.methods.comparePassword = (candidatePassword, cb) => {
+userSchema.methods.comparePassword = function(candidatePassword) {
 	const user = this;
 
-	bcrypt.compare(candidatePassword, user.password, (error, isMatch) => {
-		if (error) {
-			return cb(error);
-		}
-
-		if (cb) {
-			cb(null, isMatch);
-		};
+	return new Promise((resolve, reject) => {
+		bcrypt.compare(candidatePassword, user.password, (error, isMatch) => {
+			if (error) {
+				reject(error);
+			} else {
+				resolve(isMatch);
+			}
+		});
 	});
 };
 

@@ -18,6 +18,7 @@ interface IUser extends mongoose.Document {
 	verified: boolean;
 	created_at: Date;
 	updated_at: Date;
+	comparePassword?: any;
 }
 
 export default IUser;
