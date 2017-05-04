@@ -37,9 +37,9 @@
 	var onChangePhotoInput = function() {
 		var file = document.getElementById('admin-photo'),
 			reader = new FileReader();
-		
+
 		reader.readAsDataURL(file['files'][0]);
-		
+
 		reader.onload = function() {
 			photo = {
 				fileName: file['value'].replace(/.*[\/\\]/, ''),
@@ -49,8 +49,8 @@
 			};
 
 			document.getElementById('photo-name').innerHTML = photo.fileName;
-		}
-	}
+		};
+	};
 
 	var submitForm = function(validator) {
 		if (validator.form()) {
@@ -63,7 +63,7 @@
 				}
 			});
 
-			app.apiCall('post', '/company/company-admin', { 
+			app.apiCall('post', '/company/company-admin', {
 					company: values.company,
 					name: values.name,
 					last_name: values.last_name,
@@ -74,7 +74,7 @@
 					window.location.href = '/';
 				});
 		}
-	}
+	};
 
 	$(document).ready(function() {
 		$('#form-submit-button').on('click', submitForm.bind(this, $('#company-register-form').validate(validateOptions)));

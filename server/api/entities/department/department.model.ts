@@ -11,23 +11,9 @@ const departmentSchema: mongoose.Schema = new mongoose.Schema({
 	hosts: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Host'
-	}],
-
-	created_at: {
-		type: Date,
-		default: Date.now
-	},
-
-	updated_at: {
-		type: Date,
-		default: null
-	}
-});
-
-departmentSchema.pre('save', next => {
-	this.updated_at = new Date();
-
-	next();
+	}]
+}, {
+	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
 export default mongoose.model <IDepartment> ('Department', departmentSchema);

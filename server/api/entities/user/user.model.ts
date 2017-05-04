@@ -1,9 +1,12 @@
 import { NextFunction } from 'express';
 import * as mongoose from 'mongoose';
+import * as bcrypt from 'bcrypt-nodejs';
 import IUser from './IUser';
 import regex from '../../util/regex';
 import guid from '../../util/guid';
 import saveBase64 from '../../util/saveBase64';
+import PreHook from '../../services/PreHook';
+import constants from '../../../constants';
 
 const userSchema: mongoose.Schema = new mongoose.Schema({
 	company: {
@@ -21,6 +24,12 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true
+	},
+
+	password: {
+		type: String,
+		select: false,
+		default: null
 	},
 
 	rol: {
@@ -61,23 +70,47 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 	verified: {
 		type: Boolean,
 		default: false
-	},
-
-	createdAt: {
-		type: Date,
-		default: Date.now
-	},
-
-	updated_at: {
-		type: Date,
-		default: null
 	}
+}, {
+	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
-userSchema.pre('save', next => {
-	this.updated_at = new Date();
+const preHook = new PreHook(userSchema);
 
-	next();
+preHook.setHook((user, next) => {
+	if (!user.isModified('password')) {
+		next();
+	}
+
+	bcrypt.genSalt(constants.SALT_WORK_FACTOR, (error, salt) => {
+		if (error) {
+			return next(error);
+		}
+
+		bcrypt.hash(user.password, salt, () => {}, (error, hash) => {
+				if (error) {
+					return next(error);
+				}
+
+				user.password = hash;
+
+				next();
+		});
+	});
 });
+
+userSchema.methods.comparePassword = (candidatePassword, cb) => {
+	const user = this;
+
+	bcrypt.compare(candidatePassword, user.password, (error, isMatch) => {
+		if (error) {
+			return cb(error);
+		}
+
+		if (cb) {
+			cb(null, isMatch);
+		};
+	});
+};
 
 export default mongoose.model <IUser> ('User', userSchema);

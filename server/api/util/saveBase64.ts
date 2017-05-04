@@ -7,7 +7,7 @@ export default (fullBase64: string, format: string): string => {
 	const name: string = `${id}.${format}`;
 	const filePath = `${dir}/${name}`;
 	const base64: string = fullBase64.split(',')[1];
-	
+
 	if (!fs.existsSync(dir)) {
 		fs.mkdir(dir, () => fs.writeFile(filePath, base64, 'base64'));
 	} else {

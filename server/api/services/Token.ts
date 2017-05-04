@@ -2,8 +2,8 @@ import * as jwt from 'jwt-simple';
 import constants from '../../constants';
 
 interface ITokenOptions {
-	payload?: any,
-	token?: string,
+	payload?: any;
+	token?: string;
 };
 
 export default class Token {

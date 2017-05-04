@@ -59,7 +59,7 @@ class CompanyHandler extends BaseHandler {
 				if (error) {
 					res.send(error);
 				}
-				
+
 				const token = new Token({ payload: user._id }).token;
 				const emailLink: string = `http://${req.headers.host}/password?user_token=${token}`;
 				const logged: any = {

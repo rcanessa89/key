@@ -38,23 +38,9 @@ const registrySchema: mongoose.Schema = new mongoose.Schema({
 	check_out: {
 		type: Date,
 		default: null
-	},
-
-	created_at: {
-		type: Date,
-		default: Date.now
-	},
-
-	updated_at: {
-		type: Date,
-		default: null
 	}
-});
-
-registrySchema.pre('save', next => {
-	this.updated_at = new Date();
-
-	next();
+}, {
+	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
 export default mongoose.model <IRegistry> ('Registry', registrySchema, 'Registries');

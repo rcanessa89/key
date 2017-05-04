@@ -28,23 +28,9 @@ const companySchema: mongoose.Schema = new mongoose.Schema({
 	assets: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Asset'
-	}],
-
-	created_at: {
-		type: Date,
-		default: Date.now
-	},
-
-	updated_at: {
-		type: Date,
-		default: null
-	}
-});
-
-companySchema.pre('save', next => {
-	this.updated_at = new Date();
-
-	next();
+	}]
+}, {
+	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
 export default mongoose.model <ICompany> ('Company', companySchema, 'Companies');

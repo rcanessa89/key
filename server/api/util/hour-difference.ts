@@ -1,0 +1,1 @@
+export default (oldDate: Date): number => (Math.abs(<any>new Date() - <any>new Date(oldDate)) / 36e5);

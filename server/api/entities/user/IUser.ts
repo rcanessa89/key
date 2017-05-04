@@ -9,6 +9,7 @@ enum Rol {
 interface IUser extends mongoose.Document {
 	name: string;
 	last_name: string;
+	password: string;
 	rol: Rol;
 	photoId: string;
 	email: string;

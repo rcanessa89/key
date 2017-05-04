@@ -37,14 +37,14 @@ export default class Login extends React.Component<undefined, undefined> {
 									name="password"
 									placeholder="Password..."
 									label="Password"
-									type="password"
+									
 								/>
 								<TextField
 									id="password-copy"
 									name="password_copy"
 									placeholder="Repeat the password..."
 									label="Repeat the password"
-									type="password"
+									
 								/>
 								<div className="field is-grouped">
 									<p className="control"><button id="form-submit-button" type="button" className="button is-primary">Submit</button></p>
