@@ -1,4 +1,12 @@
-// layout - sizes
+// Site layout - sizes
+$footer-height: 208px;
+$header-height: 52px;
+$main-padding-bottom: 60px;
+$main-height-calc: ($footer-height + $header-height);
+$header-margin-top: (-$header-height);
+$body-padding-top: $header-height;
+
+// App layout - sizes
 $app-nav-width: 220px;
 $app-main-width: calc(100% - #{$app-nav-width});
 $app-header-height: 70px;
@@ -7,3 +15,4 @@ $mobile-nav-height: calc(100% - #{$app-header-height});
 
 // Others
 $transition-duration: .3s;
+$shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);

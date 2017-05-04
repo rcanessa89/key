@@ -2,6 +2,15 @@
 	box-sizing: border-box;
 }
 
+body {
+	padding-top: $body-padding-top;
+}
+
+main {
+	min-height: calc(100vh - #{$main-height-calc});
+	padding-bottom: $main-padding-bottom;
+}
+
 .app-main-container {
 	@include bp-sm {
 		min-width: 100%;
