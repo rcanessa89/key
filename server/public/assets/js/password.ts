@@ -2,7 +2,8 @@
 	var validateOptions = {
 		rules: {
 			password: {
-				required: true
+				required: true,
+				pwcheck: true
 			},
 
 			password_copy: {
@@ -12,7 +13,10 @@
 		},
 
 		messages: {
-			password: 'Password is required',
+			password: {
+				required: 'Password is required',
+				pwcheck: 'Minimum 8 characters at least 1 uppercase alphabet, 1 lowercase alphabet and 1 number'
+			},
 
 			password_copy: {
 				required: 'Reapeat the password is required',

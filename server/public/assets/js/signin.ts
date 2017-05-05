@@ -71,7 +71,8 @@
 					photo: photo
 				})
 				.then(function(res) {
-					window.location.href = '/';
+					console.log(res);
+					//window.location.href = '/';
 				});
 		}
 	};

@@ -1,9 +1,12 @@
 var app: any = {};
 
 (function($) {
+	// Public methods
 	app.apiCall = apiCall;
 	app.getParameterByName = getParameterByName;
 	app.submitForm = submitForm;
+
+	setPasswordValidation();
 
 	function apiCall(method, url, data) {
 		var baseUrl = 'http://localhost:8000/api';
@@ -58,5 +61,23 @@ var app: any = {};
 		}
 
 		return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	}
+
+	function setPasswordValidation() {
+		// Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number
+
+		$['validator'].addMethod('pwcheck', function(value) {
+			return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value);
+		});
+	}
+
+	function getFormErrorLi(errors) {
+		var lis = '';
+
+		$(errors).each(function(error) {
+			lis = lis + '<li>' + error + '</li>';
+		});
+
+		return lis;
 	}
 })($);

@@ -12,8 +12,8 @@ class CompanyHandler extends BaseHandler {
 	}
 
 	public createCompanyUser(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
-		let ifCompanyExist: boolean = false;
-		let ifUserExist: boolean = false;
+		let ifCompanyExist: boolean;
+		let ifEmailExist: boolean;
 
 		this.ifExist({ name: req.body.company })
 			.then((companyExist: boolean) => {
@@ -21,14 +21,14 @@ class CompanyHandler extends BaseHandler {
 
 				return this.ifExist({ email: req.body.email }, userModel);
 			})
-			.then((userExist: boolean) => {
-				ifUserExist = userExist;
+			.then((emailExist: boolean) => {
+				ifEmailExist = emailExist;
 
-				if (ifCompanyExist || ifUserExist) {
+				if (ifCompanyExist || ifEmailExist) {
 					res.json({
-						errorExist: true,
+						status: false,
 						company: ifCompanyExist,
-						user: ifUserExist,
+						email: ifEmailExist,
 					});
 				} else {
 					this.saveCompanyUser(req, res);
@@ -36,7 +36,7 @@ class CompanyHandler extends BaseHandler {
 			});
 	}
 
-	private saveCompanyUser(req: express.Request & ParsedAsJson, res: express.Response) {
+	private saveCompanyUser(req: express.Request & ParsedAsJson, res: express.Response): void {
 		const newCompany = new companyModel({
 			name: req.body.company
 		});
@@ -63,7 +63,7 @@ class CompanyHandler extends BaseHandler {
 				const emailLink: string = `http://${req.headers.host}/password?user_token=${token}`;
 
 				email.send({
-					to: 'rcanessa89@hotmail.com',
+					to: req.body.email,
 					subject: 'Password setting',
 					text: 'A link to setup your password',
 					html: `<h1>Key App</h1><p>You are receiving this because you (or someone else) have requested the setup of the password for your account.Please click on the following link, or paste this into your browser to complete the process: <a href="${emailLink}">${emailLink}</a> </p>`

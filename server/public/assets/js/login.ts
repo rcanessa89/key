@@ -7,7 +7,8 @@
 			},
 
 			password: {
-				required: true
+				required: true,
+				pwcheck: true
 			}
 		},
 
@@ -17,7 +18,10 @@
 				email: 'Email invalid'
 			},
 
-			password: 'Password is required',
+			password: {
+				required: 'Password is required',
+				pwcheck: 'Minimum 8 characters at least 1 uppercase alphabet, 1 lowercase alphabet and 1 number'
+			}
 		},
 
 		errorClass: 'help is-danger'
