@@ -11,18 +11,14 @@ module.exports = function(router: express.Router) {
 			const userId = new Token({ token: req.body.userToken }).payload;
 
 			User.findById(userId, (error, user) => {
-				let message: string = 'Password saved';
-				let status: boolean = true;
-
 				if (error) {
 					return res.json(error);
 				}
 
 				if (user.verified) {
-					message = 'Password account already verified';
-					status = false;
-
-					return res.json({ message, status });
+					return res.json(Object.assign({}, {
+						password: 'Password account already verified'
+					}));
 				}
 
 				const hours: number = hourDifference(user.created_at);
@@ -43,11 +39,7 @@ module.exports = function(router: express.Router) {
 
 					req.session.logged = sessionUser;
 
-					res.json({
-						user: sessionUser,
-						status,
-						message
-					});
+					res.end();
 				});
 			}).populate({
 				path: 'company',

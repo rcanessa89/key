@@ -1,4 +1,10 @@
 (function ($) {
+	var formId = '#company-register-form',
+		modalId = '#company-register-form-success-modal',
+		errorContainerId = '#company-register-form-error-container';
+
+	app.addModalOnClose(modalId, app.goHome);
+
 	var validateOptions = {
 		rules: {
 			company: {
@@ -53,32 +59,28 @@
 	};
 
 	var submitForm = function(validator) {
-		if (validator.form()) {
-			var inputs = $('#company-register-form :input'),
-				values: any = {};
+		var form = app.submitForm(validator, formId);
 
-			inputs.each(function() {
-				if (this.name) {
-					values[this.name] = $(this).val();
-				}
-			});
-
+		if (form.isValid) {
 			app.apiCall('post', '/company/company-admin', {
-					company: values.company,
-					name: values.name,
-					last_name: values.last_name,
-					email: values.email,
+					company: form.values.company,
+					name: form.values.name,
+					last_name: form.values.last_name,
+					email: form.values.email,
 					photo: photo
 				})
 				.then(function(res) {
-					console.log(res);
-					//window.location.href = '/';
+					if ($.isEmptyObject(res)) {
+						$(modalId).addClass('is-active');
+					} else {
+						app.showFormErrors(errorContainerId, res);
+					}
 				});
 		}
 	};
 
 	$(document).ready(function() {
-		$('#form-submit-button').on('click', submitForm.bind(this, $('#company-register-form').validate(validateOptions)));
+		$('#form-submit-button').on('click', submitForm.bind(this, $(formId).validate(validateOptions)));
 		$('#admin-photo').on('change', onChangePhotoInput);
 	});
 })($);

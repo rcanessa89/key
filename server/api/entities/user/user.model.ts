@@ -49,8 +49,6 @@ const userSchema: mongoose.Schema = new mongoose.Schema({
 			if (base64Obj) {
 				fileName = saveBase64(base64Obj.base64, base64Obj.format);
 			}
-
-			return fileName;
 		}
 	},
 

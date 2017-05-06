@@ -1,4 +1,10 @@
 (function($) {
+	var formId = '#password-form',
+		modalId = '#password-form-success-modal',
+		errorContainerId = '#company-register-form-error-container';
+
+	app.addModalOnClose(modalId, app.goHome);
+
 	var validateOptions = {
 		rules: {
 			password: {
@@ -28,29 +34,24 @@
 	};
 
 	var submitForm = function(validator) {
-		if (validator.form()) {
-			var inputs = $('#password-form :input'),
-				values: any = {};
+		var form = app.submitForm(validator, formId);
 
-			inputs.each(function() {
-				if (this.name) {
-					values[this.name] = $(this).val();
-				}
-			});
-
-			console.log(values);
-
+		if (form.isValid) {
 			app.apiCall('post', '/password', {
-					password: (<HTMLInputElement>document.getElementById('password')).value,
+					password: form.values.password,
 					userToken: app.getParameterByName('user_token')
 				})
 				.then(function(res) {
-					window.location.href = '/';
+					if ($.isEmptyObject(res)) {
+						$(modalId).addClass('is-active');
+					} else {
+						app.showFormErrors(errorContainerId, res);
+					}
 				});
 		}
 	};
 
 	$(document).ready(function() {
-		$('#form-submit-button').on('click', submitForm.bind(this, $('#password-form').validate(validateOptions)));
+		$('#form-submit-button').on('click', submitForm.bind(this, $(formId).validate(validateOptions)));
 	});
 })($);

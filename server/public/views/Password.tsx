@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Index from './index';
 import TextField from './components/TextInput';
+import Modal from './components/Modal';
 
 export default class Login extends React.Component<undefined, undefined> {
 	render() {
@@ -46,6 +47,11 @@ export default class Login extends React.Component<undefined, undefined> {
 									label="Repeat the password"
 									type="password"
 								/>
+								<div id="password-form-error-container" className="field error-field">
+									<article className="message is-danger">
+										<div className="message-body"></div>
+									</article>
+								</div>
 								<div className="field is-grouped">
 									<p className="control"><button id="form-submit-button" type="button" className="button is-primary">Submit</button></p>
 								</div>
@@ -53,6 +59,16 @@ export default class Login extends React.Component<undefined, undefined> {
 						</div>
 					</form>
 				</section>
+				<Modal modalId="password-form-success-modal">
+					<article className="message is-info">
+						<div className="message-header">
+							<p>Info</p>
+						</div>
+						<div className="message-body">
+							Password confirmed.
+						</div>
+					</article>
+				</Modal>
 			</Index>
 		);
 	}

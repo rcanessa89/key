@@ -23,3 +23,13 @@ main {
 .display-block {
 	display: block;
 }
+
+.error-field {
+	display: none;
+
+	ul {
+	    list-style: disc outside;
+		margin-left: 2em;
+		margin-right: 2em;
+	}
+}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Index from './index';
 import TextField from './components/TextInput';
+import Modal from './components/Modal';
 
 export default class Signin extends React.Component<undefined, undefined> {
 	render() {
@@ -63,6 +64,11 @@ export default class Signin extends React.Component<undefined, undefined> {
 									<span id="photo-name"></span>
 									<input style={{display: 'none'}} id="admin-photo" type="file" />
 								</div>
+								<div id="company-register-form-error-container" className="field error-field">
+									<article className="message is-danger">
+										<div className="message-body"></div>
+									</article>
+								</div>
 								<div className="field is-grouped">
 									<p className="control"><button id="form-submit-button" type="button" className="button is-primary">Submit</button></p>
 									<p className="control"><a href="/" className="button is-link">Cancel</a></p>
@@ -71,7 +77,16 @@ export default class Signin extends React.Component<undefined, undefined> {
 						</div>
 					</form>
 				</section>
-
+				<Modal modalId="company-register-form-success-modal">
+					<article className="message is-info">
+						<div className="message-header">
+							<p>Info</p>
+						</div>
+						<div className="message-body">
+							Confirmation sended.
+						</div>
+					</article>
+				</Modal>
 			</Index>
 		);
 	}

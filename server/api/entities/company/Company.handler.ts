@@ -25,11 +25,10 @@ class CompanyHandler extends BaseHandler {
 				ifEmailExist = emailExist;
 
 				if (ifCompanyExist || ifEmailExist) {
-					res.json({
-						status: false,
-						company: ifCompanyExist,
-						email: ifEmailExist,
-					});
+					res.json(Object.assign({}, {
+						company: ifCompanyExist ? 'That company name already exist' : undefined,
+						email: ifEmailExist ? 'That email is already registered' : undefined
+					}));
 				} else {
 					this.saveCompanyUser(req, res);
 				}

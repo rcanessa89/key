@@ -5,8 +5,14 @@ var app: any = {};
 	app.apiCall = apiCall;
 	app.getParameterByName = getParameterByName;
 	app.submitForm = submitForm;
+	app.showFormErrors = showFormErrors;
+	app.addModalOnClose = addModalOnClose;
+	app.goHome = goHome;
 
-	setPasswordValidation();
+	$(document).ready(function() {
+		setPasswordValidation();
+		addModalClose();
+	});
 
 	function apiCall(method, url, data) {
 		var baseUrl = 'http://localhost:8000/api';
@@ -65,19 +71,48 @@ var app: any = {};
 
 	function setPasswordValidation() {
 		// Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number
-
 		$['validator'].addMethod('pwcheck', function(value) {
 			return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value);
 		});
 	}
 
-	function getFormErrorLi(errors) {
-		var lis = '';
+	function showFormErrors(container, errors) {
+		var errorList = getFormErrorList(errors);
 
-		$(errors).each(function(error) {
-			lis = lis + '<li>' + error + '</li>';
-		});
+		$(container + ' .message-body').empty();
+		$(container + ' .message-body').append(errorList);
+		$(container).show();
+	}
+
+	function getFormErrorList(errors) {
+		var lis = '<ul>';
+
+		if (Array.isArray(errors)) {
+			$(errors).each(function(error) {
+				lis = lis + '<li>' + error + '</li>';
+			});
+		} else {
+			$.each(errors, function(key, value) {
+				lis = lis + '<li>' + value + '</li>';
+			});
+		}
+
+		lis = lis + '</ul>';
 
 		return lis;
+	}
+
+	function addModalClose() {
+		$('.modal-background, .modal-close').on('click', function() {
+			$('.modal').removeClass('is-active');
+		});
+	}
+
+	function addModalOnClose(selector, onModalClose) {
+		$(selector + ' .modal-background, ' + selector +' .modal-close').on('click', onModalClose);
+	}
+
+	function goHome() {
+		window.location.href = '/';
 	}
 })($);
