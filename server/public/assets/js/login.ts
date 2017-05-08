@@ -1,4 +1,7 @@
 (function($) {
+	var formId = '#login-form',
+		errorContainerId = '#login-form-error-container';
+
 	var validateOptions = {
 		rules: {
 			email: {
@@ -28,21 +31,23 @@
 	};
 
 	var submitLogin = function(validator) {
-		var form = app.submitForm(validator, '#login-form');
+		var form = app.submitForm(validator, formId);
 
 		if (form.isValid) {
 			app.apiCall('post', '/login', form.values)
 				.then(function(res) {
 					console.log(res);
 
-					if (res.status) {
-						//window.location.href = '/';
+					if ($.isEmptyObject(res)) {
+						app.goHome();
+					} else {
+						app.showFormErrors(errorContainerId, res);
 					}
 				});
 		}
 	};
 
 	$(document).ready(function() {
-		$('#form-submit-button').on('click', submitLogin.bind(this, $('#login-form').validate(validateOptions)));
+		$('#form-submit-button').on('click', submitLogin.bind(this, $(formId).validate(validateOptions)));
 	});
 })($);

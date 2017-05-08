@@ -15,7 +15,7 @@ export default (app: express.Application): void => {
 		saveUninitialized: false,
 		store: new MongoStore({ mongooseConnection: mongoose.connection }),
 		cookie: {
-			maxAge: 60000
+			maxAge: 3600000
 		}
 	}));
 };

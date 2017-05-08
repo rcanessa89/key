@@ -23,5 +23,15 @@ export default {
 	GMAIL_CLIENT_SECRET: '5-NBDh5HQPOi8sw4xdY71eu1',
 	GMAIL_ACCESS_TOKEN: 'ya29.Gls_BA-S4H1haS4IBH-j165s40lOb3Z5KGfAFWRSgtfwuQWWG7d9UpACbRoNwOqVheCbHVb2IIg3B9TperbCvUF8RBtU8pEQUBwX7kpV91dpVGJBnssXgDDzJ2l4',
 	GMAIL_REFRESH_TOKEN: '1/IUFejBA5vv7dsEScQWafCeVIqYAbF3kt5wBtp3NAO0xhmFAHrV8KQOYTB5oz5zS8',
-	SALT_WORK_FACTOR: 10
+	SALT_WORK_FACTOR: 10,
+	ROL: {
+		super_admin: 'super_admin',
+		admin: 'admin',
+		viewer: 'viewer'
+	},
+	RECAPTCHA: {
+		endpoint: 'https://www.google.com/recaptcha/api/siteverify',
+		site: '6LdPXCAUAAAAAEs1a3KzqtlLpaOnDZn8EW3HwTWZ',
+		secret: '6LdPXCAUAAAAAHhRFTbGFWa2MEPdWPdA12bZUbtz'
+	}
 };

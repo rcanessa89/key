@@ -8,7 +8,6 @@ module.exports = function(router: express.Router) {
 		.post((req: express.Request & ParsedAsJson & session, res: express.Response, next: express.NextFunction) => {
 			User.findOne({ email: req.body.email }, '+password', (error, user) => {
 				if (error) {
-					console.log('user find error');
 					res.json(error);
 				}
 
@@ -28,23 +27,17 @@ module.exports = function(router: express.Router) {
 
 							req.session.logged = sessionUser;
 
-							return res.json({
-								user: sessionUser,
-								message: 'Log in success',
-								status: true
-							});
+							return res.end();
 						} else {
-							return res.json({
-								message: 'Password invalid',
-								status: false
-							});
+							return res.json(Object.assign({}, {
+								Password: 'Password is invalid'
+							}));
 						}
 					});
 				} else {
-					return res.json({
-						message: 'Email invalid',
-						status: false
-					});
+					return res.json(Object.assign({}, {
+						email: 'Email is invalid'
+					}));
 				}
 
 			}).populate({

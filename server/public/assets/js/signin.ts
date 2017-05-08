@@ -1,3 +1,18 @@
+function testRecaptcha(x, y) {
+	console.log('test recaptcha');
+	console.log(x);
+
+	$.ajax({
+		method: 'POST',
+		url: 'http://localhost:8000/api/company/company-admin',
+		data: {
+			recaptcha: x
+		}
+	}).then(function(res) {
+		console.log(res);
+	});
+}
+
 (function ($) {
 	var formId = '#company-register-form',
 		modalId = '#company-register-form-success-modal',
@@ -62,20 +77,21 @@
 		var form = app.submitForm(validator, formId);
 
 		if (form.isValid) {
-			app.apiCall('post', '/company/company-admin', {
-					company: form.values.company,
-					name: form.values.name,
-					last_name: form.values.last_name,
-					email: form.values.email,
-					photo: photo
-				})
-				.then(function(res) {
-					if ($.isEmptyObject(res)) {
-						$(modalId).addClass('is-active');
-					} else {
-						app.showFormErrors(errorContainerId, res);
-					}
-				});
+			grecaptcha.execute();
+			// app.apiCall('post', '/company/company-admin', {
+			// 		company: form.values.company,
+			// 		name: form.values.name,
+			// 		last_name: form.values.last_name,
+			// 		email: form.values.email,
+			// 		photo: photo
+			// 	})
+			// 	.then(function(res) {
+			// 		if ($.isEmptyObject(res)) {
+			// 			$(modalId).addClass('is-active');
+			// 		} else {
+			// 			app.showFormErrors(errorContainerId, res);
+			// 		}
+			// 	});
 		}
 	};
 

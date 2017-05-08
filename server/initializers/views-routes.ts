@@ -17,4 +17,5 @@ export default (app: express.Application) => {
 	app.get('/login', render('login'));
 	app.get('/signin', render('signin'));
 	app.get('/password', render('password'));
+	app.get('/account', render('account'));
 };

@@ -36,6 +36,11 @@ export default class Login extends React.Component<undefined, undefined> {
 									label="Password"
 									type="password"
 								/>
+								<div id="login-form-error-container" className="field error-field">
+									<article className="message is-danger">
+										<div className="message-body"></div>
+									</article>
+								</div>
 								<div className="field is-grouped">
 									<p className="control"><button id="form-submit-button" type="button" className="button is-primary">Submit</button></p>
 								</div>

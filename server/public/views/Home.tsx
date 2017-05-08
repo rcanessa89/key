@@ -7,13 +7,12 @@ interface HomeProps {
 
 export default class Home extends React.Component<HomeProps, undefined> {
 	render() {
-		const logged = this.props.logged || null;
-
 		return (
 			<Index
 				title="Home"
 				script="home"
-				logged={logged}
+				wrapperClass="home-page"
+				logged={this.props.logged}
 			>
 				<section className="hero is-medium is-primary is-bold">
 					<div className="hero-body">
