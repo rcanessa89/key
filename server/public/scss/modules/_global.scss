@@ -33,3 +33,9 @@ main {
 		margin-right: 2em;
 	}
 }
+
+.container-mobile-padding {
+	@include bp-sm {
+		padding: 0 24px;
+	}
+}

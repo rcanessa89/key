@@ -55,17 +55,19 @@ export default class Account extends React.Component<AccountProps, undefined> {
 						<hr />
 					</div>
 				</section>
-				<section className="container">
+				<section className="container container-mobile-padding">
 					<div className="columns">
 						<div className="column is-half">
 							<p className="label">Company {companyEdit}</p>
 							<p id="value-company" className="value">{this.props.logged.company.name}</p>
-							<p className="label">Rol</p>
-							<p className="value">{this.getRol()}</p>
+							<p className="label">Email <i id="edit-email" className="fa fa-pencil-square-o"></i></p>
+							<p id="value-email" className="value">{this.props.logged.email}</p>
 							<p className="label">Name <i id="edit-name" className="fa fa-pencil-square-o"></i></p>
 							<p id="value-name" className="value">{this.props.logged.name}</p>
 							<p className="label">Last Name <i id="edit-last-name" className="fa fa-pencil-square-o"></i></p>
 							<p id="value-last-name"className="value">{this.props.logged.last_name}</p>
+							<p className="label">Rol</p>
+							<p className="value">{this.getRol()}</p>
 							<p className="label">Photo <i className="fa fa-pencil-square-o"></i></p>
 							<p className="value">{photo}</p>
 						</div>

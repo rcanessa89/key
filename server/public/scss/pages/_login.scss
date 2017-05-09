@@ -1,8 +1,6 @@
 .login-page {
 	form {
-		@include bp-sm {
-			padding: 0 24px;
-		}
+		@extend .container-mobile-padding;
 	}
 	
 	.field:not(:last-child) {
