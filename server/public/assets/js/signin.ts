@@ -1,19 +1,6 @@
-function testRecaptcha(x, y) {
-	console.log('test recaptcha');
-	console.log(x);
+var recaptchaCb;
 
-	$.ajax({
-		method: 'POST',
-		url: 'http://localhost:8000/api/company/company-admin',
-		data: {
-			recaptcha: x
-		}
-	}).then(function(res) {
-		console.log(res);
-	});
-}
-
-(function ($) {
+(function($) {
 	var formId = '#company-register-form',
 		modalId = '#company-register-form-success-modal',
 		errorContainerId = '#company-register-form-error-container';
@@ -53,6 +40,7 @@ function testRecaptcha(x, y) {
 		errorClass: 'help is-danger'
 	};
 
+	var validator = $(formId).validate(validateOptions);
 	var photo = null;
 
 	var onChangePhotoInput = function() {
@@ -73,30 +61,36 @@ function testRecaptcha(x, y) {
 		};
 	};
 
-	var submitForm = function(validator) {
+	recaptchaCb = function(token) {
+		var form = app.submitForm(validator, formId);
+
+		app.apiCall('post', '/company/company-admin', {
+			recaptcha: token,
+			company: form.values.company,
+			name: form.values.name,
+			last_name: form.values.last_name,
+			email: form.values.email,
+			photo: photo
+		})
+		.then(function(res) {
+			if ($.isEmptyObject(res)) {
+				$(modalId).addClass('is-active');
+			} else {
+				app.showFormErrors(errorContainerId, res);
+			}
+		});
+	}
+
+	var submitForm = function() {
 		var form = app.submitForm(validator, formId);
 
 		if (form.isValid) {
 			grecaptcha.execute();
-			// app.apiCall('post', '/company/company-admin', {
-			// 		company: form.values.company,
-			// 		name: form.values.name,
-			// 		last_name: form.values.last_name,
-			// 		email: form.values.email,
-			// 		photo: photo
-			// 	})
-			// 	.then(function(res) {
-			// 		if ($.isEmptyObject(res)) {
-			// 			$(modalId).addClass('is-active');
-			// 		} else {
-			// 			app.showFormErrors(errorContainerId, res);
-			// 		}
-			// 	});
 		}
 	};
 
 	$(document).ready(function() {
-		$('#form-submit-button').on('click', submitForm.bind(this, $(formId).validate(validateOptions)));
+		$('#form-submit-button').on('click', submitForm);
 		$('#admin-photo').on('change', onChangePhotoInput);
 	});
 })($);

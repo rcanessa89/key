@@ -8,7 +8,7 @@ const MongoStore = require('connect-mongo')(session);
 
 export default (app: express.Application): void => {
 	logger('[APP] Session Configuring...');
-
+	
 	app.use(session({
 		secret: constants.SECRET,
 		resave: false,

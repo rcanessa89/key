@@ -69,11 +69,6 @@ export default class Signin extends React.Component<undefined, undefined> {
 									</article>
 								</div>
 								<div className="field is-grouped">
-									<div className="g-recaptcha"
-										data-sitekey="6LdPXCAUAAAAAEs1a3KzqtlLpaOnDZn8EW3HwTWZ"
-										data-callback="testRecaptcha"
-										data-size="invisible">
-									</div>
 									<p className="control"><button id="form-submit-button" type="button" className="button is-primary">Submit</button></p>
 									<p className="control"><a href="/" className="button is-link">Cancel</a></p>
 								</div>
@@ -91,6 +86,11 @@ export default class Signin extends React.Component<undefined, undefined> {
 						</div>
 					</article>
 				</Modal>
+				<div className="g-recaptcha"
+					data-sitekey="6LdPXCAUAAAAAEs1a3KzqtlLpaOnDZn8EW3HwTWZ"
+					data-callback="recaptchaCb"
+					data-size="invisible">
+				</div>
 			</Index>
 		);
 	}

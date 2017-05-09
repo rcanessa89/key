@@ -11,11 +11,17 @@ module.exports = function(router: express.Router) {
 					res.json(error);
 				}
 
+				if (!user.verified) {
+					return res.json({
+						account: 'Account unverified '
+					});
+				}
+
 				if (user) {
 					user.comparePassword(req.body.password)
 					.then(match => {
 						if (match) {
-							const sessionUser = Object.assign({}, {
+							req.session.logged = {
 								_id: user._id,
 								name: user.name,
 								last_name: user.last_name,
@@ -23,21 +29,19 @@ module.exports = function(router: express.Router) {
 								company: user.company,
 								photo: user.photo,
 								rol: user.rol
-							});
-
-							req.session.logged = sessionUser;
+							};
 
 							return res.end();
 						} else {
-							return res.json(Object.assign({}, {
-								Password: 'Password is invalid'
-							}));
+							return res.json({
+								password: 'Password is invalid'
+							});
 						}
 					});
 				} else {
-					return res.json(Object.assign({}, {
+					return res.json({
 						email: 'Email is invalid'
-					}));
+					});
 				}
 
 			}).populate({

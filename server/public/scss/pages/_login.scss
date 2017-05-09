@@ -8,4 +8,14 @@
 	.field:not(:last-child) {
 		margin-bottom: 1.50rem;
 	}
+
+	.forgot-password-container {
+		margin-bottom: 20px;
+	}
+
+	.modal {
+		input {
+			margin-bottom: 20px;
+		}
+	}
 }

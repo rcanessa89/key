@@ -3,7 +3,8 @@
 		"target": "es6",
     	"module": "commonjs",
 		"jsx": "react",
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"sourceMap": false
 	},
 	"files": [
 		"typings-custom/index.d.ts",

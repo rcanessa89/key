@@ -85,25 +85,25 @@ var app: any = {};
 	}
 
 	function getFormErrorList(errors) {
-		var lis = '<ul>';
+		var list = '<ul>';
 
 		if (Array.isArray(errors)) {
 			$(errors).each(function(error) {
-				lis = lis + '<li>' + error + '</li>';
+				list = list + '<li>' + error + '</li>';
 			});
 		} else {
 			$.each(errors, function(key, value) {
-				lis = lis + '<li>' + value + '</li>';
+				list = list + '<li>' + value + '</li>';
 			});
 		}
 
-		lis = lis + '</ul>';
+		list = list + '</ul>';
 
-		return lis;
+		return list;
 	}
 
 	function addModalClose() {
-		$('.modal-background, .modal-close').on('click', function() {
+		$('.modal-background, .modal-close, .modal-card-head .delete').on('click', function() {
 			$('.modal').removeClass('is-active');
 		});
 	}

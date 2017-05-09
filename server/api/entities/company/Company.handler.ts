@@ -14,43 +14,48 @@ class CompanyHandler extends BaseHandler {
 	}
 
 	public createCompanyUser(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
-		console.log(req.body.recaptcha);
+		let ifCompanyExist: boolean;
+		let ifEmailExist: boolean;
 
-		axios({
-			method: 'POST',
-			url: constants.RECAPTCHA.endpoint,
-			data: {
-				secret: constants.RECAPTCHA.secret,
-				response: req.body.recaptcha
-			}
-		})
-		.then(recaptchaRes => {
-			console.log(recaptchaRes.data);
-
-			res.end();
+		const recaptchaPromise: Promise<boolean> = new Promise((resolve, reject) => {
+			axios({
+				method: 'POST',
+				url: constants.RECAPTCHA.endpoint,
+				params: {
+					secret: constants.RECAPTCHA.secret,
+					response: req.body.recaptcha
+				}
+			})
+			.then(recaptchaRes => {
+				if (recaptchaRes.data.success) {
+					resolve(resolve);
+				} else {
+					reject(recaptchaRes.data.success);
+				}
+			})
 		});
 
-		// let ifCompanyExist: boolean;
-		// let ifEmailExist: boolean;
+		recaptchaPromise
+			.then(recaptchaRes => {
+				return this.ifExist({ name: req.body.company });
+			}, () => res.redirect(400, '/'))
+			.then((companyExist: boolean) => {
+				ifCompanyExist = companyExist;
 
-		// this.ifExist({ name: req.body.company })
-		// 	.then((companyExist: boolean) => {
-		// 		ifCompanyExist = companyExist;
+				return this.ifExist({ email: req.body.email }, userModel);
+			})
+			.then((emailExist: boolean) => {
+				ifEmailExist = emailExist;
 
-		// 		return this.ifExist({ email: req.body.email }, userModel);
-		// 	})
-		// 	.then((emailExist: boolean) => {
-		// 		ifEmailExist = emailExist;
-
-		// 		if (ifCompanyExist || ifEmailExist) {
-		// 			res.json(Object.assign({}, {
-		// 				company: ifCompanyExist ? 'That company name already exist' : undefined,
-		// 				email: ifEmailExist ? 'That email is already registered' : undefined
-		// 			}));
-		// 		} else {
-		// 			this.saveCompanyUser(req, res);
-		// 		}
-		// 	});
+				if (ifCompanyExist || ifEmailExist) {
+					res.json(Object.assign({}, {
+						company: ifCompanyExist ? 'That company name already exist' : undefined,
+						email: ifEmailExist ? 'That email is already registered' : undefined
+					}));
+				} else {
+					this.saveCompanyUser(req, res);
+				}
+			});
 	}
 
 	private saveCompanyUser(req: express.Request & ParsedAsJson, res: express.Response): void {
