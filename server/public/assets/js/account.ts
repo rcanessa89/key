@@ -9,11 +9,11 @@
 
 		valueEditableEl.attr('contenteditable', 'true');
 		valueEditableEl.focus();
-	}
+	};
 
 	var removeContentEditable = function() {
 		$(this).attr('contenteditable', 'false');
-	}
+	};
 
 	$(document).ready(function() {
 		$('.label i').on('click', editValue);

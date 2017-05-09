@@ -79,7 +79,7 @@ var recaptchaCb;
 				app.showFormErrors(errorContainerId, res);
 			}
 		});
-	}
+	};
 
 	var submitForm = function() {
 		var form = app.submitForm(validator, formId);

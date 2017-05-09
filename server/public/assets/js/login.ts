@@ -81,7 +81,7 @@
 					}
 				});
 		}
-	}
+	};
 
 	var showForgotModal = function() {
 		$(forgotModalId).addClass('is-active');

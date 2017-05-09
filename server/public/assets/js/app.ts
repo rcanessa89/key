@@ -109,7 +109,7 @@ var app: any = {};
 	}
 
 	function addModalOnClose(selector, onModalClose) {
-		$(selector + ' .modal-background, ' + selector +' .modal-close').on('click', onModalClose);
+		$(selector + ' .modal-background, ' + selector + ' .modal-close').on('click', onModalClose);
 	}
 
 	function goHome() {
