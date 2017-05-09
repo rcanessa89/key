@@ -33,5 +33,10 @@ export default {
 		endpoint: 'https://www.google.com/recaptcha/api/siteverify',
 		site: '6LdPXCAUAAAAAEs1a3KzqtlLpaOnDZn8EW3HwTWZ',
 		secret: '6LdPXCAUAAAAAHhRFTbGFWa2MEPdWPdA12bZUbtz'
-	}
+	},
+	NO_ROUTE_AUTH: [
+		'login',
+		'password',
+		'company'
+	]
 };

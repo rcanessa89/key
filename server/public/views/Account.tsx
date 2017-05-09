@@ -30,7 +30,7 @@ export default class Account extends React.Component<AccountProps, undefined> {
 
 	render() {
 		const photo = this.props.logged.photo ? <img className="image" src={`/img/${this.props.logged.photo}`} /> : 'No photo';
-		const companyEdit = this.props.logged.rol === rol.super_admin ? <i className="fa fa-pencil-square-o"></i> : null;
+		const companyEdit = this.props.logged.rol === rol.super_admin ? <i id="edit-company" className="fa fa-pencil-square-o"></i> : null;
 		
 		return (
 			<Index
@@ -47,7 +47,6 @@ export default class Account extends React.Component<AccountProps, undefined> {
 						</div>
 					</div>
 				</section>
-
 				<section className="section">
 					<div className="container">
 						<div className="heading">
@@ -56,18 +55,21 @@ export default class Account extends React.Component<AccountProps, undefined> {
 						<hr />
 					</div>
 				</section>
-
 				<section className="container">
-					<p className="label">Company {companyEdit}</p>
-					<p className="value">{this.props.logged.company.name}</p>
-					<p className="label">Rol</p>
-					<p className="value">{this.getRol()}</p>
-					<p className="label">Name <i className="fa fa-pencil-square-o"></i></p>
-					<p className="value">{this.props.logged.name}</p>
-					<p className="label">Last Name <i className="fa fa-pencil-square-o"></i></p>
-					<p className="value">{this.props.logged.last_name}</p>
-					<p className="label">Photo <i className="fa fa-pencil-square-o"></i></p>
-					<p className="value">{photo}</p>
+					<div className="columns">
+						<div className="column is-half">
+							<p className="label">Company {companyEdit}</p>
+							<p id="value-company" className="value">{this.props.logged.company.name}</p>
+							<p className="label">Rol</p>
+							<p className="value">{this.getRol()}</p>
+							<p className="label">Name <i id="edit-name" className="fa fa-pencil-square-o"></i></p>
+							<p id="value-name" className="value">{this.props.logged.name}</p>
+							<p className="label">Last Name <i id="edit-last-name" className="fa fa-pencil-square-o"></i></p>
+							<p id="value-last-name"className="value">{this.props.logged.last_name}</p>
+							<p className="label">Photo <i className="fa fa-pencil-square-o"></i></p>
+							<p className="value">{photo}</p>
+						</div>
+					</div>
 				</section>
 			</Index>
 		);

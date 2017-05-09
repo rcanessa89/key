@@ -28,22 +28,28 @@ module.exports = function(router: express.Router) {
 				const compareHour: Date = user.updated_at || user.created_at;
 				const hours: number = hourDifference(compareHour);
 
-				user.password = req.body.password;
-				user.verified = true;
+				if (hours < 24) {
+					user.password = req.body.password;
+					user.verified = true;
 
-				user.save((error, newUser) => {
-					req.session.logged = {
-						_id: newUser._id,
-						name: newUser.name,
-						last_name: newUser.last_name,
-						email: newUser.email,
-						company: newUser.company,
-						photo: newUser.photo,
-						rol: newUser.rol
-					};
+					user.save((error, newUser) => {
+						req.session.logged = {
+							_id: newUser._id,
+							name: newUser.name,
+							last_name: newUser.last_name,
+							email: newUser.email,
+							company: newUser.company,
+							photo: newUser.photo,
+							rol: newUser.rol
+						};
 
-					res.end();
-				});
+						return res.end();
+					});
+				} else {
+					return res.json({
+						verified: 'Account verification expired'
+					});
+				}
 			}).populate({
 				path: 'company',
 				select: 'name'

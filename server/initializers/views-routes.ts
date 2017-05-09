@@ -3,6 +3,7 @@ import * as session from 'express-session';
 import * as path from 'path';
 import logger from '../api/util/logger';
 import constants from '../constants';
+import authViewMiddleware from '../api/util/auth-view-middleware';
 
 export default (app: express.Application): void => {
 	logger('[APP] Views routes configuring...');
@@ -15,18 +16,10 @@ export default (app: express.Application): void => {
 		res.render(view, renderData);
 	};
 
-	const authHandle = (req: express.Request & session, res: express.Response, next: express.NextFunction) => {
-		if (!req.session.logged) {
-			return res.redirect('/login');
-		}
-
-		return next();
-	}
-
-	app.use('/app', authHandle, express.static(path.join(constants.CLIENT_ROOT)));
+	app.use('/app', authViewMiddleware, express.static(path.join(constants.CLIENT_ROOT)));
 	app.get('/', render('home'));
 	app.get('/login', render('login'));
 	app.get('/signin', render('signin'));
 	app.get('/password', render('password'));
-	app.get('/account', authHandle, render('account'));
+	app.get('/account', authViewMiddleware, render('account'));
 };
