@@ -64,12 +64,16 @@ export default class Account extends React.Component<AccountProps, undefined> {
 							<p id="value-email" className="value">{this.props.logged.email}</p>
 							<p className="label">Name <i id="edit-name" className="fa fa-pencil-square-o"></i></p>
 							<p id="value-name" className="value">{this.props.logged.name}</p>
-							<p className="label">Last Name <i id="edit-last-name" className="fa fa-pencil-square-o"></i></p>
-							<p id="value-last-name"className="value">{this.props.logged.last_name}</p>
+							<p className="label">Last Name <i id="edit-last_name" className="fa fa-pencil-square-o"></i></p>
+							<p id="value-last_name"className="value">{this.props.logged.last_name}</p>
 							<p className="label">Rol</p>
 							<p className="value">{this.getRol()}</p>
 							<p className="label">Photo <i className="fa fa-pencil-square-o"></i></p>
 							<p className="value">{photo}</p>
+							<div id="error-container"></div>
+							<div>
+								<button id="save-edit-user" className="button is-primary">Save</button>
+							</div>
 						</div>
 					</div>
 				</section>

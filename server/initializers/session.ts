@@ -10,6 +10,7 @@ export default (app: express.Application): void => {
 	logger('[APP] Session Configuring...');
 	
 	app.use(session({
+		name: constants.SESSION_COOKIE_NAME,
 		secret: constants.SECRET,
 		resave: false,
 		saveUninitialized: false,

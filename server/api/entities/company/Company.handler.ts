@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as session from 'express-session';
 import { ParsedAsJson } from 'body-parser';
 import axios from 'axios';
 import companyModel from './company.model';

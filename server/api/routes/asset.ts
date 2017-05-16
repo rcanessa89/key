@@ -7,7 +7,7 @@ module.exports = function(router: express.Router) {
 		.post(assetHandler.create)
 		.patch(assetHandler.update);
 
-	router.route('/:id')
+	router.route('/id/:id')
 		.get(assetHandler.getById)
 		.delete(assetHandler.deleteById);
 };

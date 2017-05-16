@@ -7,7 +7,10 @@ module.exports = function(router: express.Router) {
 		.post(userHandler.create)
 		.patch(userHandler.update);
 
-	router.route('/:id')
+	router.route('/id/:id')
 		.get(userHandler.getById)
 		.delete(userHandler.deleteById);
+
+	router.route('/logged')
+		.get(userHandler.getLogged);
 };

@@ -7,7 +7,7 @@ module.exports = function(router: express.Router) {
 		.post(departmentHandler.create)
 		.patch(departmentHandler.update);
 
-	router.route('/:id')
+	router.route('/id/:id')
 		.get(departmentHandler.getById)
 		.delete(departmentHandler.deleteById);
 };

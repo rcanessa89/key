@@ -11,6 +11,12 @@ module.exports = function(router: express.Router) {
 					res.json(error);
 				}
 
+				if (!user) {
+					return res.json({
+						email: 'Email not exist'
+					});
+				}
+
 				if (!user.verified) {
 					return res.json({
 						account: 'Account unverified '
@@ -38,15 +44,11 @@ module.exports = function(router: express.Router) {
 							});
 						}
 					});
-				} else {
-					return res.json({
-						email: 'Email is invalid'
-					});
 				}
 
 			}).populate({
 				path: 'company',
 				select: 'name'
-			});;
+			});
 		});
 };

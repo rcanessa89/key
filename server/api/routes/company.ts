@@ -8,7 +8,7 @@ module.exports = function(router: express.Router) {
 		.post(authApiMiddleware, companyHandler.create)
 		.patch(authApiMiddleware, companyHandler.update);
 
-	router.route('/:id')
+	router.route('/id/:id')
 		.get(authApiMiddleware, companyHandler.getById)
 		.delete(authApiMiddleware, companyHandler.deleteById);
 

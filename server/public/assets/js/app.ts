@@ -8,6 +8,7 @@ var app: any = {};
 	app.showFormErrors = showFormErrors;
 	app.addModalOnClose = addModalOnClose;
 	app.goHome = goHome;
+	app.user = apiCall('get', '/user/logged', null);
 
 	$(document).ready(function() {
 		setPasswordValidation();

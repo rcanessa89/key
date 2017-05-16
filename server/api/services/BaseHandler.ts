@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { ParsedAsJson } from 'body-parser';
+import * as session from 'express-session';
 import * as mongoose from 'mongoose';
 
 export default class BaseHandler {
@@ -52,9 +53,41 @@ export default class BaseHandler {
 		newEntity.save((error, data) => res.json(this.queryCallback(error, data)));
 	}
 
-	public update(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
+	public update(req: express.Request & ParsedAsJson & session, res: express.Response, next: express.NextFunction): void {
 		req.body.updated_at = new Date();
-		this.model.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true }, (error, data) => res.json(this.queryCallback(error, data)));
+
+		let query = this.model.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true });
+
+		if (req.originalUrl === '/api/company') {
+			query.exec((error, company) => {
+				if (error) {
+					res.json(error);
+				}
+
+				console.log(company['name']);
+
+				req.session.logged = {
+					_id: company._id,
+					name: company['name']
+				}
+
+				res.json(req.session.logged);
+			});
+
+		} else if (req.originalUrl === '/api/user') {
+			query.populate({
+				path: 'company',
+				select: 'name'
+			})
+			.exec((error, user) => {
+				req.session.logged = user;
+				
+				res.json(req.session.logged);
+			});
+
+		} else {
+			query.exec((error, data) => res.json(this.queryCallback(error, data)))
+		}
 	}
 
 	public deleteById(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {

@@ -24,6 +24,7 @@ export default {
 	GMAIL_ACCESS_TOKEN: 'ya29.Gls_BA-S4H1haS4IBH-j165s40lOb3Z5KGfAFWRSgtfwuQWWG7d9UpACbRoNwOqVheCbHVb2IIg3B9TperbCvUF8RBtU8pEQUBwX7kpV91dpVGJBnssXgDDzJ2l4',
 	GMAIL_REFRESH_TOKEN: '1/IUFejBA5vv7dsEScQWafCeVIqYAbF3kt5wBtp3NAO0xhmFAHrV8KQOYTB5oz5zS8',
 	SALT_WORK_FACTOR: 10,
+	SESSION_COOKIE_NAME: 'key_session',
 	ROL: {
 		super_admin: 'super_admin',
 		admin: 'admin',
