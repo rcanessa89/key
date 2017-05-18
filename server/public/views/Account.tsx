@@ -70,9 +70,10 @@ export default class Account extends React.Component<AccountProps, undefined> {
 							<p className="value">{this.getRol()}</p>
 							<p className="label">Photo <i className="fa fa-pencil-square-o"></i></p>
 							<p className="value">{photo}</p>
-							<div id="error-container"></div>
-							<div>
-								<button id="save-edit-user" className="button is-primary">Save</button>
+							<div id="error-container" className="error-field">
+								<article className="message is-danger">
+									<div className="message-body"></div>
+								</article>
 							</div>
 						</div>
 					</div>

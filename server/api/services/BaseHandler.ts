@@ -64,12 +64,7 @@ export default class BaseHandler {
 					res.json(error);
 				}
 
-				console.log(company['name']);
-
-				req.session.logged = {
-					_id: company._id,
-					name: company['name']
-				}
+				req.session.logged.company.name = company['name'];
 
 				res.json(req.session.logged);
 			});
