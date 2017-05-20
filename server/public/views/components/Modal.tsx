@@ -4,7 +4,6 @@ interface ModalProps {
 	modalId: string,
 };
 
-
 export default class Modal extends React.Component<ModalProps, {}> {
 	render() {
 		return (

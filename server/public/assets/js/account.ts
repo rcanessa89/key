@@ -1,6 +1,7 @@
 (function($) {
 	var currentValue = null,
-		errorContainerId = '#error-container';
+		errorContainerId = '#error-container',
+		photoInputId = '#photo-input';
 
 	var editValue = function() {
 		if (!this.id) {
@@ -76,8 +77,32 @@
 			});
 	};
 
+	var onChangePhotoInput = function() {
+		app.toogleLoader();
+
+		var file = document.getElementById('photo-input'),
+			reader = new FileReader();
+
+		reader.readAsDataURL(file['files'][0]);
+
+		reader.onload = function() {
+			var photo = {
+				fileName: file['value'].replace(/.*[\/\\]/, ''),
+				base64: reader.result,
+				type: reader.result.split(';')[0].split(':')[1],
+				format: reader.result.split(';')[0].split(':')[1].split('/')[1]
+			};
+
+			app.apiCall('patch', '/user', photo, false)
+				.then(function(res) {
+					console.log(res);
+				});
+		};
+	};
+
 	$(document).ready(function() {
 		$('.label i').on('click', editValue);
 		$('.value').on('blur', removeContentEditable);
+		$(photoInputId).on('change', onChangePhotoInput);
 	});
 })($);

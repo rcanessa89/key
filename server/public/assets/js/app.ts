@@ -10,19 +10,34 @@ var app: any = {};
 	app.goHome = goHome;
 	app.user = apiCall('get', '/user/logged', null);
 	app.isValidEmail = isValidEmail;
+	app.toogleLoader = toogleLoader;
 
 	$(document).ready(function() {
 		setPasswordValidation();
 		addModalClose();
 	});
 
-	function apiCall(method, url, data) {
+	function apiCall(method, url, data, loader?) {
+		if (loader === undefined) {
+			loader = true;
+		}
+
 		var baseUrl = 'http://localhost:8000/api';
+
+		var showLoader = function() {
+			if (url !== '/user/logged' && loader) {
+				toogleLoader();
+			}
+		};
+
+		showLoader();
 
 		return $.ajax({
 			method: method.toUpperCase(),
 			url: baseUrl + url,
-			data: data || null
+			data: data || null,
+			success: showLoader,
+			error: showLoader
 		});
 	}
 
@@ -122,5 +137,17 @@ var app: any = {};
 		var emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 		return emailRegex.test(email);
+	}
+
+	function toogleLoader() {
+		var loaderId = '#app-loader-container',
+			hideClass = 'hide',
+			loader = $(loaderId);
+
+		if (loader.hasClass(hideClass)) {
+			loader.removeClass(hideClass);
+		} else {
+			loader.addClass(hideClass);
+		}
 	}
 })($);

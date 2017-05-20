@@ -29,7 +29,11 @@ export default class Account extends React.Component<AccountProps, undefined> {
 	}
 
 	render() {
-		const photo = this.props.logged.photo ? <img className="image" src={`/img/${this.props.logged.photo}`} /> : 'No photo';
+		const photo = this.props.logged.photo ? (
+			<figure className="image is-128x128">
+				<img src={`/api/img/${this.props.logged.photo}`} />
+			</figure>
+		) : 'No photo';
 		const companyEdit = this.props.logged.rol === rol.super_admin ? <i id="edit-company" className="fa fa-pencil-square-o"></i> : null;
 		
 		return (
@@ -68,8 +72,9 @@ export default class Account extends React.Component<AccountProps, undefined> {
 							<p id="value-last_name"className="value">{this.props.logged.last_name}</p>
 							<p className="label">Rol</p>
 							<p className="value">{this.getRol()}</p>
-							<p className="label">Photo <i className="fa fa-pencil-square-o"></i></p>
+							<p className="label">Photo <label htmlFor="photo-input"><i className="fa fa-pencil-square-o"></i></label></p>
 							<p className="value">{photo}</p>
+							<input id="photo-input" className="photo-input" type="file" />
 							<div id="error-container" className="error-field">
 								<article className="message is-danger">
 									<div className="message-body"></div>

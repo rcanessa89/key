@@ -30,6 +30,9 @@ class IndexDocument extends React.Component<IndexDocumentProps, undefined> {
 					/>
 					<main>{this.props.children}</main>
 					<Footer />
+					<div id="app-loader-container" className="app-loader-container hide">
+						<div className="app-loader"></div>
+					</div>
 					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
 					<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js" />
 					<script src="assets/js/app.js" />

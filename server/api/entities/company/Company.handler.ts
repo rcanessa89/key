@@ -74,7 +74,8 @@ class CompanyHandler extends BaseHandler {
 				last_name: req.body.last_name,
 				rol: 'super_admin',
 				email: req.body.email,
-				company: company._id
+				company: company._id,
+				photo: req.body.photo
 			});
 
 			newUserAdmin.save((error, user) => {

@@ -9,6 +9,7 @@ $z-index: (
 	header: $z100 - 1,
 	sidebar: $z100 - 1,
 	mobile_nav: $z100,
+	loader: $z-max,
 );
 
 @function z-index($key) {
