@@ -24,4 +24,20 @@
 	.photo-input {
 		display: none;
 	}
+
+	.photo-container {
+		&.hide {
+			figure {
+				display: none;
+			}
+
+			p {
+				display: block;
+			}
+		}
+
+		p {
+			display: none;
+		}
+	}
 }

@@ -1,7 +1,13 @@
 (function($) {
 	var currentValue = null,
 		errorContainerId = '#error-container',
-		photoInputId = '#photo-input';
+		photoInputId = '#photo-input',
+		userLogged = null;
+
+	app.user
+		.then(function(res) {
+			userLogged = res;
+		});
 
 	var editValue = function() {
 		if (!this.id) {
@@ -44,7 +50,8 @@
 
 		var field = this.id.replace(/value-/g, '').toLowerCase(),
 			value = this.innerHTML,
-			validation = validOnBlur(value);
+			validation = validOnBlur(value),
+			payload = {};
 
 		if (!validation.valid) {
 			document.getElementById(this.id).innerHTML = currentValue.value;
@@ -54,27 +61,16 @@
 			$(errorContainerId).hide();
 		}
 
-		app.user
-			.then(function(userLogged) {
-				var promise = null,
-					payload = {};
+		if (field === 'company') {
+			field = 'name';
 
-				if (field === 'company') {
-					field = 'name';
-
-					payload['_id'] = userLogged.company._id;
-					payload[field] = value;
-					
-					promise = app.apiCall('patch', '/company', payload);
-				} else {
-					promise = app.apiCall('patch', '/user', { _id: userLogged._id, [field]: value });
-				}
-
-				return promise;
-			})
-			.then(function(res) {
-				console.log(res);
-			});
+			payload['_id'] = userLogged.company._id;
+			payload[field] = value;
+			
+			app.apiCall('patch', '/company', payload);
+		} else {
+			app.apiCall('patch', '/user', { _id: userLogged._id, [field]: value });
+		}
 	};
 
 	var onChangePhotoInput = function() {
@@ -93,9 +89,18 @@
 				format: reader.result.split(';')[0].split(':')[1].split('/')[1]
 			};
 
-			app.apiCall('patch', '/user', photo, false)
+			app.apiCall('patch', '/user', { _id: userLogged._id, photo: photo }, false)
 				.then(function(res) {
-					console.log(res);
+					app.toogleLoader();
+					
+					const img = $('#photo-img');
+					const photoContainer = $('#photo-container');
+
+					if (photoContainer.hasClass('hide')) {
+						photoContainer.removeClass(photoContainer);
+					}
+
+					img.attr('src', '/api/img/' + res.photo);
 				});
 		};
 	};

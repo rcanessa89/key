@@ -2,6 +2,7 @@ import * as express from 'express';
 import { ParsedAsJson } from 'body-parser';
 import * as session from 'express-session';
 import * as mongoose from 'mongoose';
+import saveBase64 from '../util/saveBase64';
 
 export default class BaseHandler {
 	constructor(schemaModel: mongoose.Model<mongoose.Document>) {
@@ -56,6 +57,10 @@ export default class BaseHandler {
 	public update(req: express.Request & ParsedAsJson & session, res: express.Response, next: express.NextFunction): void {
 		req.body.updated_at = new Date();
 
+		if (req.body.photo) {
+			req.body.photo = saveBase64(req.body.photo.base64, req.body.photo.format);
+		}
+
 		let query = this.model.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true });
 
 		if (req.originalUrl === '/api/company') {
@@ -75,6 +80,10 @@ export default class BaseHandler {
 				select: 'name'
 			})
 			.exec((error, user) => {
+				if (error) {
+					return res.json(error)
+				}
+
 				req.session.logged = user;
 				
 				res.json(req.session.logged);

@@ -31,8 +31,8 @@ export default class Config {
 		}
 
 		this.app.use(this.onAppError);
-		this.app.use(bodyParser.urlencoded({extended: true}));
-		this.app.use(bodyParser.json());
+		this.app.use(bodyParser.urlencoded({ extended: true, limit: '2mb' }));
+		this.app.use(bodyParser.json({ limit: '2mb' }));
 		this.app.use(cookieParser());
 		this.app.use(express.static(path.join(__dirname + '/../public')));
 		this.app.engine('js', expressReactViews.createEngine());
