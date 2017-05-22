@@ -93,11 +93,11 @@
 				.then(function(res) {
 					app.toogleLoader();
 					
-					const img = $('#photo-img');
-					const photoContainer = $('#photo-container');
+					var img = $('#photo-img'),
+						photoContainer = $('#photo-container');
 
 					if (photoContainer.hasClass('hide')) {
-						photoContainer.removeClass(photoContainer);
+						photoContainer.removeClass('hide');
 					}
 
 					img.attr('src', '/api/img/' + res.photo);
