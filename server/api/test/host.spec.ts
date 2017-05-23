@@ -39,12 +39,12 @@ describe('Host', () => {
 		});
 	});
 
-	describe('/GET /host/:id', () => {
+	describe('/GET /host/id/:id', () => {
 		it('it should GET an host by _id', done => {
 			const testHostModel = new Host(testHost);
 
 			testHostModel.save((error, host) => {
-				const endPoint = '/api/host/' + host._id;
+				const endPoint = '/api/host/id/' + host._id;
 
 				chai.request(app)
 					.get(endPoint)
@@ -110,7 +110,7 @@ describe('Host', () => {
 
 		it('it should DELETE an host', done => {
 			testHostModel.save((error, host) => {
-				const endPoint = '/api/host/' + host._id;
+				const endPoint = '/api/host/id/' + host._id;
 
 				chai.request(app)
 					['delete'](endPoint)

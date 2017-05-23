@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test-client": "mocha ./client/app/**/*.spec.js --compilers js:babel-core/register",
-    "test-api": "mocha ./server/api/test/*.ts --compilers ts:ts-node/register"
+    "test-api": "mocha ./server/api/test/*.spec.ts --compilers ts:ts-node/register"
   },
   "babel": {
     "presets": [

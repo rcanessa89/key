@@ -19,6 +19,10 @@ class CompanyHandler extends BaseHandler {
 		let ifEmailExist: boolean;
 
 		const recaptchaPromise: Promise<boolean> = new Promise((resolve, reject) => {
+			if (process.env.ENVIRONMENT === 'test') {
+				resolve(true);
+			}
+
 			axios({
 				method: 'POST',
 				url: constants.RECAPTCHA.endpoint,
@@ -92,7 +96,7 @@ class CompanyHandler extends BaseHandler {
 					text: 'A link to setup your password',
 					html: `<h1>Key App</h1><p>You are receiving this because you (or someone else) have requested the setup of the password for your account.Please click on the following link, or paste this into your browser to complete the process: <a href="${emailLink}">${emailLink}</a> </p>`
 				})
-				.then(info => res.end());
+				.then(info => res.json(Object.assign(user, { company: company} )));
 			});
 		});
 	}

@@ -6,7 +6,8 @@ import * as mocha from 'mocha';
 import * as chai from 'chai';
 import app from '../../index';
 import Company from '../entities/company/company.model';
-
+import User from '../entities/user/user.model';
+import loginTest from './login-test';
 
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -15,7 +16,9 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Company', () => {
-	const testCompany = {
+	let agent: any = null;
+
+	const testCompany: any = {
 		name: 'konrad',
 		email: 'konrad@konradgroup.com',
 		departments: [],
@@ -23,15 +26,18 @@ describe('Company', () => {
 		assets: []
 	};
 
-	beforeEach((done) => {
-		Company.remove({}, (err) => {
-			done();
-		});
+	beforeEach(done => {
+		loginTest(app)
+			.then(newAgent => {
+				agent = newAgent;
+				done();
+			}, error => console.log('1', error))
+			.catch(error => console.log('2', error));
 	});
 
 	describe('/GET /company', () => {
 		it('it should GET all the companies', done => {
-			chai.request(app)
+			agent
 				.get('/api/company')
 				.end((err, res) => {
 					res.should.have.status(200);
@@ -43,21 +49,20 @@ describe('Company', () => {
 		});
 	});
 
-	describe('/GET /company/:id', () => {
-		it('it should GET an company by _id', done => {
-			const testCompanyModel = new Company(testCompany);
+	describe('/GET /company/id/:id', () => {
+		it('it should GET a company by _id', done => {
+			const testCompanyModel: any = new Company(testCompany);
 
 			testCompanyModel.save((error, company) => {
-				const endPoint = '/api/company/' + company._id;
+				const endPoint: string = `/api/company/id/${company._id}`;
 
-				chai.request(app)
+				agent
 					.get(endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
 						res.body.should.be.a('object');
 						res.body.should.have.property('_id').eql(company._id.toString());
 						res.body.should.have.property('name').eql(testCompany.name);
-						res.body.should.have.property('email').eql(testCompany.email);
 						res.body.should.have.property('departments').be.a('array').length.be(0);
 						res.body.should.have.property('registries').be.a('array').length.be(0);
 						res.body.should.have.property('assets').be.a('array').length.be(0);
@@ -71,15 +76,14 @@ describe('Company', () => {
 	});
 
 	describe('/POST /company', () => {
-		it('it should POST an company', done => {
-			chai.request(app)
+		it('it should POST a company', done => {
+			agent
 				.post('/api/company')
 				.send(testCompany)
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
 					res.body.should.have.property('name').eql(testCompany.name);
-					res.body.should.have.property('email').eql(testCompany.email);
 					res.body.should.have.property('departments').be.a('array').length.be(0);
 					res.body.should.have.property('registries').be.a('array').length.be(0);
 					res.body.should.have.property('assets').be.a('array').length.be(0);
@@ -93,19 +97,17 @@ describe('Company', () => {
 
 	describe('/PATCH /company', () => {
 		const testCompanyModel = new Company(testCompany);
-		const newName = 'google';
-		const newEmail = 'google@gmail.com';
+		const newName: string = 'google';
 
-		it('it should UPDATE an user', done => {
+		it('it should UPDATE a company', done => {
 			testCompanyModel.save((error, company) => {
-				chai.request(app)
+				agent
 					.patch('/api/company')
-					.send({_id: company._id, name: newName, email: newEmail})
+					.send({ _id: company._id, name: newName })
 					.end((error, res) => {
 						res.should.have.status(200);
 						res.body.should.be.a('object');
 						res.body.should.have.property('name').eql(newName);
-						res.body.should.have.property('email').eql(newEmail);
 
 						done();
 					});
@@ -114,13 +116,13 @@ describe('Company', () => {
 	});
 
 	describe('/DELETE /company', () => {
-		const testCompanyModel = new Company(testCompany);
+		const testCompanyModel: any = new Company(testCompany);
 
-		it('it should DELETE an company', done => {
+		it('it should DELETE a company', done => {
 			testCompanyModel.save((error, company) => {
-				const endPoint = '/api/company/' + company._id;
+				const endPoint: string = `/api/company/id/${company._id}`;
 
-				chai.request(app)
+				agent
 					['delete'](endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
@@ -131,6 +133,56 @@ describe('Company', () => {
 						done();
 					});
 			});
+		});
+	});
+
+	describe('/POST /company-admin', () => {
+		const objReq: any = {
+			company: 'company test',
+			name: 'name test',
+			last_name: 'last name test',
+			email: 'email@test.com'
+		};
+
+		it('it should create a company with a user with role "super_admin"', done => {
+			agent
+				.post('/api/company')
+				.send(objReq)
+				.end((error, res) => {
+					if (error) {
+						console.log(error);
+						done();
+					}
+
+					res.should.have.status(200);
+					res.body.should.be.a('object');
+					res.body.should.have.property('_id');
+					res.body.should.have.property('company');
+					res.body.should.have.property('name').eql(objReq.name);
+					res.body.should.have.property('last_name').eql(objReq.last_name);
+					res.body.should.have.property('email').eql(objReq.email);
+
+					done();
+				});
+		});
+
+		it('it should verified a duplicate company name', done => {
+			agent
+				.post('/api/company')
+				.send(objReq)
+				.end((error, res) => {
+					if (error) {
+						console.log(error);
+						done();
+					}
+
+					res.should.have.status(200);
+					res.body.should.be.a('object');
+					res.body.should.have.property('company').eql('That company name already exist');
+					res.body.should.have.property('email').eql('That email is already registered');
+
+					done();
+				});
 		});
 	});
 });

@@ -41,12 +41,12 @@ describe('Registry', () => {
 		});
 	});
 
-	describe('/GET /registry/:id', () => {
+	describe('/GET /registry/id/:id', () => {
 		it('it should GET an registry by _id', done => {
 			const testRegistryModel = new Registry(testRegistry);
 
 			testRegistryModel.save((error, registry) => {
-				const endPoint = '/api/registry/' + registry._id;
+				const endPoint = '/api/registry/id/' + registry._id;
 
 				chai.request(app)
 					.get(endPoint)
@@ -114,7 +114,7 @@ describe('Registry', () => {
 
 		it('it should DELETE an registry', done => {
 			testRegistryModel.save((error, registry) => {
-				const endPoint = '/api/registry/' + registry._id;
+				const endPoint = '/api/registry/id/' + registry._id;
 
 				chai.request(app)
 					['delete'](endPoint)

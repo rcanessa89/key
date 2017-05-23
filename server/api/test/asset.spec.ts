@@ -41,12 +41,12 @@ describe('Asset', () => {
 		});
 	});
 
-	describe('/GET /asset/:id', () => {
+	describe('/GET /asset/id/:id', () => {
 		it('it should GET an asset by _id', done => {
 			const testAssetModel = new Asset(testAsset);
 
 			testAssetModel.save((error, asset) => {
-				const endPoint = '/api/asset/' + asset._id;
+				const endPoint = '/api/asset/id/' + asset._id;
 
 				chai.request(app)
 					.get(endPoint)
@@ -107,12 +107,12 @@ describe('Asset', () => {
 		});
 	});
 
-	describe('/DELETE /asset', () => {
+	describe('/DELETE /asset/id/:id', () => {
 		const testAssetModel = new Asset(testAsset);
 
 		it('it should DELETE an asset', done => {
 			testAssetModel.save((error, asset) => {
-				const endPoint = '/api/asset/' + asset._id;
+				const endPoint = '/api/asset/id/' + asset._id;
 
 				chai.request(app)
 					['delete'](endPoint)

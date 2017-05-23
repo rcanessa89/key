@@ -39,12 +39,12 @@ describe('User', () => {
 		});
 	});
 
-	describe('/GET /user/:id', () => {
+	describe('/GET /user/id/:id', () => {
 		it('it should GET an user by _id', done => {
 			const testUserModel = new User(testUser);
 
 			testUserModel.save((error, user) => {
-				const endPoint = '/api/user/' + user._id;
+				const endPoint = '/api/user/id/' + user._id;
 
 				chai.request(app)
 					.get(endPoint)
@@ -112,7 +112,7 @@ describe('User', () => {
 
 		it('it should DELETE an user', done => {
 			testUserModel.save((error, user) => {
-				const endPoint = '/api/user/' + user._id;
+				const endPoint = '/api/user/id/' + user._id;
 
 				chai.request(app)
 					['delete'](endPoint)

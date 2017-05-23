@@ -38,12 +38,12 @@ describe('Department', () => {
 		});
 	});
 
-	describe('/GET /department/:id', () => {
+	describe('/GET /department/id/:id', () => {
 		it('it should GET an department by _id', done => {
 			const testDepartmentModel = new Department(testDepartment);
 
 			testDepartmentModel.save((error, department) => {
-				const endPoint = '/api/department/' + department._id;
+				const endPoint = '/api/department/id/' + department._id;
 
 				chai.request(app)
 					.get(endPoint)
@@ -106,7 +106,7 @@ describe('Department', () => {
 
 		it('it should DELETE an department', done => {
 			testDepartmentModel.save((error, department) => {
-				const endPoint = '/api/department/' + department._id;
+				const endPoint = '/api/department/id/' + department._id;
 
 				chai.request(app)
 					['delete'](endPoint)
