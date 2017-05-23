@@ -65,7 +65,7 @@ gulp.task('nsp', nsp);
 
 function defaultTask() {
 	del(['server/dist', 'client/dist']).then(function() {
-		runSequence('build-constants', 'build-server', 'build-vendor', 'build-app', 'svg-font', 'copy', 'build-css', 'watch', 'client-server', 'run-server');
+		runSequence('build-constants', 'build-server-css', 'build-server', 'build-vendor', 'build-app', 'svg-font', 'copy', 'build-css', 'watch', 'client-server', 'run-server');
 	});
 }
 
