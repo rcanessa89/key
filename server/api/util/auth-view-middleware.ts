@@ -7,4 +7,4 @@ export default (req: express.Request & session, res: express.Response, next: exp
 	}
 
 	return next();
-}
+};

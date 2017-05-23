@@ -1,13 +1,13 @@
-var recaptchaCb;
+const recaptchaCb;
 
 (function($) {
-	var formId = '#company-register-form',
+	const formId = '#company-register-form',
 		modalId = '#company-register-form-success-modal',
 		errorContainerId = '#company-register-form-error-container';
 
 	app.addModalOnClose(modalId, app.goHome);
 
-	var validateOptions = {
+	const validateOptions = {
 		rules: {
 			company: {
 				required: true
@@ -40,11 +40,11 @@ var recaptchaCb;
 		errorClass: 'help is-danger'
 	};
 
-	var validator = $(formId).validate(validateOptions);
-	var photo = null;
+	const validator = $(formId).validate(validateOptions);
+	const photo = null;
 
-	var onChangePhotoInput = function() {
-		var file = document.getElementById('admin-photo'),
+	const onChangePhotoInput = function() {
+		const file = document.getElementById('admin-photo'),
 			reader = new FileReader();
 
 		reader.readAsDataURL(file['files'][0]);
@@ -62,7 +62,7 @@ var recaptchaCb;
 	};
 
 	recaptchaCb = function(token) {
-		var form = app.submitForm(validator, formId);
+		const form = app.submitForm(validator, formId);
 
 		app.apiCall('post', '/company/company-admin', {
 			recaptcha: token,
@@ -81,8 +81,8 @@ var recaptchaCb;
 		});
 	};
 
-	var submitForm = function() {
-		var form = app.submitForm(validator, formId);
+	const submitForm = function() {
+		const form = app.submitForm(validator, formId);
 
 		if (form.isValid) {
 			grecaptcha.execute();

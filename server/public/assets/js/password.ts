@@ -1,11 +1,11 @@
 (function($) {
-	var formId = '#password-form',
+	const formId = '#password-form',
 		modalId = '#password-form-success-modal',
 		errorContainerId = '#company-register-form-error-container';
 
 	app.addModalOnClose(modalId, app.goHome);
 
-	var validateOptions = {
+	const validateOptions = {
 		rules: {
 			password: {
 				required: true,
@@ -33,8 +33,8 @@
 		errorClass: 'help is-danger'
 	};
 
-	var submitForm = function(validator) {
-		var form = app.submitForm(validator, formId);
+	const submitForm = function(validator) {
+		const form = app.submitForm(validator, formId);
 
 		if (form.isValid) {
 			app.apiCall('post', '/password', {

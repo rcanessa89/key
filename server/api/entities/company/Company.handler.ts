@@ -33,7 +33,7 @@ class CompanyHandler extends BaseHandler {
 				} else {
 					reject(recaptchaRes.data.success);
 				}
-			})
+			});
 		});
 
 		recaptchaPromise

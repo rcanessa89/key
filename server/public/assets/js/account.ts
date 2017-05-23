@@ -1,20 +1,21 @@
 (function($) {
-	var currentValue = null,
+	const currentValue = null,
 		errorContainerId = '#error-container',
-		photoInputId = '#photo-input',
-		userLogged = null;
+		photoInputId = '#photo-input';
+	
+	let userLogged = null;
 
 	app.user
 		.then(function(res) {
 			userLogged = res;
 		});
 
-	var editValue = function() {
+	const editValue = function() {
 		if (!this.id) {
 			return;
 		}
-		
-		var editableId = this.id.replace(/edit-/g, 'value-'),
+
+		const editableId = this.id.replace(/edit-/g, 'value-'),
 			valueEditableEl = $('#' + editableId);
 
 		currentValue = {
@@ -26,8 +27,8 @@
 		valueEditableEl.focus();
 	};
 
-	var validOnBlur = function(value) {
-		var validation = {
+	const validOnBlur = function(value) {
+		const validation = {
 			valid: true,
 			error: ''
 		};
@@ -45,10 +46,10 @@
 
 	};
 
-	var removeContentEditable = function() {
+	const removeContentEditable = function() {
 		$(this).attr('contenteditable', 'false');
 
-		var field = this.id.replace(/value-/g, '').toLowerCase(),
+		const field = this.id.replace(/value-/g, '').toLowerCase(),
 			value = this.innerHTML,
 			validation = validOnBlur(value),
 			payload = {};
@@ -66,23 +67,23 @@
 
 			payload['_id'] = userLogged.company._id;
 			payload[field] = value;
-			
+
 			app.apiCall('patch', '/company', payload);
 		} else {
 			app.apiCall('patch', '/user', { _id: userLogged._id, [field]: value });
 		}
 	};
 
-	var onChangePhotoInput = function() {
+	const onChangePhotoInput = function() {
 		app.toogleLoader();
 
-		var file = document.getElementById('photo-input'),
+		const file = document.getElementById('photo-input'),
 			reader = new FileReader();
 
 		reader.readAsDataURL(file['files'][0]);
 
 		reader.onload = function() {
-			var photo = {
+			const photo = {
 				fileName: file['value'].replace(/.*[\/\\]/, ''),
 				base64: reader.result,
 				type: reader.result.split(';')[0].split(':')[1],
@@ -92,8 +93,8 @@
 			app.apiCall('patch', '/user', { _id: userLogged._id, photo: photo }, false)
 				.then(function(res) {
 					app.toogleLoader();
-					
-					var img = $('#photo-img'),
+
+					const img = $('#photo-img'),
 						photoContainer = $('#photo-container');
 
 					if (photoContainer.hasClass('hide')) {

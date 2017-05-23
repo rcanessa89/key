@@ -87,6 +87,6 @@ module.exports = function(router: express.Router) {
 						email: 'Email is invalid'
 					});
 				}
-			})
+			});
 		});
 };

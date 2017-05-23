@@ -81,16 +81,16 @@ export default class BaseHandler {
 			})
 			.exec((error, user) => {
 				if (error) {
-					return res.json(error)
+					return res.json(error);
 				}
 
 				req.session.logged = user;
-				
+
 				res.json(req.session.logged);
 			});
 
 		} else {
-			query.exec((error, data) => res.json(this.queryCallback(error, data)))
+			query.exec((error, data) => res.json(this.queryCallback(error, data)));
 		}
 	}
 

@@ -1,4 +1,4 @@
-var app: any = {};
+const app: any = {};
 
 (function($) {
 	// Public methods
@@ -22,9 +22,9 @@ var app: any = {};
 			loader = true;
 		}
 
-		var baseUrl = 'http://localhost:8000/api';
+		const baseUrl = 'http://localhost:8000/api';
 
-		var showLoader = function() {
+		const showLoader = function() {
 			if (url !== '/user/logged' && loader) {
 				toogleLoader();
 			}
@@ -42,7 +42,7 @@ var app: any = {};
 	}
 
 	function submitForm(validator, formSelector) {
-		var inputs = $(formSelector + ' :input'),
+		const inputs = $(formSelector + ' :input'),
 			values = {};
 
 		inputs.each(function() {
@@ -71,7 +71,7 @@ var app: any = {};
 
 		name = name.replace(/[\[\]]/g, '\\$&');
 
-		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+		const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
 
 		results = regex.exec(url);
 
@@ -94,7 +94,7 @@ var app: any = {};
 	}
 
 	function showFormErrors(container, errors) {
-		var errorList = getFormErrorList(errors);
+		const errorList = getFormErrorList(errors);
 
 		$(container + ' .message-body').empty();
 		$(container + ' .message-body').append(errorList);
@@ -102,7 +102,7 @@ var app: any = {};
 	}
 
 	function getFormErrorList(errors) {
-		var list = '<ul>';
+		const list = '<ul>';
 
 		if (Array.isArray(errors)) {
 			$(errors).each(function(index, error) {
@@ -134,13 +134,13 @@ var app: any = {};
 	}
 
 	function isValidEmail(email) {
-		var emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+		const emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 		return emailRegex.test(email);
 	}
 
 	function toogleLoader() {
-		var loaderId = '#app-loader-container',
+		const loaderId = '#app-loader-container',
 			hideClass = 'hide',
 			loader = $(loaderId);
 
