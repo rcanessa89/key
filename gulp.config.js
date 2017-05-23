@@ -21,7 +21,7 @@ var config = {
 		},
 
 		lint: {
-			src: ['./server/**/*.ts', '!./server/dist']
+			src: ['./server/**/*.ts', '!./server/public/assets/js/**', '!./server/dist']
 		}
 	},
 

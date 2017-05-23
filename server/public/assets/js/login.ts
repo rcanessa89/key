@@ -1,5 +1,5 @@
 (function($) {
-	const formId = '#login-form',
+	var formId = '#login-form',
 		errorContainerId = '#login-form-error-container',
 		forgotErrorContainerId = '#forgot-form-error-container',
 		forgotFormId = '#forgot-form',
@@ -7,7 +7,7 @@
 		forgotButtonId = '#forgot-button',
 		successForgotButton = '#success-forgot-button';
 
-	const validateOptions = {
+	var validateOptions = {
 		rules: {
 			email: {
 				required: true,
@@ -35,7 +35,7 @@
 		errorClass: 'help is-danger'
 	};
 
-	const forgotValideOptions = {
+	var forgotValideOptions = {
 		rules: {
 			email: {
 				required: true,
@@ -53,8 +53,8 @@
 		errorClass: 'help is-danger'
 	};
 
-	const submitLogin = function(validator) {
-		const form = app.submitForm(validator, formId);
+	var submitLogin = function(validator) {
+		var form = app.submitForm(validator, formId);
 
 		if (form.isValid) {
 			app.apiCall('post', '/login', form.values)
@@ -68,8 +68,8 @@
 		}
 	};
 
-	const submitForgotPassword = function(validator) {
-		const form = app.submitForm(validator, forgotFormId);
+	var submitForgotPassword = function(validator) {
+		var form = app.submitForm(validator, forgotFormId);
 
 		if (form.isValid) {
 			app.apiCall('post', '/password/forgot', form.values)
@@ -83,7 +83,7 @@
 		}
 	};
 
-	const showForgotModal = function() {
+	var showForgotModal = function() {
 		$(forgotModalId).addClass('is-active');
 	};
 

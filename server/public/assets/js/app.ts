@@ -1,4 +1,4 @@
-const app: any = {};
+var app: any = {};
 
 (function($) {
 	// Public methods
@@ -22,9 +22,9 @@ const app: any = {};
 			loader = true;
 		}
 
-		const baseUrl = 'http://localhost:8000/api';
+		var baseUrl = 'http://localhost:8000/api';
 
-		const showLoader = function() {
+		var showLoader = function() {
 			if (url !== '/user/logged' && loader) {
 				toogleLoader();
 			}
@@ -42,7 +42,7 @@ const app: any = {};
 	}
 
 	function submitForm(validator, formSelector) {
-		const inputs = $(formSelector + ' :input'),
+		var inputs = $(formSelector + ' :input'),
 			values = {};
 
 		inputs.each(function() {
@@ -71,7 +71,7 @@ const app: any = {};
 
 		name = name.replace(/[\[\]]/g, '\\$&');
 
-		const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
 
 		results = regex.exec(url);
 
@@ -94,7 +94,7 @@ const app: any = {};
 	}
 
 	function showFormErrors(container, errors) {
-		const errorList = getFormErrorList(errors);
+		var errorList = getFormErrorList(errors);
 
 		$(container + ' .message-body').empty();
 		$(container + ' .message-body').append(errorList);
@@ -102,7 +102,7 @@ const app: any = {};
 	}
 
 	function getFormErrorList(errors) {
-		const list = '<ul>';
+		var list = '<ul>';
 
 		if (Array.isArray(errors)) {
 			$(errors).each(function(index, error) {
@@ -120,7 +120,7 @@ const app: any = {};
 	}
 
 	function addModalClose() {
-		$('.modal-background, .modal-close, .modal-card-head .delete').on('click', function() {
+		$('.modal-background, .modal-close, .modal-card-head .devare').on('click', function() {
 			$('.modal').removeClass('is-active');
 		});
 	}
@@ -134,13 +134,13 @@ const app: any = {};
 	}
 
 	function isValidEmail(email) {
-		const emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+		var emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 		return emailRegex.test(email);
 	}
 
 	function toogleLoader() {
-		const loaderId = '#app-loader-container',
+		var loaderId = '#app-loader-container',
 			hideClass = 'hide',
 			loader = $(loaderId);
 

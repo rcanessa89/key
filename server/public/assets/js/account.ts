@@ -1,21 +1,21 @@
 (function($) {
-	const currentValue = null,
+	var currentValue = null,
 		errorContainerId = '#error-container',
 		photoInputId = '#photo-input';
-	
-	let userLogged = null;
+
+	var userLogged = null;
 
 	app.user
 		.then(function(res) {
 			userLogged = res;
 		});
 
-	const editValue = function() {
+	var editValue = function() {
 		if (!this.id) {
 			return;
 		}
 
-		const editableId = this.id.replace(/edit-/g, 'value-'),
+		var editableId = this.id.replace(/edit-/g, 'value-'),
 			valueEditableEl = $('#' + editableId);
 
 		currentValue = {
@@ -27,8 +27,8 @@
 		valueEditableEl.focus();
 	};
 
-	const validOnBlur = function(value) {
-		const validation = {
+	var validOnBlur = function(value) {
+		var validation = {
 			valid: true,
 			error: ''
 		};
@@ -46,10 +46,10 @@
 
 	};
 
-	const removeContentEditable = function() {
+	var removeContentEditable = function() {
 		$(this).attr('contenteditable', 'false');
 
-		const field = this.id.replace(/value-/g, '').toLowerCase(),
+		var field = this.id.replace(/value-/g, '').toLowerCase(),
 			value = this.innerHTML,
 			validation = validOnBlur(value),
 			payload = {};
@@ -74,16 +74,16 @@
 		}
 	};
 
-	const onChangePhotoInput = function() {
+	var onChangePhotoInput = function() {
 		app.toogleLoader();
 
-		const file = document.getElementById('photo-input'),
+		var file = document.getElementById('photo-input'),
 			reader = new FileReader();
 
 		reader.readAsDataURL(file['files'][0]);
 
 		reader.onload = function() {
-			const photo = {
+			var photo = {
 				fileName: file['value'].replace(/.*[\/\\]/, ''),
 				base64: reader.result,
 				type: reader.result.split(';')[0].split(':')[1],
@@ -94,7 +94,7 @@
 				.then(function(res) {
 					app.toogleLoader();
 
-					const img = $('#photo-img'),
+					var img = $('#photo-img'),
 						photoContainer = $('#photo-container');
 
 					if (photoContainer.hasClass('hide')) {
