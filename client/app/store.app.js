@@ -9,6 +9,7 @@ import modal from './components/modal/reducer';
 import forms from './components/app-form/reducer';
 import mobileNav from './components/mobile-nav/reducer';
 import header from './components/app-header/reducer';
+import loading from './components/loading/reducer';
 
 let middleware = applyMiddleware(thunk);
 
@@ -21,6 +22,7 @@ const reducers = combineReducers({
 	forms,
 	mobileNav,
 	header,
+	loading,
 });
 
 const store = createStore(reducers, middleware);
