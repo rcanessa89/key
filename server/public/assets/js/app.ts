@@ -8,7 +8,7 @@ var app: any = {};
 	app.showFormErrors = showFormErrors;
 	app.addModalOnClose = addModalOnClose;
 	app.goHome = goHome;
-	app.user = apiCall('get', '/user/logged', null);
+	app.user = document.cookie.indexOf('key_session=') >= 0 ? apiCall('get', '/user/logged') : null;
 	app.isValidEmail = isValidEmail;
 	app.toogleLoader = toogleLoader;
 
@@ -17,7 +17,7 @@ var app: any = {};
 		addModalClose();
 	});
 
-	function apiCall(method, url, data, loader?) {
+	function apiCall(method, url, data?, loader?) {
 		if (loader === undefined) {
 			loader = true;
 		}
