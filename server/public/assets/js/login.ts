@@ -59,10 +59,10 @@
 		if (form.isValid) {
 			app.apiCall('post', '/login', form.values)
 				.then(function(res) {
-					if ($.isEmptyObject(res)) {
-						app.goHome();
-					} else {
+					if (res.errors) {
 						app.showFormErrors(errorContainerId, res);
+					} else {
+						app.goHome();
 					}
 				});
 		}
@@ -74,10 +74,10 @@
 		if (form.isValid) {
 			app.apiCall('post', '/password/forgot', form.values)
 				.then(function(res) {
-					if ($.isEmptyObject(res)) {
-						app.goHome();
+					if (res.errors) {
+						app.showFormErrors(forgotErrorContainerId, res.errors);
 					} else {
-						app.showFormErrors(forgotErrorContainerId, res);
+						app.goHome();
 					}
 				});
 		}

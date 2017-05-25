@@ -21,7 +21,9 @@ module.exports = function(router: express.Router) {
 
 				if (user.verified) {
 					return res.json({
-						password: 'Password account already verified'
+						errors: {
+							password: 'Password account already verified'
+						}
 					});
 				}
 
@@ -47,7 +49,9 @@ module.exports = function(router: express.Router) {
 					});
 				} else {
 					return res.json({
-						verified: 'Account verification expired'
+						errors: {
+							verified: 'Account verification expired'
+						}
 					});
 				}
 			}).populate({
@@ -84,7 +88,9 @@ module.exports = function(router: express.Router) {
 					});
 				} else {
 					return res.json({
-						email: 'Email is invalid'
+						errors: {
+							email: 'Email is invalid'
+						}
 					});
 				}
 			});

@@ -42,10 +42,10 @@
 					userToken: app.getParameterByName('user_token')
 				})
 				.then(function(res) {
-					if ($.isEmptyObject(res)) {
-						$(modalId).addClass('is-active');
+					if (res.errors) {
+						app.showFormErrors(errorContainerId, res.errors);
 					} else {
-						app.showFormErrors(errorContainerId, res);
+						$(modalId).addClass('is-active');
 					}
 				});
 		}

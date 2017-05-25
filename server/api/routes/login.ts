@@ -13,13 +13,17 @@ module.exports = function(router: express.Router) {
 
 				if (!user) {
 					return res.json({
-						email: 'Email not exist'
+						errors: {
+							email: 'Email not exist'
+						}
 					});
 				}
 
 				if (!user.verified) {
 					return res.json({
-						account: 'Account unverified '
+						errors: {
+							account: 'Account unverified '
+						}
 					});
 				}
 
@@ -40,7 +44,9 @@ module.exports = function(router: express.Router) {
 							return res.end();
 						} else {
 							return res.json({
-								password: 'Password is invalid'
+								errors: {
+									password: 'Password is invalid'
+								}
 							});
 						}
 					});
