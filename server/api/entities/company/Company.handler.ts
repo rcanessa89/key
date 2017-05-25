@@ -28,10 +28,14 @@ class CompanyHandler extends BaseHandler {
 				}
 			})
 			.then(recaptchaRes => {
+				if (process.env.ENVIRONMENT === 'test') {
+					resolve(recaptchaRes);
+				}
+
 				if (recaptchaRes.data.success) {
-					resolve(resolve);
+					resolve(recaptchaRes);
 				} else {
-					reject(recaptchaRes.data.success);
+					reject(recaptchaRes);
 				}
 			});
 		});
@@ -50,8 +54,10 @@ class CompanyHandler extends BaseHandler {
 
 				if (ifCompanyExist || ifEmailExist) {
 					res.json(Object.assign({}, {
-						company: ifCompanyExist ? 'That company name already exist' : undefined,
-						email: ifEmailExist ? 'That email is already registered' : undefined
+						errors: {
+							company: ifCompanyExist ? 'That company name already exist' : undefined,
+							email: ifEmailExist ? 'That email is already registered' : undefined
+						}
 					}));
 				} else {
 					this.saveCompanyUser(req, res);
@@ -92,7 +98,7 @@ class CompanyHandler extends BaseHandler {
 					text: 'A link to setup your password',
 					html: `<h1>Key App</h1><p>You are receiving this because you (or someone else) have requested the setup of the password for your account.Please click on the following link, or paste this into your browser to complete the process: <a href="${emailLink}">${emailLink}</a> </p>`
 				})
-				.then(info => res.end());
+				.then(info => res.send('xxx'));
 			});
 		});
 	}

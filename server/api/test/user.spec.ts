@@ -55,7 +55,7 @@ describe('User', () => {
 						res.body.should.have.property('name').eql(testUser.name);
 						res.body.should.have.property('last_name').eql(testUser.last_name);
 						res.body.should.have.property('rol').eql('viewer');
-						res.body.should.have.property('photoId').eql(null);
+						res.body.should.have.property('photo').eql(null);
 						res.body.should.have.property('email').eql(testUser.email);
 						res.body.should.have.property('created_at');
 						res.body.should.have.property('updated_at');
@@ -77,7 +77,7 @@ describe('User', () => {
 					res.body.should.have.property('name').eql(testUser.name);
 					res.body.should.have.property('last_name').eql(testUser.last_name);
 					res.body.should.have.property('rol').eql('viewer');
-					res.body.should.have.property('photoId').eql(null);
+					res.body.should.have.property('photo').eql(null);
 					res.body.should.have.property('email').eql(testUser.email);
 					res.body.should.have.property('created_at');
 					res.body.should.have.property('updated_at');

@@ -7,7 +7,6 @@ import * as chai from 'chai';
 import app from '../../index';
 import Company from '../entities/company/company.model';
 import User from '../entities/user/user.model';
-import loginTest from './login-test';
 
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -16,8 +15,6 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 describe('Company', () => {
-	let agent: any = null;
-
 	const testCompany: any = {
 		name: 'konrad',
 		email: 'konrad@konradgroup.com',
@@ -27,17 +24,14 @@ describe('Company', () => {
 	};
 
 	beforeEach(done => {
-		loginTest(app)
-			.then(newAgent => {
-				agent = newAgent;
-				done();
-			}, error => console.log('1', error))
-			.catch(error => console.log('2', error));
+		Company.remove({}, error => {
+			User.remove({}, error => done());
+		});
 	});
 
 	describe('/GET /company', () => {
 		it('it should GET all the companies', done => {
-			agent
+			chai.request(app)
 				.get('/api/company')
 				.end((err, res) => {
 					res.should.have.status(200);
@@ -56,7 +50,7 @@ describe('Company', () => {
 			testCompanyModel.save((error, company) => {
 				const endPoint: string = `/api/company/id/${company._id}`;
 
-				agent
+				chai.request(app)
 					.get(endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
@@ -77,7 +71,7 @@ describe('Company', () => {
 
 	describe('/POST /company', () => {
 		it('it should POST a company', done => {
-			agent
+			chai.request(app)
 				.post('/api/company')
 				.send(testCompany)
 				.end((err, res) => {
@@ -101,7 +95,7 @@ describe('Company', () => {
 
 		it('it should UPDATE a company', done => {
 			testCompanyModel.save((error, company) => {
-				agent
+				chai.request(app)
 					.patch('/api/company')
 					.send({ _id: company._id, name: newName })
 					.end((error, res) => {
@@ -122,7 +116,7 @@ describe('Company', () => {
 			testCompanyModel.save((error, company) => {
 				const endPoint: string = `/api/company/id/${company._id}`;
 
-				agent
+				chai.request(app)
 					['delete'](endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
@@ -145,12 +139,11 @@ describe('Company', () => {
 		};
 
 		it('it should create a company with a user with role "super_admin"', done => {
-			agent
-				.post('/api/company')
+			chai.request(app)
+				.post('/api/company-admin')
 				.send(objReq)
 				.end((error, res) => {
 					if (error) {
-						console.log(error);
 						done();
 					}
 
@@ -166,23 +159,36 @@ describe('Company', () => {
 				});
 		});
 
-		it('it should verified a duplicate company name', done => {
-			agent
-				.post('/api/company')
-				.send(objReq)
-				.end((error, res) => {
-					if (error) {
-						console.log(error);
-						done();
-					}
+		it('it should verified a duplicate company name or user email', done => {
+			const testCompanyModel = new Company(testCompany);
 
-					res.should.have.status(200);
-					res.body.should.be.a('object');
-					res.body.should.have.property('company').eql('That company name already exist');
-					res.body.should.have.property('email').eql('That email is already registered');
+			testCompanyModel.save((error, company) => {
+				const testUser: any = {
+					name: 'Rodolfo',
+					last_name: 'Canessa',
+					email: 'rcanessa89@hotmail.com',
+					company: company._id
+				};
+				const testUserModel = new User(testUser);
 
-					done();
+				testUserModel.save((error, user) => {
+					chai.request(app)
+						.post('/api/company-admin')
+						.send({ company: testCompany.name, email: testUser.email })
+						.end((error, res) => {
+							if (error) {
+								done();
+							}
+
+							res.should.have.status(200);
+							res.body.should.be.a('object');
+							res.body.should.have.property('company').eql('That company name already exist');
+							res.body.should.have.property('email').eql('That email is already registered');
+
+							done();
+						});
 				});
+			});
 		});
 	});
 });

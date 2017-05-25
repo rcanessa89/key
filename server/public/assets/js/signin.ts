@@ -73,10 +73,10 @@ var recaptchaCb;
 			photo: photo
 		})
 		.then(function(res) {
-			if ($.isEmptyObject(res)) {
-				$(modalId).addClass('is-active');
-			} else {
+			if (res.erros) {
 				app.showFormErrors(errorContainerId, res);
+			} else {
+				$(modalId).addClass('is-active');
 			}
 		});
 	};

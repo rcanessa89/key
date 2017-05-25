@@ -71,7 +71,7 @@ export default class BaseHandler {
 
 				req.session.logged.company.name = company['name'];
 
-				res.json(req.session.logged);
+				res.json(company);
 			});
 
 		} else if (req.originalUrl === '/api/user') {
