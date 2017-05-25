@@ -1,3 +1,9 @@
+import store from './store.app';
+import Api from './services/Api';
+import { getUserLoggedAction } from './services/user-logged';
+import { getCompanyLoggedAction } from './services/company-logged';
+
+// Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
 import AssetsPage from './pages/assets/assets.component';
 import DepartmentsPage from './pages/departments/departments.component';
@@ -7,6 +13,9 @@ import MainPage from './pages/main/main.component';
 import PeoplePage from './pages/people/People.component';
 import UsersPage from './pages/users/users.component';
 import CompanyPage from './pages/company/Company.component';
+
+
+const api = new Api();
 
 const notFound = {
 	name: 'not-found',
@@ -30,6 +39,28 @@ const main = {
 	name: 'main',
 	abstract: true,
 	component: MainPage,
+	resolve: {
+		data: () => new Promise((resolve, reject) => {
+			let data = {};
+
+			api.call('get', 'user/logged')
+				.then(res => {
+					store.dispatch(getUserLoggedAction(res.data));
+
+					data.user = res.data;
+
+					return api.call('get', `company/id/${res.data.company._id}?populate=users,departments,hosts`);
+				}, error => reject(error))
+				.then(res => {
+				store.dispatch(getCompanyLoggedAction(res.data));
+
+					data.company = res.data;
+
+					resolve(data);
+				}, error => reject(error))
+				.catch(error => reject(error));
+		})
+	}
 };
 
 const company = {

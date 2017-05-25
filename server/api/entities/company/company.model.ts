@@ -20,6 +20,11 @@ const companySchema: mongoose.Schema = new mongoose.Schema({
 		ref: 'User'
 	}],
 
+	hosts: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Host'
+	}],
+
 	registries: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Registry'

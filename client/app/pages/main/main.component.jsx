@@ -5,7 +5,7 @@ import AppNav from '../../components/app-nav/AppNav.component';
 import MobileNav from '../../components/mobile-nav/MobileNav.component';
 import Loading from '../../components/loading/Loading.component';
 
-export default () => (
+export default props => (
 	<div className="main-page">
 		<AppHeader />
 		<MobileNav />

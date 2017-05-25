@@ -22,7 +22,7 @@ export default class Api {
 
 	call(method = 'get', url = '/', data = null) {
 		return this.axios({
-			method,
+			method: method.toUpperCase(),
 			url: Api.formatUrl(url),
 			data,
 		});

@@ -28,6 +28,10 @@ export default class BaseHandler {
 		return resData;
 	}
 
+	private queryPopulate() {
+		
+	}
+
 	public ifExist(query: any, model?: mongoose.Model<mongoose.Document>): Promise<boolean> {
 		if (!model) {
 			model = this.model;
@@ -45,7 +49,15 @@ export default class BaseHandler {
 	}
 
 	public getById(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
-		this.model.findById(req.params.id, (error, data) => res.json(this.queryCallback(error, data)));
+		let query = this.model.findById(req.params.id);
+		
+		if (req.query.populate) {
+			const population = req.query.populate.replace(/,/g, ' ');
+
+			query = query.populate(population);
+		}
+
+		query.exec((error, data)  => res.json(this.queryCallback(error, data)));
 	}
 
 	public create(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {

@@ -26,26 +26,6 @@ export default () => (
 						</UISref>
 					</UISrefActive>
 				</li>
-				<li>
-					<UISrefActive class="is-active">
-						<UISref to="main.departments">
-							<a>
-								<span className="icon"><i className="fa fa-cubes" /></span>
-								Departments
-							</a>
-						</UISref>
-					</UISrefActive>
-				</li>
-				<li>
-					<UISrefActive class="is-active">
-						<UISref to="main.hosts">
-							<a>
-								<span className="icon"><i className="fa fa-users" /></span>
-								Hosts
-							</a>
-						</UISref>
-					</UISrefActive>
-				</li>
 			</ul>
 			<p className="menu-label">Registries</p>
 			<ul className="menu-list">

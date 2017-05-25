@@ -10,6 +10,8 @@ import forms from './components/app-form/reducer';
 import mobileNav from './components/mobile-nav/reducer';
 import header from './components/app-header/reducer';
 import loading from './components/loading/reducer';
+import { loggedReducer } from './services/user-logged';
+import { companyLoggedReducer } from './services/company-logged';
 
 let middleware = applyMiddleware(thunk);
 
@@ -23,6 +25,8 @@ const reducers = combineReducers({
 	mobileNav,
 	header,
 	loading,
+	user: loggedReducer,
+	company: companyLoggedReducer,
 });
 
 const store = createStore(reducers, middleware);
