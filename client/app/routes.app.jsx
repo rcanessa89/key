@@ -1,7 +1,7 @@
 import store from './store.app';
 import Api from './services/Api';
-import { getUserLoggedAction } from './services/user-logged';
-import { getCompanyLoggedAction } from './services/company-logged';
+import { getUserLoggedAction } from './services/set-current-logged';
+import { getCompanyLoggedAction } from './pages/company/action-creators';
 
 // Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
@@ -41,25 +41,19 @@ const main = {
 	component: MainPage,
 	resolve: {
 		data: () => new Promise((resolve, reject) => {
-			let data = {};
-
 			api.call('get', 'user/logged')
-				.then(res => {
-					store.dispatch(getUserLoggedAction(res.data));
+				.then(user => {
+					store.dispatch(getUserLoggedAction(user));
 
-					data.user = res.data;
-
-					return api.call('get', `company/id/${res.data.company._id}?populate=users,departments,hosts`);
+					return api.call('get', `company/id/${user.company._id}?populate=users,departments,hosts`);
 				}, error => reject(error))
-				.then(res => {
-				store.dispatch(getCompanyLoggedAction(res.data));
+				.then(company => {
+					store.dispatch(getCompanyLoggedAction(company));
 
-					data.company = res.data;
-
-					resolve(data);
+					resolve(true);
 				}, error => reject(error))
 				.catch(error => reject(error));
-		})
+		}),
 	}
 };
 

@@ -4,15 +4,15 @@ import getRol from '../../services/getRole';
 import capitalize from '../../util/capitalize-first';
 
 const propTypes = {
-    users: PropTypes.array.isRequired,
+    hosts: PropTypes.array.isRequired,
 };
 
-const UsersTable = props => {
-    const rows = props.users.map(user => (
+const HostsTable = props => {
+    const rows = props.hosts.map(host => (
         <tr>
-            <td>{capitalize(user.name)} {capitalize(user.last_name)}</td>
-            <td>{user.email}</td>
-            <td>{capitalize(getRol(user.role))}</td>
+            <td>{capitalize(host.name)} {capitalize(host.last_name)}</td>
+            <td>{capitalize(host.email)}</td>
+            <td><a className="button is-black">Black</a></td>
         </tr>
     ));
 
@@ -22,7 +22,6 @@ const UsersTable = props => {
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Role</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,6 +31,6 @@ const UsersTable = props => {
     );
 };
 
-UsersTable.propTypes = propTypes;
+HostsTable.propTypes = propTypes;
 
-export default UsersTable;
+export default HostsTable;

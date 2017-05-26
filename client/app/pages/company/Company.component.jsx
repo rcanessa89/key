@@ -1,35 +1,46 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import SectionHeader from '../../components/section-header/SectionHeader.component';
 import Title from '../../components/title/Title.component';
-import UsersTable from './UsersTable.component';
+import DepartmentsTable from './DepartmentsTable.component';
+import HostsTable from './HostsTable.component';
 
-export default props => {
-	const company = props.resolves.data.company;
+const stateMap = state => ({
+	company: state.company,
+});
 
-	console.log(props.resolves.data);
-
+const CompanyPage = props => {
 	return (
 		<div className="company-page">
 			<SectionHeader
-				title={company.name}
+				title={props.company.name}
 				subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 				line
 			/>
-			<Title
-				text="Users"
-				size="4"
-			/>
 			<div className="columns is-multiline">
-				<div className="column is-12">
-					<UsersTable users={company.users} />
+				<div className="column is-half">
+					<div className="table-title">
+						<Title
+							text="Departments"
+							size="4"
+						/>
+						<button>Create</button>
+					</div>
+					<DepartmentsTable departments={props.company.departments} />
 				</div>
 				<div className="column is-half">
-					asd
-				</div>
-				<div className="column is-half">
-					wqe
+					<div className="table-title">
+						<Title
+							text="Hosts"
+							size="4"
+						/>
+						<button>Create</button>
+					</div>
+					<HostsTable hosts={props.company.hosts} />
 				</div>
 			</div>
 		</div>
 	);
 };
+
+export default connect(stateMap)(CompanyPage);

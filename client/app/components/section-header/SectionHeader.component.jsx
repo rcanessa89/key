@@ -5,20 +5,19 @@ import capitalizeFirst from '../../util/capitalize-first';
 const propTypes = {
 	title: PropTypes.string.isRequired,
 	subtitle: PropTypes.string,
-    line: PropTypes.boolean,
+	line: PropTypes.bool,
 };
 
 const SectionHeader = props => {
-    const hr = props.line ? <hr /> : null;
+	const hr = props.line ? <hr /> : null;
 
-    return (
-        <div className="heading">
-            <h1 className="title">{capitalizeFirst(props.title)}</h1>
-            <h2 className="subtitle">{capitalizeFirst(props.subtitle)}</h2>
-            {hr}
-        </div>
-    )
-
+	return (
+		<div className="heading">
+			<h1 className="title">{capitalizeFirst(props.title)}</h1>
+			<h2 className="subtitle">{capitalizeFirst(props.subtitle)}</h2>
+			{hr}
+		</div>
+	);
 };
 
 SectionHeader.propTypes = propTypes;

@@ -1,7 +1,9 @@
 import * as mongoose from 'mongoose';
 import IRegistry from '../registry/IRegistry';
+import ICompany from '../company/ICompany';
 
 interface IAsset extends mongoose.Document {
+	company: ICompany;
 	asset_type: string;
 	asset_model: string;
 	brand: string;

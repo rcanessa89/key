@@ -1,0 +1,15 @@
+.company-page {
+	.table-title {
+		display: flex;
+
+		button {
+			@include button-reset();
+			margin-left: 15px;
+			color: $info;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}

@@ -2,6 +2,11 @@ import * as mongoose from 'mongoose';
 import IAsset from './IAsset';
 
 const assetSchema: mongoose.Schema = new mongoose.Schema({
+	company: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Company'
+	},
+	
 	asset_type: {
 		type: String,
 		required: true,

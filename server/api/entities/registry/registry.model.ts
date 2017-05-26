@@ -20,6 +20,11 @@ const registrySchema: mongoose.Schema = new mongoose.Schema({
 		trim: true
 	},
 
+	company: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Company'
+	},
+
 	host: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Host'

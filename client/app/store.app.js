@@ -9,9 +9,9 @@ import modal from './components/modal/reducer';
 import forms from './components/app-form/reducer';
 import mobileNav from './components/mobile-nav/reducer';
 import header from './components/app-header/reducer';
-import loading from './components/loading/reducer';
-import { loggedReducer } from './services/user-logged';
-import { companyLoggedReducer } from './services/company-logged';
+import company from './pages/company/reducer';
+import { userReducer } from './services/set-current-logged';
+import { fetchReducer } from './services/Api';
 
 let middleware = applyMiddleware(thunk);
 
@@ -24,9 +24,9 @@ const reducers = combineReducers({
 	forms,
 	mobileNav,
 	header,
-	loading,
-	user: loggedReducer,
-	company: companyLoggedReducer,
+	company,
+	user: userReducer,
+	fetching: fetchReducer,
 });
 
 const store = createStore(reducers, middleware);

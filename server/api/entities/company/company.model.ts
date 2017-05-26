@@ -23,16 +23,6 @@ const companySchema: mongoose.Schema = new mongoose.Schema({
 	hosts: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Host'
-	}],
-
-	registries: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Registry'
-	}],
-
-	assets: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Asset'
 	}]
 }, {
 	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
