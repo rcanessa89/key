@@ -18,24 +18,29 @@ const propTypes = {
 	iconSize: PropTypes.oneOf(['small', 'medium', 'large']),
 	iconClass: PropTypes.string,
 	action: PropTypes.func.isRequired,
+	resetStyle: PropTypes.bool,
 };
 
 const defaultProps = {
 	disabled: false,
+	action: () => false,
+	resetStyle: false,
 };
 
 const AppButton = (props) => {
+	const isReseted = value => !props.resetStyle && value ? true : false;
+
 	const buttonClassName = classnames({
-		[`is-${props.type}`]: props.type,
-		[`is-${props.size}`]: props.size,
-		'is-inverted': props.inverted,
-		'is-outlined': props.outlined,
-		[`is-${props.state}`]: props.state,
-		'is-focused': props.focused,
-		'is-hovered': props.hovered,
-		'is-active': props.active,
-		'is-loading': props.loading,
-		button: true,
+		[`is-${props.type}`]: isReseted(props.type),
+		[`is-${props.size}`]: isReseted(props.size),
+		'is-inverted': isReseted(props.inverted),
+		'is-outlined': isReseted(props.outlined),
+		[`is-${props.state}`]: isReseted(props.state),
+		'is-focused': isReseted(props.focused),
+		'is-hovered': isReseted(props.hovered),
+		'is-active': isReseted(props.active),
+		'is-loading': isReseted(props.loading),
+		button: !props.resetStyle,
 	});
 
 	const iconSizeClassName = props.iconSize ? `icon is-${props.iconSize}` : 'icon';

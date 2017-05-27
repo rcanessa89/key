@@ -28,7 +28,7 @@ const propTypes = {
 		required: PropTypes.bool,
 	}),
 	columns: PropTypes.string,
-	columnsTable: PropTypes.string,
+	columnsTablet: PropTypes.string,
 	columnsMobile: PropTypes.string,
 };
 
@@ -48,7 +48,7 @@ const defaultProps = {
 		required: false,
 	},
 	columns: '12',
-	columnsTable: '12',
+	columnsTablet: '12',
 	columnsMobile: '12',
 };
 
@@ -121,7 +121,7 @@ class TextInput extends React.PureComponent {
 		let errorMessage = null;
 
 		if (this.props.state.required) {
-			errorMessage = <p className="help is-danger">{`The ${this.props.name} field is required.`}</p>;
+			errorMessage = <p className="help is-danger">{`The ${this.props.name.replace(/-/g, ' ')} field is required.`}</p>;
 		} else if (!this.props.state.valid) {
 			errorMessage = <p className="help is-danger">{this.errorMessage ? capitalizeFirst(this.errorMessage) : 'Invalid value.' }</p>;
 		}
@@ -135,7 +135,7 @@ class TextInput extends React.PureComponent {
 		const fieldClassName = classnames({
 			column: true,
 			[`is-${this.props.columns}-desktop`]: true,
-			[`is-${this.props.columnsTable}-tablet`]: true,
+			[`is-${this.props.columnsTablet}-tablet`]: true,
 			[`is-${this.props.columnsMobile}-mobile`]: true,
 		});
 

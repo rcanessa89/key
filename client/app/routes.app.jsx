@@ -2,12 +2,11 @@ import store from './store.app';
 import Api from './services/Api';
 import { getUserLoggedAction } from './services/set-current-logged';
 import { getCompanyLoggedAction } from './pages/company/action-creators';
+import { setUsers } from './pages/users/action-creators';
 
 // Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
 import AssetsPage from './pages/assets/assets.component';
-import DepartmentsPage from './pages/departments/departments.component';
-import HostsPage from './pages/hosts/hosts.component';
 import LoginPage from './pages/login/login.component';
 import MainPage from './pages/main/main.component';
 import PeoplePage from './pages/people/People.component';
@@ -45,12 +44,11 @@ const main = {
 				.then(user => {
 					store.dispatch(getUserLoggedAction(user));
 
-					return api.call('get', `company/id/${user.company._id}?populate=users,departments,hosts`);
+					return api.call('get', `company/id/${user.company._id}?populate=users`);
 				}, error => reject(error))
 				.then(company => {
 					store.dispatch(getCompanyLoggedAction(company));
-
-					resolve(true);
+					resolve();
 				}, error => reject(error))
 				.catch(error => reject(error));
 		}),
@@ -72,24 +70,6 @@ const assets = {
 	component: AssetsPage,
 	data: {
 		title: 'Assets',
-	},
-};
-
-const departments = {
-	name: 'main.departments',
-	url: '/departments',
-	component: DepartmentsPage,
-	data: {
-		title: 'Departments',
-	},
-};
-
-const hosts = {
-	name: 'main.hosts',
-	url: '/hosts',
-	component: HostsPage,
-	data: {
-		title: 'Hosts',
 	},
 };
 
@@ -117,8 +97,6 @@ const states = [
 	main,
 	company,
 	assets,
-	departments,
-	hosts,
 	people,
 	users,
 ];

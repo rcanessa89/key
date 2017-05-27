@@ -14,4 +14,7 @@ module.exports = function(router: express.Router) {
 
 	router.route('/company-admin')
 		.post(companyHandler.createCompanyUser.bind(companyHandler));
+
+	router.route('/add-host')
+		.post(authApiMiddleware, companyHandler.addHost)
 };

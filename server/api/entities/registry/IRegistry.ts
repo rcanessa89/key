@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import IHost from '../host/IHost';
 import ICompany from '../company/ICompany';
 
 interface IRegistry extends mongoose.Document {
@@ -7,7 +6,7 @@ interface IRegistry extends mongoose.Document {
 	last_name: string;
 	document_id: string;
 	company: ICompany;
-	host: IHost;
+	host: any;
 	sign: string;
 	check_in: Date;
 	check_out: Date;

@@ -1,8 +1,7 @@
 import * as mongoose from 'mongoose';
-import IHost from './IHost';
 import regex from '../../util/regex';
 
-const hostSchema: mongoose.Schema = new mongoose.Schema({
+export default new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -26,14 +25,7 @@ const hostSchema: mongoose.Schema = new mongoose.Schema({
 
 			message: '{VALUE} is not a valid email.'
 		}
-	},
-
-	department: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Department'
 	}
 }, {
 	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
-
-export default mongoose.model <IHost> ('Host', hostSchema);

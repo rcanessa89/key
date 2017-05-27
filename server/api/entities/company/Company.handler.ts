@@ -65,6 +65,14 @@ class CompanyHandler extends BaseHandler {
 			});
 	}
 
+	public addHost(req: express.Request & ParsedAsJson, res: express.Response) {
+
+	}
+
+	public addDepartment(req: express.Request & ParsedAsJson, res: express.Response) {
+		
+	}
+
 	private saveCompanyUser(req: express.Request & ParsedAsJson, res: express.Response): void {
 		const newCompany = new companyModel({
 			name: req.body.company

@@ -2,8 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SectionHeader from '../../components/section-header/SectionHeader.component';
 import Title from '../../components/title/Title.component';
-import DepartmentsTable from './DepartmentsTable.component';
-import HostsTable from './HostsTable.component';
+import Modal from '../../components/modal/Modal.component';
+import AppButton from '../../components/app-button/AppButton.component';
+import AppForm from '../../components/app-form/AppForm.component';
+import TextInput from '../../components/app-form/TextInput.component';
+import DepartmentFilterPanel from './department-filter-panel/DepartmentFilterPanel.component';
+
 
 const stateMap = state => ({
 	company: state.company,
@@ -14,29 +18,15 @@ const CompanyPage = props => {
 		<div className="company-page">
 			<SectionHeader
 				title={props.company.name}
-				subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+				subtitle="Departments and hosts"
 				line
 			/>
 			<div className="columns is-multiline">
-				<div className="column is-half">
-					<div className="table-title">
-						<Title
-							text="Departments"
-							size="4"
-						/>
-						<button>Create</button>
-					</div>
-					<DepartmentsTable departments={props.company.departments} />
+				<div className="column is-4">
+					<DepartmentFilterPanel />
 				</div>
-				<div className="column is-half">
-					<div className="table-title">
-						<Title
-							text="Hosts"
-							size="4"
-						/>
-						<button>Create</button>
-					</div>
-					<HostsTable hosts={props.company.hosts} />
+				<div className="column is-8">
+				
 				</div>
 			</div>
 		</div>

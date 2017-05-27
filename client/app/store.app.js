@@ -10,6 +10,7 @@ import forms from './components/app-form/reducer';
 import mobileNav from './components/mobile-nav/reducer';
 import header from './components/app-header/reducer';
 import company from './pages/company/reducer';
+import users from './pages/users/reducer';
 import { userReducer } from './services/set-current-logged';
 import { fetchReducer } from './services/Api';
 
@@ -25,6 +26,7 @@ const reducers = combineReducers({
 	mobileNav,
 	header,
 	company,
+	users,
 	user: userReducer,
 	fetching: fetchReducer,
 });

@@ -1,8 +1,10 @@
 .company-page {
 	.table-title {
 		display: flex;
+	}
 
-		button {
+	.app-modal {
+		& > button {
 			@include button-reset();
 			margin-left: 15px;
 			color: $info;
@@ -11,5 +13,9 @@
 				text-decoration: underline;
 			}
 		}
+	}
+
+	.app-modal {
+		@include flex(null, center);
 	}
 }

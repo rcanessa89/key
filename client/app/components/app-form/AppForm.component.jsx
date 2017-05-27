@@ -8,7 +8,7 @@ import AppButton from '../app-button/AppButton.component';
 import store from '../../store.app';
 
 const propTypes = {
-	title: PropTypes.string.isRequired,
+	title: PropTypes.string,
 	subtitle: PropTypes.string,
 	children: PropTypes.arrayOf(PropTypes.element).isRequired,
 	formId: PropTypes.string,
@@ -23,8 +23,8 @@ const propTypes = {
 
 const defaultProps = {
 	formId: null,
+	title: null,
 	subtitle: null,
-	onCancel: () => false,
 	withButtons: true,
 	endpoint: null,
 	selfDEstroy: true,
@@ -100,6 +100,7 @@ class AppForm extends React.PureComponent {
 	}
 
 	render() {
+		const title = this.props.title ? (<h2 className="title is-2">{capitalizeFirst(this.props.title)}</h2>) : null;
 		const subtitle = this.props.subtitle ? (<h3 className="title is-3">{capitalizeFirst(this.props.subtitle)}</h3>) : null;
 		const cancelButton = this.props.onCancel ? (
 			<AppButton
@@ -124,7 +125,7 @@ class AppForm extends React.PureComponent {
 				id={this.id}
 				className="app-form"
 			>
-				<h2 className="title is-2">{capitalizeFirst(this.props.title)}</h2>
+				{title}
 				{subtitle}
 				<div className="columns is-multiline">{this.fields}</div>
 				{buttonsContainer}
