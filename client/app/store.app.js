@@ -6,11 +6,13 @@ import storeSubscribeEvents from './services/store-subscribe-events';
 
 // Reducers
 import modal from './components/modal/reducer';
+import buttonMenus from './components/button-menu/reducer';
 import forms from './components/app-form/reducer';
 import mobileNav from './components/mobile-nav/reducer';
 import header from './components/app-header/reducer';
 import company from './pages/company/reducer';
 import users from './pages/users/reducer';
+import departmentFilter from './pages/company/department-filter-panel/reducer';
 import { userReducer } from './services/set-current-logged';
 import { fetchReducer } from './services/Api';
 
@@ -27,6 +29,8 @@ const reducers = combineReducers({
 	header,
 	company,
 	users,
+	buttonMenus,
+	departmentFilter,
 	user: userReducer,
 	fetching: fetchReducer,
 });

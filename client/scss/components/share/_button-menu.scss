@@ -1,0 +1,29 @@
+.button-menu {
+	button {
+		position: relative;
+	}
+
+	ul {
+		position: absolute;
+		min-width: 200px;
+		top: calc(100% + 5px);
+		background-color: $white;
+		box-shadow: $pop-shadow;
+		z-index: z-index(modal);
+
+		a {
+			border: none !important;
+		}
+	}
+
+	.delete {
+		&:before,
+		&:after {
+			content: none !important;
+		}
+
+		span {
+			@include flex(center, center);
+		}
+	}
+}

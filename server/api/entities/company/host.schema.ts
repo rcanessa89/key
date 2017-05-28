@@ -12,19 +12,6 @@ export default new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true
-	},
-
-	email: {
-		type: String,
-		unique: true,
-		required: true,
-		validate: {
-			validator: function(v) {
-				return regex.email.test(v);
-			},
-
-			message: '{VALUE} is not a valid email.'
-		}
 	}
 }, {
 	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

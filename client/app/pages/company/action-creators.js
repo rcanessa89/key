@@ -6,16 +6,6 @@ const getCompanyLoggedAction = payload => ({
     payload,
 });
 
-const getCreateHostAction = payload => ({
-	type: actions.createHost,
-	payload: res,
-});
-
-const getCreateDepartmentAction = payload => ({
-	type: actions.createDepartment,
-	payload: res,
-});
-
 // Async
 const createHost = newHostData => dispatch => {
 	companyService.saveHost(newHostData)
@@ -24,7 +14,7 @@ const createHost = newHostData => dispatch => {
 
 const createDepartment = newDepartmentData => dispatch => {
 	companyService.saveDepartment(newDepartmentData)
-		.then(departmentCreated => dispatch(getCreateDepartmentAction(departmentCreated)));
+		.then(company => dispatch(getCompanyLoggedAction(company)));
 };
 
-export { getCompanyLoggedAction };
+export { getCompanyLoggedAction, createDepartment };

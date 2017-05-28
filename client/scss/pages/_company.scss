@@ -1,21 +1,11 @@
 .company-page {
-	.table-title {
-		display: flex;
-	}
-
-	.app-modal {
-		& > button {
-			@include button-reset();
-			margin-left: 15px;
-			color: $info;
-
-			&:hover {
-				text-decoration: underline;
-			}
+	.panel {
+		.app-modal {
+			width: 100%;
 		}
-	}
 
-	.app-modal {
-		@include flex(null, center);
+		form {
+			padding: 20px 0;
+		}
 	}
 }

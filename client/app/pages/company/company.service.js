@@ -1,11 +1,10 @@
 import Api from '../../services/Api';
 
 const api = new Api();
-
-const createNewHost = data => api.call('post', 'host');
-const createDepartment = data => api.call('post', 'department');
+const saveDepartment = data => api.call('post', 'company/department', data);
+const saveHost = data => api.call('post', 'company/add-host');
 
 export default {
-	createNewHost,
-	createDepartment
+	saveHost,
+	saveDepartment
 };

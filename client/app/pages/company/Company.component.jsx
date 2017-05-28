@@ -7,7 +7,7 @@ import AppButton from '../../components/app-button/AppButton.component';
 import AppForm from '../../components/app-form/AppForm.component';
 import TextInput from '../../components/app-form/TextInput.component';
 import DepartmentFilterPanel from './department-filter-panel/DepartmentFilterPanel.component';
-
+import HostList from './host-list/HostList.component';
 
 const stateMap = state => ({
 	company: state.company,
@@ -23,10 +23,12 @@ const CompanyPage = props => {
 			/>
 			<div className="columns is-multiline">
 				<div className="column is-4">
-					<DepartmentFilterPanel />
+					<DepartmentFilterPanel
+						departments={props.company.departments}
+					/>
 				</div>
 				<div className="column is-8">
-				
+					<HostList />
 				</div>
 			</div>
 		</div>

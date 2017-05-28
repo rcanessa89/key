@@ -19,12 +19,14 @@ const propTypes = {
 	iconClass: PropTypes.string,
 	action: PropTypes.func.isRequired,
 	resetStyle: PropTypes.bool,
+	fullWidth: PropTypes.bool,
 };
 
 const defaultProps = {
 	disabled: false,
 	action: () => false,
 	resetStyle: false,
+	fullWidth: false,
 };
 
 const AppButton = (props) => {
@@ -40,6 +42,7 @@ const AppButton = (props) => {
 		'is-hovered': isReseted(props.hovered),
 		'is-active': isReseted(props.active),
 		'is-loading': isReseted(props.loading),
+		'is-fullwidth': isReseted(props.fullWidth),
 		button: !props.resetStyle,
 	});
 

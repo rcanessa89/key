@@ -10,7 +10,7 @@ import store from '../../store.app';
 const propTypes = {
 	title: PropTypes.string,
 	subtitle: PropTypes.string,
-	children: PropTypes.arrayOf(PropTypes.element).isRequired,
+	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]).isRequired,
 	formId: PropTypes.string,
 	init: PropTypes.func.isRequired,
 	destroy: PropTypes.func.isRequired,
@@ -30,6 +30,10 @@ const defaultProps = {
 	selfDEstroy: true,
 };
 
+const stateMap = (state, ownProps) => ({
+	form: state.forms[ownProps.formId]
+});
+
 const dispatchMap = dispatch => ({
 	init: state => dispatch(actionCreators.init(state)),
 	destroy: id => dispatch(actionCreators.destroy(id)),
@@ -48,15 +52,27 @@ class AppForm extends React.PureComponent {
 		return values;
 	}
 
-	constructor(props) {
-		super(props);
-		this.id = this.props.formId || guid();
-		this.form = null;
-		this.submit = this.submit.bind(this);
-		this.fields = React.Children.map(this.props.children, child => React.cloneElement(child, { ...child.props, formId: this.id, fieldId: guid() }));
+	componentWillMount() {
+		this.setForm();
 	}
 
-	componentWillMount() {
+	componentWillReceiveProps(nextProps) {
+		if (!nextProps.form) {
+			this.setForm();
+		}
+	}
+
+	componentWillUnmount() {
+		if (this.props.selfDEstroy) {
+			this.props.destroy(this.id);
+		}
+	}
+
+	setForm() {
+		this.id = this.props.formId || guid();
+		this.submit = this.submit.bind(this);
+		this.fields = React.Children.map(this.props.children, child => React.cloneElement(child, { ...child.props, formId: this.id, fieldId: child.props.fieldId || guid() }));
+		
 		const state = {
 			id: this.id,
 			valid: false,
@@ -67,14 +83,8 @@ class AppForm extends React.PureComponent {
 		this.props.init(state);
 	}
 
-	componentWillUnmount() {
-		if (this.props.selfDEstroy) {
-			this.props.destroy(this.id);
-		}
-	}
-
 	submit() {
-		const form = { ...store.getState().forms[this.id] };
+		const form = this.props.form;
 
 		let isValid = true;
 
@@ -96,10 +106,15 @@ class AppForm extends React.PureComponent {
 
 		if (isValid) {
 			this.props.onSubmit(AppForm.getFormValues(form));
+			this.props.destroy(this.id);
 		}
 	}
 
 	render() {
+		if (!this.props.form) {
+			return null;
+		}
+
 		const title = this.props.title ? (<h2 className="title is-2">{capitalizeFirst(this.props.title)}</h2>) : null;
 		const subtitle = this.props.subtitle ? (<h3 className="title is-3">{capitalizeFirst(this.props.subtitle)}</h3>) : null;
 		const cancelButton = this.props.onCancel ? (
@@ -120,7 +135,7 @@ class AppForm extends React.PureComponent {
 			</div>
 		) : null;
 
-		return (
+		const form = (
 			<form
 				id={this.id}
 				className="app-form"
@@ -131,10 +146,12 @@ class AppForm extends React.PureComponent {
 				{buttonsContainer}
 			</form>
 		);
+
+		return form;
 	}
 }
 
 AppForm.propTypes = propTypes;
 AppForm.defaultProps = defaultProps;
 
-export default connect(null, dispatchMap)(AppForm);
+export default connect(stateMap, dispatchMap)(AppForm);
