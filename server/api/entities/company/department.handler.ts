@@ -32,7 +32,7 @@ const deleteDepartmentById = (req: express.Request & ParsedAsJson & session, res
 	companySubDoc.runQuery(req, res, {
 		id: req.session.logged.company._id,
 		apply: result => {
-			result.departments['id'](req.params.id).remove();
+			result.departments['id'](req.params.departmentId).remove();
 
 			return result;
 		}

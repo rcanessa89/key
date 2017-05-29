@@ -11,9 +11,10 @@ import AppForm from '../../../components/app-form/AppForm.component';
 import TextInput from '../../../components/app-form/TextInput.component';
 import ModalControl from '../../../services/ModalControl';
 import capitalizeFirst from '../../../util/capitalize-first';
+import companyService from '../company.service';
 
 const propTypes = {
-	departments: PropTypes.array.isRequired,
+	departments: PropTypes.object.isRequired,
 	filter: PropTypes.shape({
 		department: PropTypes.shape({
 			created_at: PropTypes.string,
@@ -33,13 +34,8 @@ const stateMap = state => ({
 const dispatchMap = dispatch => bindActionCreators({ ...actionCreators, createDepartment: createDepartment }, dispatch);
 
 class DepartmentFilterPanel extends React.PureComponent {
-	constructor() {
-		super();
-		this.getAllHost = this.getAllHost.bind(this);
-	}
-	
 	componentWillMount() {
-		this.props.filterByDepartment({ name: 'All', hosts: this.getAllHost() });
+		this.props.filterByDepartment({ name: 'All', hosts: companyService.getAllHost(this.props.departments) });
 	}
 
 	componentWillUnmount() {
@@ -73,18 +69,6 @@ class DepartmentFilterPanel extends React.PureComponent {
 		return panelBlock;
 	}
 
-	getAllHost() {
-		let hosts = [];
-
-		for (const key in this.props.departments) {
-			const department = this.props.departments[key];
-
-			hosts = [ ...hosts, ...department.hosts ];
-		}
-
-		return hosts;
-	}
-
 	render() {
 		const modalId = 'modalNewDepartment'
 		const modalControl = new ModalControl(modalId);
@@ -106,7 +90,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 					</p>
 				</div>
 				<a className={this.props.filter.department.name === 'All' ? 'panel-block is-active' : 'panel-block'}
-					onClick={this.props.filterByDepartment.bind(null, { name: 'All', hosts: this.getAllHost() })}
+					onClick={this.props.filterByDepartment.bind(null, { name: 'All', hosts: companyService.getAllHost(this.props.departments) })}
 				>
 					All
 				</a>

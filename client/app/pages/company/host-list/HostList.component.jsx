@@ -10,9 +10,10 @@ import AppForm from '../../../components/app-form/AppForm.component';
 import TextInput from '../../../components/app-form/TextInput.component';
 import ModalControl from '../../../services/ModalControl';
 import * as companyAction from '../action-creators';
+import companyService from '../company.service';
 
 const propTypes = {
-	allDepartments: PropTypes.array.isRequired,
+	allDepartments: PropTypes.object.isRequired,
 	department: PropTypes.shape({
 		created_at: React.PropTypes.string,
 		hosts: React.PropTypes.array,
@@ -49,49 +50,34 @@ const HostList = props => {
 	
 	let editableValue;
 
-	const editDepartment = () => {
+	const toContentEditable = elId => {
 		if (props.department.name !== 'All') {
-			const departmentName = document.getElementById(departmentNameId);
+			const el = document.getElementById(elId);
 
-			editableValue = departmentName.innerHTML;
+			editableValue = el.innerHTML;
 
-			departmentName.setAttribute('contenteditable', 'true');
-			departmentName.focus();
+			el.setAttribute('contenteditable', 'true');
+			el.focus();
 		}
 	};
 
-	const onEditBlur = e => {
-		if (e.target.innerHTML === '') {
-			e.target.innerHTML = editableValue;
-		} else {
-			editableValue = e.target.innerHTML;
+	const onEditBlur = (elId, cb, event) => {
+		if (event.target.innerHTML === '') {
+			event.target.innerHTML = editableValue;
+		} else if (event.target.innerHTML !== editableValue) {
+			editableValue = event.target.innerHTML;
+			cb(editableValue);
 		}
 
-		const departmentName = document.getElementById(departmentNameId);
+		const el = document.getElementById(elId);
 
-		departmentName.setAttribute('contenteditable', 'false');
-
-		props.editDepartment({
-			departmentId: props.department._id,
-			name: editableValue,
-		});
+		el.setAttribute('contenteditable', 'false');
 	}
 
 	const deleteDepartment = () => {
 		props.deleteDepartment(props.department._id);
+		companyService.setFilerAll();
 	};
-
-	const departmentMenuItems = [
-		{
-			text: 'Edit',
-			action: editDepartment,
-		},
-
-		{
-			text: 'Delete',
-			action: deleteDepartment,
-		},
-	];
 
 	const onSubmitCreateHost = values => {
 		const data = { ...values, departmentId: props.department._id };
@@ -101,23 +87,44 @@ const HostList = props => {
 		modalControl.close();
 	};
 
-	const departmentTitle = props.department.name !== 'All' ? (
-		<div className="department-title-container">
-			<h3
-				id={departmentNameId}
-				onBlur={onEditBlur}
-				className="title is-3"
-			>
-				{capitalizeFirst(props.department.name)}
-			</h3>
-			<ButtonMenu
-				side="left"
-				items={departmentMenuItems}
-			/>
-		</div>
-	) : (
-		<h3 className="title is-3">{capitalizeFirst(props.department.name)}</h3>
-	);
+	const getDepartmentTitle = () => {
+		const departmentMenuItems = [
+			{
+				text: 'Edit',
+				action: toContentEditable.bind(null, departmentNameId),
+			},
+
+			{
+				text: 'Delete',
+				action: deleteDepartment,
+			},
+		];
+
+		const departmentTitle = props.department.name !== 'All' ? (
+			<div className="department-title-container">
+				<h3
+					id={departmentNameId}
+					className="title is-3"
+					onBlur={onEditBlur.bind(null, departmentNameId, () => {
+						props.editDepartment({
+							departmentId: props.department._id,
+							name: editableValue,
+						});
+					})}
+				>
+					{capitalizeFirst(props.department.name)}
+				</h3>
+				<ButtonMenu
+					side="left"
+					items={departmentMenuItems}
+				/>
+			</div>
+		) : (
+			<h3 className="title is-3">{capitalizeFirst(props.department.name)}</h3>
+		);
+
+		return departmentTitle;
+	}
 
 	const createHostModal = props.department.name !== 'All' ? (
 		<Modal
@@ -167,11 +174,88 @@ const HostList = props => {
 	return (
 		<div className="host-list">
 			{createHostModal}
-			{departmentTitle}
+			{getDepartmentTitle()}
 			<div className="hosts-container">
-				{
-					props.hosts.map(host => <div>{host.name}</div>)
-				}
+				<table className="table is-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Last Name</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							props.hosts.map(host => {
+								const nameId = `name-${host._id}`;
+								const lastNameId = `last-name-${host._id}`;
+								const hostMenuItems = [
+									{
+										text: 'Edit name',
+										action: hostNameId => toContentEditable.bind(null, nameId)(),
+									},
+
+									{
+										text: 'Edit last name',
+										action: hostNameId => toContentEditable.bind(null, lastNameId)(),
+									},
+
+									{
+										text: 'Delete',
+										action: () => props.deleteHost(props.department._id, host._id),
+									},
+								];
+
+								const menuButton = props.department.name !== 'All' ? (
+									<ButtonMenu
+										side="left"
+										items={hostMenuItems}
+									/>
+								) : null;
+
+								return (
+									<tr key={host._id}>
+										<td
+											id={nameId}
+											onBlur={onEditBlur.bind(
+												null,
+												nameId,
+												() => {
+													props.editHost({
+														departmentId: props.department._id,
+														hostId: host._id,
+														name: editableValue,
+													});
+												}
+											)}
+										>
+											{capitalizeFirst(host.name)}
+										</td>
+										<td
+											id={lastNameId}
+											onBlur={onEditBlur.bind(
+												null,
+												lastNameId,
+												() => {
+													props.editHost({
+														departmentId: props.department._id,
+														hostId: host._id,
+														last_name: editableValue,
+													});
+												}
+											)}
+										>
+											{capitalizeFirst(host.last_name)}
+										</td>
+										<td>
+											{menuButton}
+										</td>
+									</tr>
+								)
+							})
+						}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	);
