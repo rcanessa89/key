@@ -1,7 +1,7 @@
 import actions from './actions';
 
 const initialState = {
-	department: { name: 'All' },
+	department: { name: 'All', hosts: [] },
 	search: ''
 };
 

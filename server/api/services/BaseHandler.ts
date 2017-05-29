@@ -14,8 +14,6 @@ export default class BaseHandler {
 		this.deleteById = this.deleteById.bind(this);
 	}
 
-	private model: mongoose.Model<mongoose.Document>;
-
 	private queryCallback(error, data): any {
 		let resData = null;
 
@@ -28,9 +26,7 @@ export default class BaseHandler {
 		return resData;
 	}
 
-	private queryPopulate() {
-		
-	}
+	public model: mongoose.Model<mongoose.Document>;
 
 	public ifExist(query: any, model?: mongoose.Model<mongoose.Document>): Promise<boolean> {
 		if (!model) {

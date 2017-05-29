@@ -12,7 +12,7 @@ const destroy = payload => ({
 
 const change = payload => ({
 	type: actions.change,
-	paylaod,
+	payload,
 });
 
 export { init, destroy, change };

@@ -1,6 +1,23 @@
 .button-menu {
-	button {
-		position: relative;
+	position: relative;
+	display: inline-block;
+	
+	&.is-active {
+		ul {
+			display: block;
+		}
+	}
+
+	&.is-right {
+		ul {
+			left: 0;
+		}
+	}
+
+	&.is-left {
+		ul {
+			right: 0;
+		}
 	}
 
 	ul {
@@ -10,6 +27,7 @@
 		background-color: $white;
 		box-shadow: $pop-shadow;
 		z-index: z-index(modal);
+		display: none;
 
 		a {
 			border: none !important;

@@ -9,7 +9,16 @@ import capitalizeFirst from '../../util/capitalize-first';
 import guid from '../../util/guid';
 
 const propTypes = {
-	wrapperClass: React.PropTypes.string
+	wrapperClass: React.PropTypes.string,
+	side: PropTypes.oneOf(['right', 'left']),
+	items: PropTypes.arrayOf(PropTypes.shape({
+		text: PropTypes.string,
+		action: PropTypes.func,
+	})).isRequired,
+};
+
+const defaultProps = {
+	side: 'right',
 };
 
 const stateMap = (state, ownProps) => ({
@@ -18,48 +27,90 @@ const stateMap = (state, ownProps) => ({
 
 const dispatchMap = dispatch => bindActionCreators(actionCreators, dispatch);
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign({}, ownProps, stateProps, dispatchProps, {
-	id: guid(),
-});
-
 class ButtonMenu extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
 		this.list = null;
+		this.id = guid();
+		this.show = this.show.bind(this);
+		this.hide = this.hide.bind(this);
+		this.handleDocumentClick = this.handleDocumentClick.bind(this);
 	}
 
 	componentWillMount() {
-		this.props.init(this.props.id);
+		this.props.init(this.id);
 	}
 
-	handleClick() {
-		const listArea = ReactDOM.findDOMNode(this.list);
+	componentDidMount() {
+		window.addEventListener('click', this.handleDocumentClick)
+	}
 
-		if (listArea.contains(evt.target)) {
-			// Click in
-		} else {
-			// click out
+	componentWillUnmount() {
+		this.props.destroy(this.id);
+		window.removeEventListener('click', this.handleDocumentClick)
+	}
+
+	handleDocumentClick(evt) {
+		const listArea = ReactDOM.findDOMNode(this.refs.list);
+
+		if (!listArea.contains(evt.target)) {
+			this.hide();
+		}
+	}
+
+	show() {
+		if (!this.props.menus[this.id]) {
+			this.props.change({
+				id: this.id,
+				value: true,
+			});
+		}
+	}
+
+	hide() {
+		if (this.props.menus[this.id]) {
+			this.props.change({
+				id: this.id,
+				value: false,
+			});
 		}
 	}
 
 	render() {
-		const wrapperClassName = this.props.wrapperClass ? `button-menu ${this.props.wrapperClass}` : 'button-menu';
+		const listClassName = classnames({
+			'is-active': this.props.menus[this.id],
+			'button-menu': true,
+			[this.props.wrapperClass]: this.props.wrapperClass,
+			'is-right': this.props.side === 'right',
+			'is-left': this.props.side === 'left',
+		});
+
+		const items = this.props.items.map((item, index) => {
+			return (
+				<li
+					key={`menu-item-${index}`}
+					onClick={() => { item.action(); this.hide(); }}
+				>
+						<a className="panel-block">{item.text}</a>
+				</li>
+			);
+		});
 
 		return (
-			<div className={wrapperClassName}>
-				<button className="delete is-large">
+			<div ref="list" className={listClassName}>
+				<button className="delete is-large" onClick={this.show}>
 					<span><i className="fa fa-cog" /></span>
-					<ul ref={list => {this.list = list}}>
-						<li><a className="panel-block">Item</a></li>
-						<li><a className="panel-block">Item</a></li>
-						<li><a className="panel-block">Item</a></li>
-						<li><a className="panel-block">Item</a></li>
-					</ul>
 				</button>
+				<ul>
+					{items}
+				</ul>
 			</div>
 		);
 	}
 }
 
-export default connect(stateMap, dispatchMap, mergeProps)(ButtonMenu);
+ButtonMenu.propTypes = propTypes;
+ButtonMenu.defaultProps = defaultProps;
+
+export default connect(stateMap, dispatchMap)(ButtonMenu);

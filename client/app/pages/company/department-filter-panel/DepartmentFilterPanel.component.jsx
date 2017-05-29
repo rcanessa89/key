@@ -33,22 +33,32 @@ const stateMap = state => ({
 const dispatchMap = dispatch => bindActionCreators({ ...actionCreators, createDepartment: createDepartment }, dispatch);
 
 class DepartmentFilterPanel extends React.PureComponent {
+	constructor() {
+		super();
+		this.getAllHost = this.getAllHost.bind(this);
+	}
+	
+	componentWillMount() {
+		this.props.filterByDepartment({ name: 'All', hosts: this.getAllHost() });
+	}
+
 	componentWillUnmount() {
 		this.props.reset();
 	}
 
-	render() {
-		const modalId = 'modalNewDepartment'
-		const modalControl = new ModalControl(modalId);
-		const formId = 'departmentForm';
-		const panelBlocks = this.props.departments.map(department => {
+	getBlocks() {
+		let panelBlock = [];
+
+		for (const key in this.props.departments) {
+			const department = this.props.departments[key];
+
 			const blockClassName = classnames({
 				'panel-block': true,
 				'is-active': department.name === this.props.filter.department.name,
 			});
 
 			if (department.name.indexOf(this.props.filter.search) > -1) {
-				return (
+				panelBlock.push(
 					<a
 						key={department._id}
 						className={blockClassName}
@@ -57,10 +67,29 @@ class DepartmentFilterPanel extends React.PureComponent {
 						{capitalizeFirst(department.name)}
 					</a>
 				);
-			} else {
-				return null;
 			}
-		});
+		}
+
+		return panelBlock;
+	}
+
+	getAllHost() {
+		let hosts = [];
+
+		for (const key in this.props.departments) {
+			const department = this.props.departments[key];
+
+			hosts = [ ...hosts, ...department.hosts ];
+		}
+
+		return hosts;
+	}
+
+	render() {
+		const modalId = 'modalNewDepartment'
+		const modalControl = new ModalControl(modalId);
+		const formId = 'departmentForm';
+		const panelBlocks = this.getBlocks();
 
 		return (
 			<nav className="panel">
@@ -77,7 +106,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 					</p>
 				</div>
 				<a className={this.props.filter.department.name === 'All' ? 'panel-block is-active' : 'panel-block'}
-					onClick={this.props.filterByDepartment.bind(null, { name: 'All' })}
+					onClick={this.props.filterByDepartment.bind(null, { name: 'All', hosts: this.getAllHost() })}
 				>
 					All
 				</a>

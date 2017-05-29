@@ -8,4 +8,18 @@
 			padding: 20px 0;
 		}
 	}
+
+	.department-title-container {
+		margin: 1.5rem 0;
+		@include flex(space-between, center);
+
+		.title {
+			width: 100%;
+			margin-bottom: 0;
+
+			&[contenteditable] {
+				line-height: normal;
+			}
+		}
+	}
 }

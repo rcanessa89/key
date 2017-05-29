@@ -1,6 +1,7 @@
 import * as express from 'express';
 import companyHandler from '../entities/company/company.handler';
 import departmentHandler from '../entities/company/department.handler';
+import hostHandler from '../entities/company/host.handler';
 import authApiMiddleware from '../util/auth-api-middleware';
 
 module.exports = function(router: express.Router) {
@@ -18,5 +19,11 @@ module.exports = function(router: express.Router) {
 
 	router.route('/department')
 		.post(authApiMiddleware, departmentHandler.addDepartment)
+		.patch(authApiMiddleware, departmentHandler.editDepartment);
+
+	router.route('/department/:id')
 		.delete(authApiMiddleware, departmentHandler.deleteDepartmentById);
+
+	router.route('/host')
+		.post(authApiMiddleware, hostHandler.addHost);
 };
