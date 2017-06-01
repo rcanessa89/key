@@ -11,6 +11,7 @@ import AppForm from '../../../components/app-form/AppForm.component';
 import TextInput from '../../../components/app-form/TextInput.component';
 import ModalControl from '../../../services/ModalControl';
 import capitalizeFirst from '../../../util/capitalize-first';
+import sortArrayAlpha from '../../../util/sort-array-alpha';
 import companyService from '../company.service';
 
 const propTypes = {
@@ -54,7 +55,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 			});
 
 			if (department.name.indexOf(this.props.filter.search) > -1) {
-				panelBlock.push(
+				const block = (
 					<a
 						key={department._id}
 						className={blockClassName}
@@ -63,6 +64,11 @@ class DepartmentFilterPanel extends React.PureComponent {
 						{capitalizeFirst(department.name)}
 					</a>
 				);
+
+				panelBlock.push({
+					name: department.name,
+					block,
+				});
 			}
 		}
 
@@ -73,7 +79,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 		const modalId = 'modalNewDepartment'
 		const modalControl = new ModalControl(modalId);
 		const formId = 'departmentForm';
-		const panelBlocks = this.getBlocks();
+		const panelBlocks = sortArrayAlpha(this.getBlocks(), 'name');
 
 		return (
 			<nav className="panel">
@@ -83,7 +89,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 						<input
 							className="input is-small"
 							type="text"
-							placeholder="Search"
+							placeholder="Search a department"
 							onChange={e => this.props.search(e.target.value)}
 						/>
 						<span className="icon is-small is-left"><i className="fa fa-search" /></span>
@@ -94,7 +100,9 @@ class DepartmentFilterPanel extends React.PureComponent {
 				>
 					All
 				</a>
-				{panelBlocks}
+				{
+					panelBlocks.map(block => block.block)
+				}
 				<div className="panel-block">
 					<Modal
 						type="card"

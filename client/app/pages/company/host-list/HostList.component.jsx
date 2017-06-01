@@ -11,6 +11,7 @@ import TextInput from '../../../components/app-form/TextInput.component';
 import ModalControl from '../../../services/ModalControl';
 import * as companyAction from '../action-creators';
 import companyService from '../company.service';
+import sortArrayAlpha from '../../../util/sort-array-alpha';
 
 const propTypes = {
 	allDepartments: PropTypes.object.isRequired,
@@ -36,7 +37,7 @@ const stateMap = state => {
 	return {
 		allDepartments: state.company.departments,
 		department: state.departmentFilter.department,
-		hosts: currentHosts,
+		hosts: sortArrayAlpha(currentHosts, 'name'),
 	}
 }
 
@@ -76,7 +77,7 @@ const HostList = props => {
 
 	const deleteDepartment = () => {
 		props.deleteDepartment(props.department._id);
-		companyService.setFilerAll();
+		companyService.setFitlerAll();
 	};
 
 	const onSubmitCreateHost = values => {

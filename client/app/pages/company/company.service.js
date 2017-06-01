@@ -37,7 +37,7 @@ const getAllHost = departments => {
 	return hosts;
 };
 
-const setFilerAll = () => {
+const setFilterAll = () => {
 	store.dispatch(filterByDepartment({ name: 'All', hosts: getAllHost() }));
 }
 
@@ -50,5 +50,5 @@ export default {
 	deleteHost,
 	mapCompanyData,
 	getAllHost,
-	setFilerAll,
+	setFilterAll,
 };

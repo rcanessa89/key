@@ -39,16 +39,6 @@ const MobileNav = (props) => {
 						<a><span onClick={props.close}><Icon size="medium" icon="user-circle" />Users</span></a>
 					</UISref>
 				</li>
-				<li>
-					<UISref to="main.departments">
-						<a><span onClick={props.close}><Icon size="medium" icon="cubes" />Departments</span></a>
-					</UISref>
-				</li>
-				<li>
-					<UISref to="main.hosts">
-						<a><span onClick={props.close}><Icon size="medium" icon="users" />Hosts</span></a>
-					</UISref>
-				</li>
 			</ul>
 			<p>Registries</p>
 			<ul>
