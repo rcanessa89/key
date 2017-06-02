@@ -1,7 +1,7 @@
 import store from './store.app';
 import Api from './services/Api';
 import { getUserLoggedAction } from './services/set-current-logged';
-import { getCompanyLoggedAction } from './pages/company/action-creators';
+import { getCompanySetAction } from './pages/company/action-creators';
 
 // Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
@@ -45,7 +45,7 @@ const main = {
 					return api.call('get', `company/id/${user.company._id}?populate=users`);
 				}, error => reject(error))
 				.then(company => {
-					store.dispatch(getCompanyLoggedAction(company));
+					store.dispatch(getCompanySetAction(company));
 					resolve();
 				}, error => reject(error))
 				.catch(error => reject(error));

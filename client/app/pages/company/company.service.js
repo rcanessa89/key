@@ -1,7 +1,6 @@
 import store from '../../store.app';
 import Api from '../../services/Api';
 import mapArray from '../../util/map-array';
-import { filterByDepartment } from './department-filter-panel/action-creators';
 
 const api = new Api();
 

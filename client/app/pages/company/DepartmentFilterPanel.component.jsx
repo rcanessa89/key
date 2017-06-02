@@ -3,36 +3,36 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actionCreators from './action-creators';
-import { createDepartment } from '../action-creators';
-import AppButton from '../../../components/app-button/AppButton.component';
-import Modal from '../../../components/modal/Modal.component';
-import AppForm from '../../../components/app-form/AppForm.component';
-import TextInput from '../../../components/app-form/TextInput.component';
-import ModalControl from '../../../services/ModalControl';
-import capitalizeFirst from '../../../util/capitalize-first';
-import sortArrayAlpha from '../../../util/sort-array-alpha';
-import companyService from '../company.service';
+import { filterByDepartment, searchDepartment } from './action-creators';
+import AppButton from '../../components/app-button/AppButton.component';
+import Modal from '../../components/modal/Modal.component';
+import AppForm from '../../components/app-form/AppForm.component';
+import TextInput from '../../components/app-form/TextInput.component';
+import ModalControl from '../../services/ModalControl';
+import capitalizeFirst from '../../util/capitalize-first';
+import sortArrayAlpha from '../../util/sort-array-alpha';
+import companyService from './company.service';
 
 const propTypes = {
-	departments: PropTypes.object.isRequired,
-	filter: PropTypes.shape({
-		department: PropTypes.shape({
-			created_at: PropTypes.string,
-			hosts: PropTypes.array,
-			name: PropTypes.string,
-			updated_at: PropTypes.string,
-			_id: PropTypes.string,
-		}),
-		search: PropTypes.string.isRequired
-	}),
+// 	departments: PropTypes.object.isRequired,
+// 	filter: PropTypes.shape({
+// 		department: PropTypes.shape({
+// 			created_at: PropTypes.string,
+// 			hosts: PropTypes.array,
+// 			name: PropTypes.string,
+// 			updated_at: PropTypes.string,
+// 			_id: PropTypes.string,
+// 		}),
+// 		search: PropTypes.string.isRequired
+// 	}),
 };
 
 const stateMap = state => ({
-	filter: state.departmentFilter,
+	departments: state.companyPage.company.departments,
+	filter: state.companyPage.filter,
 });
 
-const dispatchMap = dispatch => bindActionCreators({ ...actionCreators, createDepartment: createDepartment }, dispatch);
+const dispatchMap = dispatch => bindActionCreators({ filterByDepartment, searchDepartment }, dispatch);
 
 class DepartmentFilterPanel extends React.PureComponent {
 	componentWillMount() {
@@ -90,7 +90,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 							className="input is-small"
 							type="text"
 							placeholder="Search a department"
-							onChange={e => this.props.search(e.target.value)}
+							onChange={e => this.props.searchDepartment(e.target.value)}
 						/>
 						<span className="icon is-small is-left"><i className="fa fa-search" /></span>
 					</p>

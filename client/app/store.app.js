@@ -11,7 +11,6 @@ import forms from './components/app-form/reducer';
 import mobileNav from './components/mobile-nav/reducer';
 import header from './components/app-header/reducer';
 import company from './pages/company/reducer';
-import departmentFilter from './pages/company/department-filter-panel/reducer';
 import { userReducer } from './services/set-current-logged';
 import { fetchReducer } from './services/Api';
 
@@ -26,9 +25,8 @@ const reducers = combineReducers({
 	forms,
 	mobileNav,
 	header,
-	company,
 	buttonMenus,
-	departmentFilter,
+	companyPage: company,
 	user: userReducer,
 	fetching: fetchReducer,
 });

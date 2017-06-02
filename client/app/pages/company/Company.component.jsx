@@ -6,11 +6,11 @@ import Modal from '../../components/modal/Modal.component';
 import AppButton from '../../components/app-button/AppButton.component';
 import AppForm from '../../components/app-form/AppForm.component';
 import TextInput from '../../components/app-form/TextInput.component';
-import DepartmentFilterPanel from './department-filter-panel/DepartmentFilterPanel.component';
-import HostList from './host-list/HostList.component';
+import DepartmentFilterPanel from './DepartmentFilterPanel.component';
+import HostList from './HostList.component';
 
 const stateMap = state => ({
-	company: state.company,
+	company: state.companyPage.company,
 });
 
 const CompanyPage = props => {
@@ -23,9 +23,7 @@ const CompanyPage = props => {
 			/>
 			<div className="columns is-multiline">
 				<div className="column is-4">
-					<DepartmentFilterPanel
-						departments={props.company.departments}
-					/>
+					<DepartmentFilterPanel />
 				</div>
 				<div className="column is-8">
 					<HostList />

@@ -2,46 +2,55 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import capitalizeFirst from '../../../util/capitalize-first';
-import AppButton from '../../../components/app-button/AppButton.component';
-import ButtonMenu from '../../../components/button-menu/ButtonMenu.component';
-import Modal from '../../../components/modal/Modal.component';
-import AppForm from '../../../components/app-form/AppForm.component';
-import TextInput from '../../../components/app-form/TextInput.component';
-import ModalControl from '../../../services/ModalControl';
-import * as companyAction from '../action-creators';
-import companyService from '../company.service';
-import sortArrayAlpha from '../../../util/sort-array-alpha';
+import capitalizeFirst from '../../util/capitalize-first';
+import AppButton from '../../components/app-button/AppButton.component';
+import ButtonMenu from '../../components/button-menu/ButtonMenu.component';
+import Modal from '../../components/modal/Modal.component';
+import AppForm from '../../components/app-form/AppForm.component';
+import TextInput from '../../components/app-form/TextInput.component';
+import ModalControl from '../../services/ModalControl';
+import companyService from './company.service';
+import sortArrayAlpha from '../../util/sort-array-alpha';
+import {
+	editDepartment,
+	deleteDepartment,
+	createHost,
+	editHost,
+	deleteHost
+} from './action-creators';
 
 const propTypes = {
-	allDepartments: PropTypes.object.isRequired,
 	department: PropTypes.shape({
-		created_at: React.PropTypes.string,
-		hosts: React.PropTypes.array,
-		name: React.PropTypes.string,
-		updated_at: React.PropTypes.string,
-		_id: React.PropTypes.string,
+		_id: PropTypes.string,
+		name: PropTypes.string.required,
+		hosts: PropTypes.array.isRequired,
 	}),
-	hosts: PropTypes.array,
 };
 
 const stateMap = state => {
+	const selectedDepartment = state.companyPage.filter.department;
+	const department = selectedDepartment._id ? state.companyPage.company.departments[selectedDepartment._id] : selectedDepartment;
+	
 	let currentHosts;
 
-	if (state.company.departments[state.departmentFilter.department._id] !== undefined) {
-		currentHosts = state.company.departments[state.departmentFilter.department._id].hosts;
+	if (department !== undefined) {
+		currentHosts = department.hosts;
 	} else {
-		currentHosts =  state.departmentFilter.department.hosts;
+		currentHosts =  state.companyPage.filter.department.hosts;
 	}
 
 	return {
-		allDepartments: state.company.departments,
-		department: state.departmentFilter.department,
-		hosts: sortArrayAlpha(currentHosts, 'name'),
+		department: { ...department, hosts: sortArrayAlpha(currentHosts, 'name')},
 	}
 }
 
-const dispatchMap = dispatch => bindActionCreators(companyAction, dispatch);
+const dispatchMap = dispatch => bindActionCreators({
+	editDepartment,
+	deleteDepartment,
+	createHost,
+	editHost,
+	deleteHost
+}, dispatch);
 
 const HostList = props => {
 	const modalId = 'modalNewHost'
@@ -187,7 +196,7 @@ const HostList = props => {
 					</thead>
 					<tbody>
 						{
-							props.hosts.map(host => {
+							props.department.hosts.map(host => {
 								const nameId = `name-${host._id}`;
 								const lastNameId = `last-name-${host._id}`;
 								const hostMenuItems = [
