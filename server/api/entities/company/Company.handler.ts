@@ -66,41 +66,55 @@ class CompanyHandler extends BaseHandler {
 	}
 
 	private saveCompanyUser(req: express.Request & ParsedAsJson, res: express.Response): void {
-		const newCompany = new companyModel({
-			name: req.body.company
+		const newUserAdmin = new userModel({
+			name: req.body.name,
+			last_name: req.body.last_name,
+			rol: 'super_admin',
+			email: req.body.email,
+			photo: req.body.photo
 		});
 
-		newCompany.save((error, company) => {
-			if (error) {
-				res.send(error);
-			}
+		const newCompany = new companyModel({
+			name: req.body.company,
+			users: [newUserAdmin._id]
+		});
 
-			const newUserAdmin = new userModel({
-				name: req.body.name,
-				last_name: req.body.last_name,
-				rol: 'super_admin',
-				email: req.body.email,
-				company: company._id,
-				photo: req.body.photo
-			});
+		newUserAdmin.save()
+			.then(user => {
+				user.company = newCompany._id;
 
-			newUserAdmin.save((error, user) => {
-				if (error) {
-					res.send(error);
-				}
+				return user.save();
+			}, error => res.send(error))
+			.then(user => {
 
-				const token = new Token({ payload: user._id }).token;
+				return new Promise((resolve, reject) => {
+					const data: any = {
+						user
+					};
+
+					newCompany.save((error, company) => {
+						if (error) {
+							reject(error);
+						}
+
+						data.company = company;
+
+						resolve(data);
+					});
+				});
+			}, error => res.send(error))
+			.then((data: any) => {
+				const token = new Token({ payload: data.user._id }).token;
 				const emailLink: string = `http://${req.headers.host}/password?user_token=${token}`;
 
-				email.send({
+				return email.send({
 					to: req.body.email,
 					subject: 'Password setting',
 					text: 'A link to setup your password',
 					html: `<h1>Key App</h1><p>You are receiving this because you (or someone else) have requested the setup of the password for your account.Please click on the following link, or paste this into your browser to complete the process: <a href="${emailLink}">${emailLink}</a> </p>`
-				})
-				.then(info => res.send('xxx'));
-			});
-		});
+				});
+			}, error => res.send(error))
+			.then(emailInfo => res.end());
 	}
 }
 

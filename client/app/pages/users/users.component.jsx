@@ -1,13 +1,13 @@
 import React from 'react';
-import Title from '../../components/title/Title.component';
-
+import SectionHeader from '../../components/section-header/SectionHeader.component';
 import PersonCard from '../../components/person-card/PersonCard.component';
 
-export default () => (
+const UsersPage = props => (
 	<div className="users-page">
-		<Title 
-			text="Users"
-			subtitle="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+		<SectionHeader
+			title="Users"
+			subtitle="Create, edit or delete an user"
+			line
 		/>
 		<div className="columns is-multiline">
 			<PersonCard
@@ -37,3 +37,5 @@ export default () => (
 		</div>
 	</div>
 );
+
+export default UsersPage;

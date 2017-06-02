@@ -13,6 +13,7 @@ const addHost = (req: express.Request & ParsedAsJson & session, res: express.Res
 			result.departments['id'](req.body.departmentId).hosts.push({
 				name: req.body.name,
 				last_name: req.body.last_name,
+				departmentName: result.departments['id'](req.body.departmentId).name
 			});
 
 			return result;

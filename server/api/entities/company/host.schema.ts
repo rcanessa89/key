@@ -12,6 +12,12 @@ export default new mongoose.Schema({
 		type: String,
 		required: true,
 		trim: true
+	},
+
+	departmentName: {
+		type: String,
+		required: true,
+		trim: true
 	}
 }, {
 	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

@@ -125,7 +125,7 @@ const HostList = props => {
 		);
 
 		return departmentTitle;
-	}
+	};
 
 	const createHostModal = props.department.name !== 'All' ? (
 		<Modal
@@ -182,7 +182,7 @@ const HostList = props => {
 						<tr>
 							<th>Name</th>
 							<th>Last Name</th>
-							<th></th>
+							<th>{props.department.name !== 'All' ? '' : 'Department'}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -212,7 +212,7 @@ const HostList = props => {
 										side="left"
 										items={hostMenuItems}
 									/>
-								) : null;
+								) : host.departmentName;
 
 								return (
 									<tr key={host._id}>

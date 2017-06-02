@@ -2,7 +2,6 @@ import store from './store.app';
 import Api from './services/Api';
 import { getUserLoggedAction } from './services/set-current-logged';
 import { getCompanyLoggedAction } from './pages/company/action-creators';
-import { setUsers } from './pages/users/action-creators';
 
 // Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
@@ -12,7 +11,6 @@ import MainPage from './pages/main/main.component';
 import PeoplePage from './pages/people/People.component';
 import UsersPage from './pages/users/users.component';
 import CompanyPage from './pages/company/Company.component';
-
 
 const api = new Api();
 
