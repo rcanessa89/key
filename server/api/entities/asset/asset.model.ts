@@ -6,7 +6,7 @@ const assetSchema: mongoose.Schema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Company'
 	},
-	
+
 	asset_type: {
 		type: String,
 		required: true,

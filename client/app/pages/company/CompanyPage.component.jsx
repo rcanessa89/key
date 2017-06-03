@@ -1,9 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SectionHeader from '../../components/section-header/SectionHeader.component';
 import DepartmentFilterPanel from './DepartmentFilterPanel.component';
 import HostList from './HostList.component';
 
-const CompanyPage = props => {
+const propTypes = {
+	resolves: PropTypes.object,
+};
+
+const defaultProps = {
+	resolves: {},
+};
+
+const CompanyPage = (props) => {
 	const company = props.resolves.data;
 
 	return (
@@ -24,5 +33,8 @@ const CompanyPage = props => {
 		</div>
 	);
 };
+
+CompanyPage.propTypes = propTypes;
+CompanyPage.defaultProps = defaultProps;
 
 export default CompanyPage;

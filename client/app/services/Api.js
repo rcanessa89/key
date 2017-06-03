@@ -56,10 +56,10 @@ export default class Api {
 				url: Api.formatUrl(url),
 				data,
 			})
-			.then(res => {
+			.then((res) => {
 				store.dispatch(getActionFetchEnd());
 
-				resolve(res.data)
+				resolve(res.data);
 			}, error => reject(error))
 			.catch(error => reject(error));
 		});

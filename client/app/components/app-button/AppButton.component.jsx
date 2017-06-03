@@ -30,7 +30,13 @@ const defaultProps = {
 };
 
 const AppButton = (props) => {
-	const isReseted = value => !props.resetStyle && value ? true : false;
+	const isReseted = (value) => {
+		if (!props.resetStyle && value) {
+			return true;
+		}
+
+		return false;
+	};
 
 	const buttonClassName = classnames({
 		[`is-${props.type}`]: isReseted(props.type),

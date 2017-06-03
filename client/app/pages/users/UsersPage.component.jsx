@@ -2,7 +2,7 @@ import React from 'react';
 import SectionHeader from '../../components/section-header/SectionHeader.component';
 import PersonCard from '../../components/person-card/PersonCard.component';
 
-const UsersPage = props => (
+const UsersPage = () => (
 	<div className="users-page">
 		<SectionHeader
 			title="Users"

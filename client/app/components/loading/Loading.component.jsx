@@ -15,7 +15,7 @@ const stateMap = state => ({
 	loading: state.loading,
 });
 
-const Loading = props => {
+const Loading = (props) => {
 	const classNames = classnames({
 		'app-loading': true,
 		'is-loading': props.loading,
@@ -23,7 +23,7 @@ const Loading = props => {
 
 	return (
 		<div className={classNames}>
-			<div className="app-loader"></div>
+			<div className="app-loader" />
 		</div>
 	);
 };

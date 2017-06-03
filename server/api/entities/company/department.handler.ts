@@ -26,7 +26,7 @@ const editDepartment = (req: express.Request & ParsedAsJson & session, res: expr
 			return result;
 		}
 	});
-}
+};
 
 const deleteDepartmentById = (req: express.Request & ParsedAsJson & session, res: express.Response): void => {
 	companySubDoc.runQuery(req, res, {

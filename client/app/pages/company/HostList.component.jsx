@@ -27,25 +27,30 @@ const propTypes = {
 		name: PropTypes.string.required,
 		hosts: PropTypes.array.isRequired,
 	}),
+	searchHost: PropTypes.func.isRequired,
 };
 
-const stateMap = state => {
+const defaultProps = {
+	department: {},
+};
+
+const stateMap = (state) => {
 	const selectedDepartment = state.companyPage.filter.department;
 	const department = selectedDepartment._id ? state.companyPage.company.departments[selectedDepartment._id] : selectedDepartment;
-	
+
 	let currentHosts;
 
 	if (department !== undefined) {
 		currentHosts = department.hosts;
 	} else {
-		currentHosts =  state.companyPage.filter.department.hosts;
+		currentHosts = state.companyPage.filter.department.hosts;
 	}
 
 	return {
-		department: { ...department, hosts: sortArrayAlpha(currentHosts, 'name')},
+		department: { ...department, hosts: sortArrayAlpha(currentHosts, 'name') },
 		searchHostValue: state.companyPage.searchHost,
-	}
-}
+	};
+};
 
 const dispatchMap = dispatch => bindActionCreators({
 	editDepartment,
@@ -56,15 +61,15 @@ const dispatchMap = dispatch => bindActionCreators({
 	searchHost,
 }, dispatch);
 
-const HostList = props => {
-	const modalId = 'modalNewHost'
+const HostList = (props) => {
+	const modalId = 'modalNewHost';
 	const modalControl = new ModalControl(modalId);
 	const formId = 'hostForm';
 	const departmentNameId = 'departmentName';
-	
+
 	let editableValue;
 
-	const toContentEditable = elId => {
+	const toContentEditable = (elId) => {
 		if (props.department.name !== 'All') {
 			const el = document.getElementById(elId);
 
@@ -75,27 +80,24 @@ const HostList = props => {
 		}
 	};
 
-	const onEditBlur = (elId, cb, event) => {
-		if (event.target.innerHTML === '') {
-			event.target.innerHTML = editableValue;
-		} else if (event.target.innerHTML !== editableValue) {
-			editableValue = event.target.innerHTML;
+	const onEditBlur = (event, elId, cb) => {
+		const elTarget = event.target;
+
+		if (elTarget.innerHTML === '') {
+			elTarget.innerHTML = editableValue;
+		} else if (elTarget.innerHTML !== editableValue) {
+			editableValue = elTarget.innerHTML;
 			cb(editableValue);
 		}
 
 		const el = document.getElementById(elId);
 
 		el.setAttribute('contenteditable', 'false');
-	}
-
-	const deleteDepartment = () => {
-		props.deleteDepartment(props.department._id);
-		companyService.setFitlerAll();
 	};
 
-	const onSubmitCreateHost = values => {
+	const onSubmitCreateHost = (values) => {
 		const data = { ...values, departmentId: props.department._id };
-		
+
 		props.createHost(data);
 
 		modalControl.close();
@@ -110,7 +112,7 @@ const HostList = props => {
 
 			{
 				text: 'Delete',
-				action: deleteDepartment,
+				action: () => { props.deleteDepartment(props.department._id); companyService.setFilterAll(); },
 			},
 		];
 
@@ -119,12 +121,14 @@ const HostList = props => {
 				<h3
 					id={departmentNameId}
 					className="title is-3"
-					onBlur={onEditBlur.bind(null, departmentNameId, () => {
-						props.editDepartment({
-							departmentId: props.department._id,
-							name: editableValue,
+					onBlur={(event) => {
+						onEditBlur(event, departmentNameId, () => {
+							props.editDepartment({
+								departmentId: props.department._id,
+								name: editableValue,
+							});
 						});
-					})}
+					}}
 				>
 					{capitalizeFirst(props.department.name)}
 				</h3>
@@ -188,9 +192,9 @@ const HostList = props => {
 	const searchHostControlClassName = classnames({
 		control: true,
 		'has-icon': true,
-		'has-icons-left' : true,
+		'has-icons-left': true,
 		'search-host-margin-top': props.department.name !== 'All',
-		'search-host' : true,
+		'search-host': true,
 	});
 
 	return (
@@ -217,7 +221,7 @@ const HostList = props => {
 					</thead>
 					<tbody>
 						{
-							props.department.hosts.map(host => {
+							props.department.hosts.map((host) => {
 								if (host.name.indexOf(props.searchHostValue) === -1 && host.last_name.indexOf(props.searchHostValue) === -1) {
 									return null;
 								}
@@ -227,12 +231,12 @@ const HostList = props => {
 								const hostMenuItems = [
 									{
 										text: 'Edit name',
-										action: hostNameId => toContentEditable.bind(null, nameId)(),
+										action: () => toContentEditable(nameId),
 									},
 
 									{
 										text: 'Edit last name',
-										action: hostNameId => toContentEditable.bind(null, lastNameId)(),
+										action: () => toContentEditable(lastNameId),
 									},
 
 									{
@@ -252,33 +256,29 @@ const HostList = props => {
 									<tr key={host._id}>
 										<td
 											id={nameId}
-											onBlur={onEditBlur.bind(
-												null,
-												nameId,
-												() => {
+											onBlur={(event) => {
+												onEditBlur(event, nameId, () => {
 													props.editHost({
 														departmentId: props.department._id,
 														hostId: host._id,
 														name: editableValue,
 													});
-												}
-											)}
+												});
+											}}
 										>
 											{capitalizeFirst(host.name)}
 										</td>
 										<td
 											id={lastNameId}
-											onBlur={onEditBlur.bind(
-												null,
-												lastNameId,
-												() => {
+											onBlur={(event) => {
+												onEditBlur(event, lastNameId, () => {
 													props.editHost({
 														departmentId: props.department._id,
 														hostId: host._id,
 														last_name: editableValue,
 													});
-												}
-											)}
+												});
+											}}
 										>
 											{capitalizeFirst(host.last_name)}
 										</td>
@@ -286,7 +286,7 @@ const HostList = props => {
 											{menuButton}
 										</td>
 									</tr>
-								)
+								);
 							})
 						}
 					</tbody>
@@ -297,5 +297,6 @@ const HostList = props => {
 };
 
 HostList.propTypes = propTypes;
+HostList.defaultProps = defaultProps;
 
 export default connect(stateMap, dispatchMap)(HostList);

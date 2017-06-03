@@ -28,36 +28,36 @@ const resetFilterDepartment = () => ({
 // Async action creators
 
 // Department
-const createDepartment = newDepartmentData => dispatch => {
+const createDepartment = newDepartmentData => (dispatch) => {
 	companyService.saveDepartment(newDepartmentData)
 		.then(company => dispatch(getCompanySetAction(company)));
 };
 
-const editDepartment = departmentData => dispatch => {
+const editDepartment = departmentData => (dispatch) => {
 	companyService.editDepartment(departmentData)
 		.then(company => dispatch(getCompanySetAction(company)));
 };
 
-const deleteDepartment = departmentId => dispatch => {
+const deleteDepartment = departmentId => (dispatch) => {
 	companyService.deleteDepartment(departmentId)
 		.then(company => dispatch(getCompanySetAction(company)));
-}
+};
 
 // Host
-const createHost = newHostData => dispatch => {
+const createHost = newHostData => (dispatch) => {
 	companyService.saveHost(newHostData)
 		.then(company => dispatch(getCompanySetAction(company)));
 };
 
-const editHost = hostData => dispatch => {
+const editHost = hostData => (dispatch) => {
 	companyService.editHost(hostData)
 		.then(company => dispatch(getCompanySetAction(company)));
 };
 
-const deleteHost = (departmentId, hostId) => dispatch => {
+const deleteHost = (departmentId, hostId) => (dispatch) => {
 	companyService.deleteHost(departmentId, hostId)
 		.then(company => dispatch(getCompanySetAction(company)));
-}
+};
 
 export {
 	getCompanySetAction,

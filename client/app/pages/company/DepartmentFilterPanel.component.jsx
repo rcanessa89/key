@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { filterByDepartment, searchDepartment, resetFilterDepartment } from './action-creators';
+import { filterByDepartment, searchDepartment, resetFilterDepartment, createDepartment } from './action-creators';
 import AppButton from '../../components/app-button/AppButton.component';
 import Modal from '../../components/modal/Modal.component';
 import AppForm from '../../components/app-form/AppForm.component';
@@ -14,11 +14,7 @@ import sortArrayAlpha from '../../util/sort-array-alpha';
 import companyService from './company.service';
 
 const propTypes = {
-	departments: PropTypes.arrayOf(PropTypes.shape({
-		_id: PropTypes.string,
-		name: PropTypes.string.required,
-		hosts: PropTypes.array.isRequired,
-	})),
+	departments: PropTypes.object,
 	filter: PropTypes.shape({
 		department: PropTypes.shape({
 			_id: PropTypes.string,
@@ -26,7 +22,19 @@ const propTypes = {
 			hosts: PropTypes.array.isRequired,
 		}),
 		search: PropTypes.string,
-	})
+	}),
+	filterByDepartment: PropTypes.func.isRequired,
+	resetFilterDepartment: PropTypes.func.isRequired,
+	searchDepartment: PropTypes.func.isRequired,
+	createDepartment: PropTypes.func.isRequired,
+};
+
+const defaultProps = {
+	departments: {},
+	filter: {
+		department: { name: 'All', hosts: [] },
+		search: '',
+	},
 };
 
 const stateMap = state => ({
@@ -34,7 +42,12 @@ const stateMap = state => ({
 	filter: state.companyPage.filter,
 });
 
-const dispatchMap = dispatch => bindActionCreators({ filterByDepartment, searchDepartment, resetFilterDepartment }, dispatch);
+const dispatchMap = dispatch => bindActionCreators({
+	filterByDepartment,
+	searchDepartment,
+	resetFilterDepartment,
+	createDepartment,
+}, dispatch);
 
 class DepartmentFilterPanel extends React.PureComponent {
 	componentWillMount() {
@@ -46,39 +59,45 @@ class DepartmentFilterPanel extends React.PureComponent {
 	}
 
 	getBlocks() {
-		let panelBlock = [];
+		const panelBlock = [];
 
-		for (const key in this.props.departments) {
-			const department = this.props.departments[key];
+		Object.keys(this.props.departments).forEach((key) => {
+			if (Object.prototype.hasOwnProperty.call(this.props.departments, key)) {
+				const department = this.props.departments[key];
 
-			const blockClassName = classnames({
-				'panel-block': true,
-				'is-active': department.name === this.props.filter.department.name,
-			});
+				const blockFilterByDepartment = () => {
+					this.props.filterByDepartment(department);
+				};
 
-			if (department.name.indexOf(this.props.filter.search) > -1) {
-				const block = (
-					<a
-						key={department._id}
-						className={blockClassName}
-						onClick={this.props.filterByDepartment.bind(null, department)}
-					>
-						{capitalizeFirst(department.name)}
-					</a>
-				);
-
-				panelBlock.push({
-					name: department.name,
-					block,
+				const blockClassName = classnames({
+					'panel-block': true,
+					'is-active': department.name === this.props.filter.department.name,
 				});
+
+				if (department.name.indexOf(this.props.filter.search) > -1) {
+					const block = (
+						<a
+							key={department._id}
+							className={blockClassName}
+							onClick={blockFilterByDepartment}
+						>
+							{capitalizeFirst(department.name)}
+						</a>
+					);
+
+					panelBlock.push({
+						name: department.name,
+						block,
+					});
+				}
 			}
-		}
+		});
 
 		return panelBlock;
 	}
 
 	render() {
-		const modalId = 'modalNewDepartment'
+		const modalId = 'modalNewDepartment';
 		const modalControl = new ModalControl(modalId);
 		const formId = 'departmentForm';
 		const panelBlocks = sortArrayAlpha(this.getBlocks(), 'name');
@@ -97,8 +116,9 @@ class DepartmentFilterPanel extends React.PureComponent {
 						<span className="icon is-small is-left"><i className="fa fa-search" /></span>
 					</p>
 				</div>
-				<a className={this.props.filter.department.name === 'All' ? 'panel-block is-active' : 'panel-block'}
-					onClick={this.props.filterByDepartment.bind(null, { name: 'All', hosts: companyService.getAllHost(this.props.departments) })}
+				<a
+					className={this.props.filter.department.name === 'All' ? 'panel-block is-active' : 'panel-block'}
+					onClick={() => this.props.filterByDepartment({ name: 'All', hosts: companyService.getAllHost(this.props.departments) })}
 				>
 					All
 				</a>
@@ -114,12 +134,13 @@ class DepartmentFilterPanel extends React.PureComponent {
 							<AppButton
 								text="Create a new department"
 								state="primary"
-								fullWidth />
+								fullWidth
+							/>
 						}
 					>
 						<AppForm
 							formId={formId}
-							onSubmit={values => { this.props.createDepartment(values); modalControl.close() }}
+							onSubmit={(values) => { this.props.createDepartment(values); modalControl.close(); }}
 							onCancel={modalControl.close}
 						>
 							<TextInput
@@ -142,5 +163,6 @@ class DepartmentFilterPanel extends React.PureComponent {
 }
 
 DepartmentFilterPanel.propTypes = propTypes;
+DepartmentFilterPanel.defaultProps = defaultProps;
 
 export default connect(stateMap, dispatchMap)(DepartmentFilterPanel);

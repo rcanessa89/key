@@ -5,7 +5,6 @@ import * as actionCreators from './action-creators';
 import guid from '../../util/guid';
 import capitalizeFirst from '../../util/capitalize-first';
 import AppButton from '../app-button/AppButton.component';
-import store from '../../store.app';
 
 const propTypes = {
 	title: PropTypes.string,
@@ -19,6 +18,7 @@ const propTypes = {
 	withButtons: PropTypes.bool,
 	selfDEstroy: PropTypes.bool,
 	evalForm: PropTypes.func.isRequired,
+	form: PropTypes.object,
 };
 
 const defaultProps = {
@@ -28,10 +28,12 @@ const defaultProps = {
 	withButtons: true,
 	endpoint: null,
 	selfDEstroy: true,
+	onCancel: () => false,
+	form: null,
 };
 
 const stateMap = (state, ownProps) => ({
-	form: state.forms[ownProps.formId]
+	form: state.forms[ownProps.formId],
 });
 
 const dispatchMap = dispatch => ({
@@ -72,7 +74,7 @@ class AppForm extends React.PureComponent {
 		this.id = this.props.formId || guid();
 		this.submit = this.submit.bind(this);
 		this.fields = React.Children.map(this.props.children, child => React.cloneElement(child, { ...child.props, formId: this.id, fieldId: child.props.fieldId || guid() }));
-		
+
 		const state = {
 			id: this.id,
 			valid: false,

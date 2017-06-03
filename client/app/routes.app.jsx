@@ -6,11 +6,10 @@ import { getCompanySetAction } from './pages/company/action-creators';
 // Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
 import AssetsPage from './pages/assets/assets.component';
-import LoginPage from './pages/login/login.component';
 import MainPage from './pages/main/main.component';
 import PeoplePage from './pages/people/People.component';
-import UsersPage from './pages/users/users.component';
-import CompanyPage from './pages/company/Company.component';
+import UsersPage from './pages/users/UsersPage.component';
+import CompanyPage from './pages/company/CompanyPage.component';
 
 const api = new Api();
 
@@ -23,15 +22,6 @@ const notFound = {
 	},
 };
 
-const login = {
-	name: 'login',
-	url: '/login',
-	component: LoginPage,
-	data: {
-		title: 'Login',
-	},
-};
-
 const main = {
 	name: 'main',
 	abstract: true,
@@ -39,18 +29,18 @@ const main = {
 	resolve: {
 		data: () => new Promise((resolve, reject) => {
 			api.call('get', 'user/logged')
-				.then(user => {
+				.then((user) => {
 					store.dispatch(getUserLoggedAction(user));
 
 					return api.call('get', `company/id/${user.company._id}?select=-users`);
 				}, error => reject(error))
-				.then(company => {
+				.then((company) => {
 					store.dispatch(getCompanySetAction(company));
 					resolve(company);
 				}, error => reject(error))
 				.catch(error => reject(error));
 		}),
-	}
+	},
 };
 
 const company = {
@@ -91,7 +81,6 @@ const users = {
 
 const states = [
 	notFound,
-	login,
 	main,
 	company,
 	assets,

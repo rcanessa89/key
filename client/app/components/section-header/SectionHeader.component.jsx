@@ -8,7 +8,13 @@ const propTypes = {
 	line: PropTypes.bool,
 };
 
-const SectionHeader = props => {
+const defaultProps = {
+	title: '',
+	subtitle: '',
+	line: false,
+};
+
+const SectionHeader = (props) => {
 	const hr = props.line ? <hr /> : null;
 
 	return (
@@ -21,5 +27,6 @@ const SectionHeader = props => {
 };
 
 SectionHeader.propTypes = propTypes;
+SectionHeader.defaultProps = defaultProps;
 
 export default SectionHeader;

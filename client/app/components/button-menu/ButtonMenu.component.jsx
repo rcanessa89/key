@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -15,13 +14,19 @@ const propTypes = {
 		text: PropTypes.string,
 		action: PropTypes.func,
 	})).isRequired,
+	menus: PropTypes.object,
+	init: PropTypes.func.isRequired,
+	destroy: PropTypes.func.isRequired,
+	change: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
 	side: 'right',
+	wrapperClass: '',
+	menus: {},
 };
 
-const stateMap = (state, ownProps) => ({
+const stateMap = state => ({
 	menus: state.buttonMenus,
 });
 
@@ -43,18 +48,16 @@ class ButtonMenu extends React.PureComponent {
 	}
 
 	componentDidMount() {
-		window.addEventListener('click', this.handleDocumentClick)
+		window.addEventListener('click', this.handleDocumentClick);
 	}
 
 	componentWillUnmount() {
 		this.props.destroy(this.id);
-		window.removeEventListener('click', this.handleDocumentClick)
+		window.removeEventListener('click', this.handleDocumentClick);
 	}
 
-	handleDocumentClick(evt) {
-		const listArea = ReactDOM.findDOMNode(this.refs.list);
-
-		if (!listArea.contains(evt.target)) {
+	handleDocumentClick(event) {
+		if (!this.list.contains(event.target)) {
 			this.hide();
 		}
 	}
@@ -86,19 +89,17 @@ class ButtonMenu extends React.PureComponent {
 			'is-left': this.props.side === 'left',
 		});
 
-		const items = this.props.items.map((item, index) => {
-			return (
-				<li
-					key={`menu-item-${index}`}
-					onClick={() => { item.action(); this.hide(); }}
-				>
-						<a className="panel-block">{item.text}</a>
-				</li>
-			);
-		});
+		const items = this.props.items.map(item => (
+			<li
+				key={`menu-item-${guid()}`}
+				onClick={() => { item.action(); this.hide(); }}
+			>
+				<a className="panel-block">{capitalizeFirst(item.text)}</a>
+			</li>
+		));
 
 		return (
-			<div ref="list" className={listClassName}>
+			<div ref={(list) => { this.list = list; }} className={listClassName}>
 				<button className="delete is-large" onClick={this.show}>
 					<span><i className="fa fa-cog" /></span>
 				</button>

@@ -46,7 +46,7 @@ export default class BaseHandler {
 
 	public getById(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
 		let query = this.model.findById(req.params.id);
-		
+
 		if (req.query.populate) {
 			const population = req.query.populate.replace(/,/g, ' ');
 
