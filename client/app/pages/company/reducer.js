@@ -24,6 +24,8 @@ export default (state = initialState, action) => {
 					search: action.payload,
 				},
 			};
+		case actions.resetFilterDepartment: 
+			return { ...initialState, company: state.company };
 		default:
 			return state;
 	}

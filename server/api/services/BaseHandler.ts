@@ -53,6 +53,12 @@ export default class BaseHandler {
 			query = query.populate(population);
 		}
 
+		if (req.query.select) {
+			const select = req.query.select.replace(/,/g, ' ');
+
+			query = query.select(select);
+		}
+
 		query.exec((error, data)  => res.json(this.queryCallback(error, data)));
 	}
 

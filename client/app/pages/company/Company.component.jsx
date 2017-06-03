@@ -1,23 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import SectionHeader from '../../components/section-header/SectionHeader.component';
-import Title from '../../components/title/Title.component';
-import Modal from '../../components/modal/Modal.component';
-import AppButton from '../../components/app-button/AppButton.component';
-import AppForm from '../../components/app-form/AppForm.component';
-import TextInput from '../../components/app-form/TextInput.component';
 import DepartmentFilterPanel from './DepartmentFilterPanel.component';
 import HostList from './HostList.component';
 
-const stateMap = state => ({
-	company: state.companyPage.company,
-});
-
 const CompanyPage = props => {
+	const company = props.resolves.data;
+
 	return (
 		<div className="company-page">
 			<SectionHeader
-				title={props.company.name}
+				title={company.name}
 				subtitle="Departments and hosts"
 				line
 			/>
@@ -33,4 +25,4 @@ const CompanyPage = props => {
 	);
 };
 
-export default connect(stateMap)(CompanyPage);
+export default CompanyPage;

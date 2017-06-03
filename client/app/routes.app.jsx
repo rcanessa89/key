@@ -42,11 +42,11 @@ const main = {
 				.then(user => {
 					store.dispatch(getUserLoggedAction(user));
 
-					return api.call('get', `company/id/${user.company._id}?populate=users`);
+					return api.call('get', `company/id/${user.company._id}?select=-users`);
 				}, error => reject(error))
 				.then(company => {
 					store.dispatch(getCompanySetAction(company));
-					resolve();
+					resolve(company);
 				}, error => reject(error))
 				.catch(error => reject(error));
 		}),

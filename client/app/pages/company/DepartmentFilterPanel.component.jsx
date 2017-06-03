@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { filterByDepartment, searchDepartment } from './action-creators';
+import { filterByDepartment, searchDepartment, resetFilterDepartment } from './action-creators';
 import AppButton from '../../components/app-button/AppButton.component';
 import Modal from '../../components/modal/Modal.component';
 import AppForm from '../../components/app-form/AppForm.component';
@@ -14,17 +14,19 @@ import sortArrayAlpha from '../../util/sort-array-alpha';
 import companyService from './company.service';
 
 const propTypes = {
-// 	departments: PropTypes.object.isRequired,
-// 	filter: PropTypes.shape({
-// 		department: PropTypes.shape({
-// 			created_at: PropTypes.string,
-// 			hosts: PropTypes.array,
-// 			name: PropTypes.string,
-// 			updated_at: PropTypes.string,
-// 			_id: PropTypes.string,
-// 		}),
-// 		search: PropTypes.string.isRequired
-// 	}),
+	departments: PropTypes.arrayOf(PropTypes.shape({
+		_id: PropTypes.string,
+		name: PropTypes.string.required,
+		hosts: PropTypes.array.isRequired,
+	})),
+	filter: PropTypes.shape({
+		department: PropTypes.shape({
+			_id: PropTypes.string,
+			name: PropTypes.string.required,
+			hosts: PropTypes.array.isRequired,
+		}),
+		search: PropTypes.string,
+	})
 };
 
 const stateMap = state => ({
@@ -32,7 +34,7 @@ const stateMap = state => ({
 	filter: state.companyPage.filter,
 });
 
-const dispatchMap = dispatch => bindActionCreators({ filterByDepartment, searchDepartment }, dispatch);
+const dispatchMap = dispatch => bindActionCreators({ filterByDepartment, searchDepartment, resetFilterDepartment }, dispatch);
 
 class DepartmentFilterPanel extends React.PureComponent {
 	componentWillMount() {
@@ -40,7 +42,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 	}
 
 	componentWillUnmount() {
-		this.props.reset();
+		this.props.resetFilterDepartment();
 	}
 
 	getBlocks() {
