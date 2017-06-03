@@ -4,8 +4,9 @@ const initialState = {
 	company: null,
 	filter: {
 		department: { name: 'All', hosts: [] },
-		search: ''
-	}
+		search: '',
+	},
+	searchHost: ''
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +25,8 @@ export default (state = initialState, action) => {
 					search: action.payload,
 				},
 			};
+		case actions.searchHost:
+			return { ...state, searchHost: action.payload }; 
 		case actions.resetFilterDepartment: 
 			return { ...initialState, company: state.company };
 		default:

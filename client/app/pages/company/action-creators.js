@@ -16,6 +16,11 @@ const searchDepartment = payload => ({
 	payload,
 });
 
+const searchHost = payload => ({
+	type: actions.searchHost,
+	payload,
+});
+
 const resetFilterDepartment = () => ({
 	type: actions.resetFilterDepartment,
 });
@@ -65,4 +70,5 @@ export {
 	createHost,
 	editHost,
 	deleteHost,
+	searchHost,
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import capitalizeFirst from '../../util/capitalize-first';
@@ -16,7 +17,8 @@ import {
 	deleteDepartment,
 	createHost,
 	editHost,
-	deleteHost
+	deleteHost,
+	searchHost,
 } from './action-creators';
 
 const propTypes = {
@@ -41,6 +43,7 @@ const stateMap = state => {
 
 	return {
 		department: { ...department, hosts: sortArrayAlpha(currentHosts, 'name')},
+		searchHostValue: state.companyPage.searchHost,
 	}
 }
 
@@ -49,7 +52,8 @@ const dispatchMap = dispatch => bindActionCreators({
 	deleteDepartment,
 	createHost,
 	editHost,
-	deleteHost
+	deleteHost,
+	searchHost,
 }, dispatch);
 
 const HostList = props => {
@@ -181,9 +185,26 @@ const HostList = props => {
 		</Modal>
 	) : null;
 
+	const searchHostControlClassName = classnames({
+		control: true,
+		'has-icon': true,
+		'has-icons-left' : true,
+		'search-host-margin-top': props.department.name !== 'All',
+		'search-host' : true,
+	});
+
 	return (
 		<div className="host-list">
 			{createHostModal}
+			<p className={searchHostControlClassName}>
+				<input
+					className="input"
+					type="text"
+					placeholder="Search a host"
+					onChange={e => props.searchHost(e.target.value)}
+				/>
+				<span className="icon is-small is-left"><i className="fa fa-search" /></span>
+			</p>
 			{getDepartmentTitle()}
 			<div className="hosts-container">
 				<table className="table is-striped">
@@ -197,6 +218,10 @@ const HostList = props => {
 					<tbody>
 						{
 							props.department.hosts.map(host => {
+								if (host.name.indexOf(props.searchHostValue) === -1 && host.last_name.indexOf(props.searchHostValue) === -1) {
+									return null;
+								}
+
 								const nameId = `name-${host._id}`;
 								const lastNameId = `last-name-${host._id}`;
 								const hostMenuItems = [
