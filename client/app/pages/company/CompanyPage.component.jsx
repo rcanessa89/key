@@ -13,7 +13,7 @@ const defaultProps = {
 };
 
 const CompanyPage = (props) => {
-	const company = props.resolves.data;
+	const company = props.resolves.company;
 
 	return (
 		<div className="company-page">

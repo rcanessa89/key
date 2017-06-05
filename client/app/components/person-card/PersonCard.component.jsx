@@ -54,7 +54,7 @@ const PersonCard = (props) => {
 			<div className="card">
 				<div className="card-image">
 					<figure className="image is-4by3">
-						<img src={props.photo} alt="Person card" />
+						<img src={`/api/img/${props.photo}`} alt="Person card" />
 					</figure>
 				</div>
 				<div className="card-content">

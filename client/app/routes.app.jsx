@@ -2,6 +2,7 @@ import store from './store.app';
 import Api from './services/Api';
 import { getUserLoggedAction } from './services/set-current-logged';
 import { getCompanySetAction } from './pages/company/action-creators';
+import { setUsers } from './pages/users/action-creators';
 
 // Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
@@ -27,16 +28,29 @@ const main = {
 	abstract: true,
 	component: MainPage,
 	resolve: {
-		data: () => new Promise((resolve, reject) => {
+		company: () => new Promise((resolve, reject) => {
 			api.call('get', 'user/logged')
 				.then((user) => {
 					store.dispatch(getUserLoggedAction(user));
 
-					return api.call('get', `company/id/${user.company._id}?select=-users`);
+					const select = 'select=-created_at,-__v,-updated_at';
+					const populate = 'populate=users';
+					const populateSelect = 'populateSelect=-created_at,-updated_at,-verified,-__v';
+					const url = `company/id/${user.company._id}?${select}&${populate}&${populateSelect}`;
+
+					return api.call('get', url);
 				}, error => reject(error))
 				.then((company) => {
-					store.dispatch(getCompanySetAction(company));
-					resolve(company);
+					const companyPageData = {
+						_id: company._id,
+						name: company.name,
+						departments: company.departments,
+					};
+
+					store.dispatch(getCompanySetAction(companyPageData));
+					store.dispatch(setUsers(company.users));
+
+					resolve(companyPageData);
 				}, error => reject(error))
 				.catch(error => reject(error));
 		}),

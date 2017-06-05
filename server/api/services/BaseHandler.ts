@@ -50,7 +50,13 @@ export default class BaseHandler {
 		if (req.query.populate) {
 			const population = req.query.populate.replace(/,/g, ' ');
 
-			query = query.populate(population);
+			if (req.query.populateSelect) {
+				const populationSelect = req.query.populateSelect.replace(/,/g, ' ');
+
+				query = query.populate(population, populationSelect);
+			} else {
+				query = query.populate(population);
+			}
 		}
 
 		if (req.query.select) {
