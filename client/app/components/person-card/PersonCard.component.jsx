@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 const propTypes = {
-	photo: PropTypes.string.isRequired,
+	photo: PropTypes.string,
 	name: PropTypes.string.isRequired,
 	lastName: PropTypes.string.isRequired,
 	label: PropTypes.string,
@@ -24,6 +24,7 @@ const defaultProps = {
 	columnsTable: '6',
 	columnsMobile: '12',
 	content: null,
+	photo: '',
 };
 
 const getFooterItems = (items) => {
@@ -42,6 +43,7 @@ const getFooterItems = (items) => {
 const PersonCard = (props) => {
 	const footerItems = getFooterItems(props.footerItems);
 	const content = props.content ? (<div className="content">{props.content}</div>) : null;
+	const photoSrc = props.photo ? `/api/img/${props.photo}` : 'src/img/default-user.png';
 	const columnClassName = classnames({
 		column: true,
 		[`is-${props.columns}-desktop`]: true,
@@ -53,8 +55,8 @@ const PersonCard = (props) => {
 		<div className={columnClassName}>
 			<div className="card">
 				<div className="card-image">
-					<figure className="image is-4by3">
-						<img src={`/api/img/${props.photo}`} alt="Person card" />
+					<figure className="image is-square">
+						<img src={photoSrc} alt="Person card" />
 					</figure>
 				</div>
 				<div className="card-content">

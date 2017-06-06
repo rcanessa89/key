@@ -12,7 +12,7 @@ const defaultProps = {
 };
 
 const stateMap = state => ({
-	loading: state.loading,
+	loading: state.fetching,
 });
 
 const Loading = (props) => {

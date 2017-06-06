@@ -4,7 +4,7 @@ import userHandler from '../entities/user/User.handler';
 module.exports = function(router: express.Router) {
 	router.route('')
 		.get(userHandler.get)
-		.post(userHandler.create)
+		.post(userHandler.createUser.bind(userHandler))
 		.patch(userHandler.update);
 
 	router.route('/id/:id')

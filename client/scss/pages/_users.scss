@@ -1,0 +1,16 @@
+.users-page {
+    .button-container {
+        margin-bottom: 1.5rem;
+        @include flex(flex-end, null);
+    }
+
+    .edit-container {
+        .field-container {
+            @include flex(null, center);
+        }
+
+        i {
+            font-size: 1.5rem;
+        }
+    }
+}

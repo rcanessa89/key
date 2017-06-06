@@ -5,9 +5,17 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators from './action-creators';
 import ModalImage from './ModalImage.component';
 import ModalCard from './ModalCard.component';
+import ModalConfirm from './ModalConfirm.component';
+
+const types = {
+	normal: 'normal',
+	img: 'image',
+	card: 'card',
+	confirm: 'confirm',
+};
 
 const propTypes = {
-	type: PropTypes.oneOf(['normal', 'image', 'card']),
+	type: PropTypes.oneOf([types.normal, types.img, types.card, types.confirm]),
 	modalId: PropTypes.string.isRequired,
 	modalButton: PropTypes.element,
 	isOpen: PropTypes.bool.isRequired,
@@ -20,10 +28,13 @@ const propTypes = {
 	source: PropTypes.string,
 	title: PropTypes.string,
 	footer: PropTypes.element,
+	confirm: PropTypes.func.isRequired,
+	cancel: PropTypes.func,
+	message: PropTypes.string,
 };
 
 const defaultProps = {
-	type: 'normal',
+	type: types.normal,
 	modalButton: null,
 	children: <div />,
 	isOpen: false,
@@ -57,12 +68,14 @@ class Modal extends React.PureComponent {
 	getModalContent() {
 		let content = null;
 
-		if (this.props.type === 'normal') {
+		if (this.props.type === types.normal) {
 			content = (<div className="modal-content">{this.props.children}</div>);
-		} else if (this.props.type === 'image') {
+		} else if (this.props.type === types.img) {
 			content = <ModalImage ratio={this.props.ratio} source={this.props.source} />;
-		} else if (this.props.type === 'card') {
+		} else if (this.props.type === types.card) {
 			content = <ModalCard title={this.props.title} footer={this.props.footer} close={this.close}>{this.props.children}</ModalCard>;
+		} else if (this.props.type === types.confirm) {
+			content = <ModalConfirm message={this.props.message} close={this.close} cancel={this.props.cancel} confirm={this.props.confirm} />
 		}
 
 		return content;
