@@ -1,5 +1,5 @@
 import axios from 'axios';
-import constants from '../constants.app';
+import env from '../env-variables.app';
 import store from '../store.app';
 
 const actions = {
@@ -30,7 +30,7 @@ export { fetchReducer };
 
 export default class Api {
 	constructor(options = {}) {
-		const axiosOptions = { ...options, baseURL: constants.apiBaseUrl };
+		const axiosOptions = { ...options, baseURL: env.apiBaseUrl };
 
 		this.axios = axios.create(axiosOptions);
 	}

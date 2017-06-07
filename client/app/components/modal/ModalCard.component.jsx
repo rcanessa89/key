@@ -4,7 +4,7 @@ import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	title: PropTypes.string,
-	children: PropTypes.element.isRequired,
+	children: PropTypes.node.isRequired,
 	footer: PropTypes.element,
 	close: PropTypes.func.isRequired,
 };

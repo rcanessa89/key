@@ -28,9 +28,13 @@ const propTypes = {
 	source: PropTypes.string,
 	title: PropTypes.string,
 	footer: PropTypes.element,
-	confirm: PropTypes.func.isRequired,
+	confirm: PropTypes.func,
 	cancel: PropTypes.func,
 	message: PropTypes.string,
+	onClose: PropTypes.func,
+	onBeforeClose: PropTypes.func,
+	onOpen: PropTypes.func,
+	onBeforeOpen: PropTypes.func,
 };
 
 const defaultProps = {
@@ -42,6 +46,10 @@ const defaultProps = {
 	source: null,
 	title: null,
 	footer: null,
+	onClose: null,
+	onBeforeClose: null,
+	onOpen: null,
+	onBeforeOpen: null,
 };
 
 const stateMap = (state, ownProps) => ({
@@ -82,11 +90,27 @@ class Modal extends React.PureComponent {
 	}
 
 	close() {
+		if (this.props.onBeforeClose) {
+			this.props.onBeforeClose();
+		}
+
 		this.props.close(this.props.modalId);
+		
+		if (this.props.onClose) {
+			this.props.onClose();
+		}
 	}
 
 	open() {
+		if (this.props.onBeforeOpen) {
+			this.props.onBeforeOpen();
+		}
+
 		this.props.open(this.props.modalId);
+
+		if (this.props.onOpen) {
+			this.props.onOpen();
+		}
 	}
 
 	render() {

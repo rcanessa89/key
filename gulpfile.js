@@ -248,8 +248,8 @@ function buildEnvVar() {
 	var fs = require('fs'),
 		env = require('./env')[currentEnv],
 		envStr = JSON.stringify(env),
-		fileContent = 'const constants = ' + envStr + '; export default constants;',
-		folder = __dirname + '/client/app/constants.app.js';
+		fileContent = 'const envVariables = ' + envStr + '; export default envVariables;',
+		folder = __dirname + '/client/app/env-variables.app.js';
 	
 	fs.writeFile(folder, fileContent, function(err) {
 	    if (err) {

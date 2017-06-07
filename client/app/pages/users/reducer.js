@@ -13,10 +13,20 @@ export default (state = initialState, action) => {
 		return { ...state, users: [ ...state.users, action.payload ]};
 	case actions.setEdit:
 		return { ...state, userEdit: action.payload };
+	case actions.setUserEdited:
+		return {
+			...state,
+			users: [
+				...state.users.slice(0, action.payload.index),
+				action.payload.user,
+				...state.users.slice(action.payload.index + 1)
+			]
+		};
 	case actions.resetEdit:
 		return { ...state, userEdit: null };
 	case actions.removeUser:
-		return { ...state,
+		return { 
+			...state,
 			users: [
 				...state.users.slice(0, action.payload),
 				...state.users.slice(action.payload + 1)

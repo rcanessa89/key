@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actionCreators from './action-creators';
 import SectionHeader from '../../components/section-header/SectionHeader.component';
 import PersonCard from '../../components/person-card/PersonCard.component';
 import AppButton from '../../components/app-button/AppButton.component';
@@ -10,10 +9,18 @@ import Modal from '../../components/modal/Modal.component';
 import AppForm from '../../components/app-form/AppForm.component';
 import TextInput from '../../components/app-form/TextInput.component';
 import SelectInput from '../../components/app-form/SelectInput.component';
+import ModalEditContent from './ModalEditContent.component';
 import ModalControl from '../../services/ModalControl';
 import getRol from '../../services/getRole';
 import guid from '../../util/guid';
 import capitalizeFirst from '../../util/capitalize-first';
+import constants from '../../constants.app';
+import {
+	createUser,
+	setUserEdit,
+	EditUser,
+	deleteUser
+} from './action-creators';
 
 const propTypes = {
 	company: PropTypes.object.isRequired,
@@ -27,7 +34,17 @@ const stateMap = (state) => ({
 	userEdit: state.usersPage.userEdit,
 });
 
-const dispatchMap = dispatch => bindActionCreators(actionCreators, dispatch);
+const dispatchMap = dispatch => ({
+	dispatch: bindActionCreators(
+		{
+			createUser,
+			setUserEdit,
+			EditUser,
+			deleteUser,
+		},
+		dispatch,
+	),
+});
 
 const UsersPage = (props) => {
 	const modalcreateId = 'create-user-form-modal';
@@ -41,44 +58,38 @@ const UsersPage = (props) => {
 	const selectRolInputOptions = [
 		{
 			label: 'Admin',
-			value: 'admin',
+			value: constants.admin,
 		},
 		{
 			label: 'Viewer',
-			value: 'viewer',
+			value: constants.viewer,
 		},
 	];
 
 	const onSubmitCreateUser = values => {
-		props.createUser({ ...values, company: props.company._id });
+		props.dispatch.createUser({ ...values, company: props.company._id });
 		modalCreateControl.close();
 	};
 
 	const editUser = user => {
-		props.setUserEdit(user);
+		props.dispatch.setUserEdit(user);
 		modalEditControl.open();
-
-		console.log('edit user', user);
 	};
 
 	const deleteUser = (user, index) => {
-		props.deleteUser({
-			user,
-			index,
-		});
-		
-		modalDeleteControl.close();
+		props.dispatch.setUserEdit(user);
+		modalDeleteControl.open();
 	};
 
 	const cards = props.users.map((user, index) => {
 		const buttons = user.rol !== 'super_admin' ? [
 			{
 				label: 'Edit',
-				action: () => editUser(user),
+				action: () => editUser({ ...user, index: index }),
 			},
 			{
 				label: 'Delete',
-				action: () => deleteUser(user, index),
+				action: () => deleteUser({ ...user, index: index }),
 			},
 		] : [];
 		
@@ -96,23 +107,7 @@ const UsersPage = (props) => {
 		);
 	});
 
-	const editModalContent = props.userEdit ? (
-		<div className="edit-container columns is-multiline">
-			<div className="column is-6-desktop is-12-tablet is-12-mobile">
-				<div className="field-container">
-					<p id="field-name" className="edit-field">{capitalizeFirst(props.userEdit.name)}</p>
-					<i className="fa fa-pencil-square-o" id="edit-name" />
-				</div>
-			</div>
-			<div className="column is-6-desktop is-12-tablet is-12-mobile">
-				<div className="field-container">
-					<p id="field-last_name" className="edit-field">{capitalizeFirst(props.userEdit.last_name)}</p>
-					<i className="fa fa-pencil-square-o" id="edit-last_name" />
-				</div>
-			</div>
-			
-		</div>
-	) : null;
+	const editModalContent = props.userEdit ? <ModalEditContent userEdit={props.userEdit} onBlur={props.dispatch.EditUser} /> : null;
 
 	return (
 		<div className="users-page">
@@ -194,9 +189,15 @@ const UsersPage = (props) => {
 				type="card"
 				modalId={modalEditId}
 				title="Edit User"
+				onClose={props.resetUserEdit}
 			>
-				{editModalContent}
+				<p>{editModalContent}</p>
 			</Modal>
+			<Modal
+				type="confirm"
+				modalId={modalDeleteId}
+				confirm={() => props.dispatch.deleteUser(props.userEdit)}
+			/>
 		</div>
 	);
 };

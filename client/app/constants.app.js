@@ -1,1 +1,7 @@
-const constants = {"environment":"dev","apiBaseUrl":"http://localhost:8000/api"}; export default constants;
+export default {
+    rols: {
+        super_admin: 'super admin',
+        admin: 'admin',
+        viewer: 'viewer',
+    },
+};

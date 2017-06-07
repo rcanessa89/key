@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import constants from './constants.app';
+import env from './env-variables.app';
 import storeSubscribeEvents from './services/store-subscribe-events';
 
 // Reducers
@@ -17,7 +17,7 @@ import { fetchReducer } from './services/Api';
 
 let middleware = applyMiddleware(thunk);
 
-if (constants.environment === 'dev') {
+if (env.environment === 'dev') {
 	middleware = applyMiddleware(thunk, logger);
 }
 
