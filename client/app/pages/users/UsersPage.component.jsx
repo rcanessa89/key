@@ -13,6 +13,7 @@ import SelectInput from '../../components/app-form/SelectInput.component';
 import ModalControl from '../../services/ModalControl';
 import getRol from '../../services/getRole';
 import guid from '../../util/guid';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	company: PropTypes.object.isRequired,
@@ -99,14 +100,14 @@ const UsersPage = (props) => {
 		<div className="edit-container columns is-multiline">
 			<div className="column is-6-desktop is-12-tablet is-12-mobile">
 				<div className="field-container">
-					<p id="field-name" className="edit-field title is-4">{props.userEdit.name}</p>
-					<i className="fa fa-pencil-square-o" />
+					<p id="field-name" className="edit-field">{capitalizeFirst(props.userEdit.name)}</p>
+					<i className="fa fa-pencil-square-o" id="edit-name" />
 				</div>
 			</div>
 			<div className="column is-6-desktop is-12-tablet is-12-mobile">
 				<div className="field-container">
-					<p id="field-last_name" className="edit-field title is-4">{props.userEdit.last_name}</p>
-					<i className="fa fa-pencil-square-o" />
+					<p id="field-last_name" className="edit-field">{capitalizeFirst(props.userEdit.last_name)}</p>
+					<i className="fa fa-pencil-square-o" id="edit-last_name" />
 				</div>
 			</div>
 			

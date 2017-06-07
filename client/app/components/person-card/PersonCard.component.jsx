@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
 	photo: PropTypes.string,
@@ -62,8 +63,8 @@ const PersonCard = (props) => {
 				<div className="card-content">
 					<div className="media">
 						<div className="media-content">
-							<p className="title is-4">{`${props.name} ${props.lastName}`}</p>
-							<p className="subtitle is-6">{props.label}</p>
+							<p className="title is-4">{`${capitalizeFirst(props.name)} ${capitalizeFirst(props.lastName)}`}</p>
+							<p className="subtitle is-6">{capitalizeFirst(props.label)}</p>
 						</div>
 					</div>
 					{content}
