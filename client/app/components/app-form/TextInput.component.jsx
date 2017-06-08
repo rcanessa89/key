@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import * as actionCreators from './action-creators';
+import { bindActionCreators } from 'redux';
+import { registryField, onChangeField, } from './action-creators';
 import TextValidator from '../../services/TextValidator';
 import capitalizeFirst from '../../util/capitalize-first';
 
@@ -18,8 +19,6 @@ const propTypes = {
 	succesMessage: PropTypes.string,
 	required: PropTypes.bool,
 	pattern: PropTypes.string,
-	registry: PropTypes.func.isRequired,
-	onChange: PropTypes.func.isRequired,
 	state: PropTypes.shape({
 		id: PropTypes.string,
 		name: PropTypes.string,
@@ -30,6 +29,10 @@ const propTypes = {
 	columns: PropTypes.string,
 	columnsTablet: PropTypes.string,
 	columnsMobile: PropTypes.string,
+	dispatch: PropTypes.shape({
+		registryField: PropTypes.func.isRequired,
+		onChangeField: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 const defaultProps = {
@@ -62,8 +65,7 @@ const stateMap = (state, ownProps) => ({
 });
 
 const dispatchMap = dispatch => ({
-	registry: field => dispatch(actionCreators.registryField(field)),
-	onChange: field => dispatch(actionCreators.onChangeField(field)),
+	dispatch: bindActionCreators({ registryField, onChangeField, }, dispatch),
 });
 
 class TextInput extends React.PureComponent {
@@ -90,7 +92,7 @@ class TextInput extends React.PureComponent {
 			this.errorMessage = 'Invalid email.';
 		}
 
-		this.props.registry({
+		this.props.dispatch.registryField({
 			formId: this.props.formId,
 			fieldId: this.props.fieldId,
 			name: this.props.name,
@@ -110,7 +112,7 @@ class TextInput extends React.PureComponent {
 			required: e.target.value.length === 0 && this.props.required,
 		};
 
-		this.props.onChange(state);
+		this.props.dispatch.onChangeField(state);
 	}
 
 	render() {

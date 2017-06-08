@@ -15,9 +15,11 @@ const propTypes = {
 		action: PropTypes.func,
 	})).isRequired,
 	menus: PropTypes.object,
-	init: PropTypes.func.isRequired,
-	destroy: PropTypes.func.isRequired,
-	change: PropTypes.func.isRequired,
+	dispatch: PropTypes.shape({
+		init: PropTypes.func.isRequired,
+		destroy: PropTypes.func.isRequired,
+		change: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 const defaultProps = {
@@ -30,7 +32,9 @@ const stateMap = state => ({
 	menus: state.buttonMenus,
 });
 
-const dispatchMap = dispatch => bindActionCreators(actionCreators, dispatch);
+const dispatchMap = dispatch => ({
+	dispatch: bindActionCreators(actionCreators, dispatch),
+});
 
 class ButtonMenu extends React.PureComponent {
 	constructor(props) {
@@ -44,7 +48,7 @@ class ButtonMenu extends React.PureComponent {
 	}
 
 	componentWillMount() {
-		this.props.init(this.id);
+		this.props.dispatch.init(this.id);
 	}
 
 	componentDidMount() {
@@ -52,7 +56,7 @@ class ButtonMenu extends React.PureComponent {
 	}
 
 	componentWillUnmount() {
-		this.props.destroy(this.id);
+		this.props.dispatch.destroy(this.id);
 		window.removeEventListener('click', this.handleDocumentClick);
 	}
 
@@ -64,7 +68,7 @@ class ButtonMenu extends React.PureComponent {
 
 	show() {
 		if (!this.props.menus[this.id]) {
-			this.props.change({
+			this.props.dispatch.change({
 				id: this.id,
 				value: true,
 			});
@@ -73,7 +77,7 @@ class ButtonMenu extends React.PureComponent {
 
 	hide() {
 		if (this.props.menus[this.id]) {
-			this.props.change({
+			this.props.dispatch.change({
 				id: this.id,
 				value: false,
 			});

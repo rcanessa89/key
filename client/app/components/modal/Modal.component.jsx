@@ -19,11 +19,7 @@ const propTypes = {
 	modalId: PropTypes.string.isRequired,
 	modalButton: PropTypes.element,
 	isOpen: PropTypes.bool.isRequired,
-	init: PropTypes.func.isRequired,
 	children: PropTypes.element,
-	open: PropTypes.func.isRequired,
-	close: PropTypes.func.isRequired,
-	destroy: PropTypes.func.isRequired,
 	ratio: PropTypes.string,
 	source: PropTypes.string,
 	title: PropTypes.string,
@@ -35,6 +31,13 @@ const propTypes = {
 	onBeforeClose: PropTypes.func,
 	onOpen: PropTypes.func,
 	onBeforeOpen: PropTypes.func,
+	dispatch: PropTypes.shape({
+		init: PropTypes.func.isRequired,
+		destroy: PropTypes.func.isRequired,
+		open: PropTypes.func.isRequired,
+		close: PropTypes.func.isRequired,
+		toggle: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 const defaultProps = {
@@ -56,7 +59,9 @@ const stateMap = (state, ownProps) => ({
 	isOpen: state.modal[ownProps.modalId],
 });
 
-const dispatchMap = dispatch => bindActionCreators(actionCreators, dispatch);
+const dispatchMap = dispatch => ({
+	dispatch: bindActionCreators(actionCreators, dispatch)
+});
 
 class Modal extends React.PureComponent {
 	constructor() {
@@ -66,11 +71,11 @@ class Modal extends React.PureComponent {
 	}
 
 	componentWillMount() {
-		this.props.init(this.props.modalId);
+		this.props.dispatch.init(this.props.modalId);
 	}
 
 	componentWillUnmount() {
-		this.props.destroy(this.props.modalId);
+		this.props.dispatch.destroy(this.props.modalId);
 	}
 
 	getModalContent() {
@@ -94,7 +99,7 @@ class Modal extends React.PureComponent {
 			this.props.onBeforeClose();
 		}
 
-		this.props.close(this.props.modalId);
+		this.props.dispatch.close(this.props.modalId);
 		
 		if (this.props.onClose) {
 			this.props.onClose();
@@ -106,7 +111,7 @@ class Modal extends React.PureComponent {
 			this.props.onBeforeOpen();
 		}
 
-		this.props.open(this.props.modalId);
+		this.props.dispatch.open(this.props.modalId);
 
 		if (this.props.onOpen) {
 			this.props.onOpen();

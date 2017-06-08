@@ -27,7 +27,15 @@ const propTypes = {
 		name: PropTypes.string.required,
 		hosts: PropTypes.array.isRequired,
 	}),
-	searchHost: PropTypes.func.isRequired,
+	searchHostValue: PropTypes.string.isRequired,
+	dispatch: PropTypes.shape({
+		editDepartment: PropTypes.func.isRequired,
+		deleteDepartment: PropTypes.func.isRequired,
+		createHost: PropTypes.func.isRequired,
+		editHost: PropTypes.func.isRequired,
+		deleteHost: PropTypes.func.isRequired,
+		searchHost: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 const defaultProps = {
@@ -52,14 +60,16 @@ const stateMap = (state) => {
 	};
 };
 
-const dispatchMap = dispatch => bindActionCreators({
-	editDepartment,
-	deleteDepartment,
-	createHost,
-	editHost,
-	deleteHost,
-	searchHost,
-}, dispatch);
+const dispatchMap = dispatch => ({
+	dispatch: bindActionCreators({
+		editDepartment,
+		deleteDepartment,
+		createHost,
+		editHost,
+		deleteHost,
+		searchHost,
+	}, dispatch),
+});
 
 const HostList = (props) => {
 	const modalId = 'modalNewHost';
@@ -98,7 +108,7 @@ const HostList = (props) => {
 	const onSubmitCreateHost = (values) => {
 		const data = { ...values, departmentId: props.department._id };
 
-		props.createHost(data);
+		props.dispatch.createHost(data);
 
 		modalControl.close();
 	};
@@ -112,7 +122,7 @@ const HostList = (props) => {
 
 			{
 				text: 'Delete',
-				action: () => { props.deleteDepartment(props.department._id); companyService.setFilterAll(); },
+				action: () => { props.dispatch.deleteDepartment(props.department._id); companyService.setFilterAll(); },
 			},
 		];
 
@@ -123,7 +133,7 @@ const HostList = (props) => {
 					className="title is-3"
 					onBlur={(event) => {
 						onEditBlur(event, departmentNameId, () => {
-							props.editDepartment({
+							props.dispatch.editDepartment({
 								departmentId: props.department._id,
 								name: editableValue,
 							});
@@ -205,7 +215,7 @@ const HostList = (props) => {
 					className="input"
 					type="text"
 					placeholder="Search a host"
-					onChange={e => props.searchHost(e.target.value)}
+					onChange={e => props.dispatch.searchHost(e.target.value)}
 				/>
 				<span className="icon is-small is-left"><i className="fa fa-search" /></span>
 			</p>
@@ -241,7 +251,7 @@ const HostList = (props) => {
 
 									{
 										text: 'Delete',
-										action: () => props.deleteHost(props.department._id, host._id),
+										action: () => props.dispatch.deleteHost(props.department._id, host._id),
 									},
 								];
 
@@ -258,7 +268,7 @@ const HostList = (props) => {
 											id={nameId}
 											onBlur={(event) => {
 												onEditBlur(event, nameId, () => {
-													props.editHost({
+													props.dispatch.editHost({
 														departmentId: props.department._id,
 														hostId: host._id,
 														name: editableValue,
@@ -272,7 +282,7 @@ const HostList = (props) => {
 											id={lastNameId}
 											onBlur={(event) => {
 												onEditBlur(event, lastNameId, () => {
-													props.editHost({
+													props.dispatch.editHost({
 														departmentId: props.department._id,
 														hostId: host._id,
 														last_name: editableValue,

@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import * as actionCreators from './action-creators';
+import { bindActionCreators } from 'redux';
+import { registryField, onChangeField, } from './action-creators';
 import capitalizeFirst from '../../util/capitalize-first';
 import guid from '../../util/guid';
 
@@ -14,11 +15,13 @@ const propTypes = {
 	options: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string.isRequired, value: PropTypes.string.isRequired })),
 	required: PropTypes.bool,
 	state: PropTypes.object.isRequired,
-	onChange: PropTypes.func.isRequired,
-	registry: PropTypes.func.isRequired,
 	columns: PropTypes.string,
 	columnsTable: PropTypes.string,
 	columnsMobile: PropTypes.string,
+	dispatch: PropTypes.shape({
+		registryField: PropTypes.func.isRequired,
+		onChangeField: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 const defaultProps = {
@@ -46,8 +49,7 @@ const stateMap = (state, ownProps) => ({
 });
 
 const dispatchMap = dispatch => ({
-	registry: field => dispatch(actionCreators.registryField(field)),
-	onChange: field => dispatch(actionCreators.onChangeField(field)),
+	dispatch: bindActionCreators({ registryField, onChangeField, }, dispatch),
 });
 
 class CheckInput extends React.PureComponent {
@@ -57,7 +59,7 @@ class CheckInput extends React.PureComponent {
 	}
 
 	componentWillMount() {
-		this.props.registry({
+		this.props.dispatch.registryField({
 			formId: this.props.formId,
 			fieldId: this.props.fieldId,
 			name: this.props.name,
@@ -95,7 +97,7 @@ class CheckInput extends React.PureComponent {
 			required: !value.length,
 		};
 
-		this.props.onChange(state);
+		this.props.dispatch.onChangeField(state);
 	}
 
 	render() {

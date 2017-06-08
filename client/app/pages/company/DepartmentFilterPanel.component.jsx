@@ -23,10 +23,12 @@ const propTypes = {
 		}),
 		search: PropTypes.string,
 	}),
-	filterByDepartment: PropTypes.func.isRequired,
-	resetFilterDepartment: PropTypes.func.isRequired,
-	searchDepartment: PropTypes.func.isRequired,
-	createDepartment: PropTypes.func.isRequired,
+	dispatch: PropTypes.shape({
+		filterByDepartment: PropTypes.func.isRequired,
+		resetFilterDepartment: PropTypes.func.isRequired,
+		searchDepartment: PropTypes.func.isRequired,
+		createDepartment: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 const defaultProps = {
@@ -42,20 +44,22 @@ const stateMap = state => ({
 	filter: state.companyPage.filter,
 });
 
-const dispatchMap = dispatch => bindActionCreators({
-	filterByDepartment,
-	searchDepartment,
-	resetFilterDepartment,
-	createDepartment,
-}, dispatch);
+const dispatchMap = dispatch => ({
+	dispatch: bindActionCreators({
+		filterByDepartment,
+		searchDepartment,
+		resetFilterDepartment,
+		createDepartment,
+	}, dispatch),
+});
 
 class DepartmentFilterPanel extends React.PureComponent {
 	componentWillMount() {
-		this.props.filterByDepartment({ name: 'All', hosts: companyService.getAllHost(this.props.departments) });
+		this.props.dispatch.filterByDepartment({ name: 'All', hosts: companyService.getAllHost(this.props.departments) });
 	}
 
 	componentWillUnmount() {
-		this.props.resetFilterDepartment();
+		this.props.dispatch.resetFilterDepartment();
 	}
 
 	getBlocks() {
@@ -66,7 +70,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 				const department = this.props.departments[key];
 
 				const blockFilterByDepartment = () => {
-					this.props.filterByDepartment(department);
+					this.props.dispatch.filterByDepartment(department);
 				};
 
 				const blockClassName = classnames({
@@ -111,14 +115,14 @@ class DepartmentFilterPanel extends React.PureComponent {
 							className="input is-small"
 							type="text"
 							placeholder="Search a department"
-							onChange={e => this.props.searchDepartment(e.target.value)}
+							onChange={e => this.props.dispatch.searchDepartment(e.target.value)}
 						/>
 						<span className="icon is-small is-left"><i className="fa fa-search" /></span>
 					</p>
 				</div>
 				<a
 					className={this.props.filter.department.name === 'All' ? 'panel-block is-active' : 'panel-block'}
-					onClick={() => this.props.filterByDepartment({ name: 'All', hosts: companyService.getAllHost(this.props.departments) })}
+					onClick={() => this.props.dispatch.filterByDepartment({ name: 'All', hosts: companyService.getAllHost(this.props.departments) })}
 				>
 					All
 				</a>
@@ -140,7 +144,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 					>
 						<AppForm
 							formId={formId}
-							onSubmit={(values) => { this.props.createDepartment(values); modalControl.close(); }}
+							onSubmit={(values) => { this.props.dispatch.createDepartment(values); modalControl.close(); }}
 							onCancel={modalControl.close}
 						>
 							<TextInput

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actionCreators from './action-creators';
+import { bindActionCreators } from 'redux';
+import { init, destroy, evalForm } from './action-creators';
 import guid from '../../util/guid';
 import capitalizeFirst from '../../util/capitalize-first';
 import AppButton from '../app-button/AppButton.component';
@@ -11,14 +12,16 @@ const propTypes = {
 	subtitle: PropTypes.string,
 	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]).isRequired,
 	formId: PropTypes.string,
-	init: PropTypes.func.isRequired,
-	destroy: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 	onCancel: PropTypes.func,
 	withButtons: PropTypes.bool,
 	selfDEstroy: PropTypes.bool,
-	evalForm: PropTypes.func.isRequired,
 	form: PropTypes.object,
+	dispatch: PropTypes.shape({
+		init: PropTypes.func.isRequired,
+		destroy: PropTypes.func.isRequired,
+		evalForm: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
 const defaultProps = {
@@ -37,9 +40,7 @@ const stateMap = (state, ownProps) => ({
 });
 
 const dispatchMap = dispatch => ({
-	init: state => dispatch(actionCreators.init(state)),
-	destroy: id => dispatch(actionCreators.destroy(id)),
-	evalForm: state => dispatch(actionCreators.evalForm(state)),
+	dispatch: bindActionCreators({ init, destroy, evalForm }, dispatch),
 });
 
 class AppForm extends React.PureComponent {
@@ -66,7 +67,7 @@ class AppForm extends React.PureComponent {
 
 	componentWillUnmount() {
 		if (this.props.selfDEstroy) {
-			this.props.destroy(this.id);
+			this.props.dispatch.destroy(this.id);
 		}
 	}
 
@@ -82,7 +83,7 @@ class AppForm extends React.PureComponent {
 			fields: {},
 		};
 
-		this.props.init(state);
+		this.props.dispatch.init(state);
 	}
 
 	submit() {
@@ -104,11 +105,11 @@ class AppForm extends React.PureComponent {
 		form.submitted = true;
 		form.valid = isValid;
 
-		this.props.evalForm(form);
+		this.props.dispatch.evalForm(form);
 
 		if (isValid) {
 			this.props.onSubmit(AppForm.getFormValues(form));
-			this.props.destroy(this.id);
+			this.props.dispatch.destroy(this.id);
 		}
 	}
 

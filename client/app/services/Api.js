@@ -48,7 +48,13 @@ export default class Api {
 	}
 
 	call(method = 'get', url = '/', data = null) {
-		store.dispatch(getActionFetch());
+		let showLoading = true;
+
+		setTimeout(() => {
+			if (showLoading) {
+				store.dispatch(getActionFetch());
+			}
+		}, 300);
 
 		return new Promise((resolve, reject) => {
 			this.axios({
@@ -57,6 +63,7 @@ export default class Api {
 				data,
 			})
 			.then((res) => {
+				showLoading = false;
 				store.dispatch(getActionFetchEnd());
 
 				resolve(res.data);
