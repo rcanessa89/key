@@ -4,10 +4,11 @@
 	display: flex;
 	height: $app-header-height;
 	margin-top: -$app-header-height;
-	padding: 5px 15px;
+	padding: 0 15px;
 	position: fixed;
 	width: 100%;
 	z-index: z-index(header);
+	justify-content: space-between;
 
 	.header-section {
 		align-items: center;
@@ -17,6 +18,16 @@
 
 	.logo-container {
 		justify-content: flex-start;
+
+		a {
+			@include banner('http://placehold.it/112x28');
+			@include bp-sm {
+				display: none;
+			}
+			display: block;
+			width: 112px;
+			height: 28px;
+		}
 	}
 
 	.route-text-container {
@@ -53,6 +64,56 @@
 
 		span {
 			background-color: $white;
+		}
+	}
+}
+
+.desk-menu-user {
+	@include bp-sm {
+		display: none;
+	}
+	position: relative;
+
+	.menu-button-container {
+		@include flex(null, center);
+		cursor: pointer;
+		min-height: 70px;
+		padding: 0 10px;
+
+		&:hover {
+			background-color: $darken-primary;
+		}
+
+		img {
+			border-radius: 50%;
+			width: 40px;
+		}
+
+		span {
+			margin: 0 10px;
+		}
+
+		i {
+			margin-bottom: 5px;
+		}
+	}
+
+	.menu {
+		background-color: gray;
+
+		position: absolute;
+
+		a {
+			@include flex(null, center);
+
+			span {
+				text-align: center;
+				display: inline-block;
+				width: 20px;
+				margin-right: 5px;
+
+				@include flex(center, center);
+			}
 		}
 	}
 }

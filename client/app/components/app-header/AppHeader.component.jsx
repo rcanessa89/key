@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { UISref } from 'ui-router-react';
 import { toggle } from '../mobile-nav/action-creators';
+import { company } from '../../routes.app';
+import DeskUserMenu from './DeskUserMenu.component';
 
 const propTypes = {
 	mobileNav: PropTypes.bool.isRequired,
@@ -28,9 +31,9 @@ const AppHeader = (props) => {
 	return (
 		<div className="app-header">
 			<div className="header-section logo-container">
-				<a>
-					KEY
-				</a>
+				<UISref to={company.name}>
+					<a></a>
+				</UISref>
 			</div>
 			<div className="header-section route-text-container">
 				<h2>{props.pageTitle}</h2>
@@ -41,6 +44,7 @@ const AppHeader = (props) => {
 					<span />
 					<span />
 				</span>
+				<DeskUserMenu />
 			</div>
 		</div>
 	);

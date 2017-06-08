@@ -93,7 +93,16 @@ const users = {
 	},
 };
 
-const states = [
+export {
+	notFound,
+	main,
+	company,
+	assets,
+	people,
+	users,
+};
+
+export default [
 	notFound,
 	main,
 	company,
@@ -101,5 +110,3 @@ const states = [
 	people,
 	users,
 ];
-
-export default states;
