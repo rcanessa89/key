@@ -53,6 +53,9 @@ const defaultProps = {
 	onBeforeClose: null,
 	onOpen: null,
 	onBeforeOpen: null,
+	confirm: null,
+	cancel: null,
+	message: null,
 };
 
 const stateMap = (state, ownProps) => ({
@@ -60,7 +63,7 @@ const stateMap = (state, ownProps) => ({
 });
 
 const dispatchMap = dispatch => ({
-	dispatch: bindActionCreators(actionCreators, dispatch)
+	dispatch: bindActionCreators(actionCreators, dispatch),
 });
 
 class Modal extends React.PureComponent {
@@ -88,7 +91,7 @@ class Modal extends React.PureComponent {
 		} else if (this.props.type === types.card) {
 			content = <ModalCard title={this.props.title} footer={this.props.footer} close={this.close}>{this.props.children}</ModalCard>;
 		} else if (this.props.type === types.confirm) {
-			content = <ModalConfirm message={this.props.message} close={this.close} cancel={this.props.cancel} confirm={this.props.confirm} />
+			content = <ModalConfirm message={this.props.message} close={this.close} cancel={this.props.cancel} confirm={this.props.confirm} />;
 		}
 
 		return content;
@@ -100,7 +103,7 @@ class Modal extends React.PureComponent {
 		}
 
 		this.props.dispatch.close(this.props.modalId);
-		
+
 		if (this.props.onClose) {
 			this.props.onClose();
 		}

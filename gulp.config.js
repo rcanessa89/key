@@ -75,7 +75,7 @@ var config = {
 
 			lint: {
 				src: ['./client/app/**/*',
-					'!client/app/constants.app.js',
+					'!client/app/env-variables.app.js',
 					'!client/app/**/*.spec.js',
 					'!node_modules/**'
 				]

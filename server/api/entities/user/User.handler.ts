@@ -33,7 +33,7 @@ class UserHandler extends BaseHandler {
 					reject({
 						errors: [{
 							message: 'Email already exist',
-							field :'email'
+							field: 'email'
 						}]
 					});
 				}

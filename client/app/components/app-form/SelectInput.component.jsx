@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { bindActionCreators } from 'redux';
-import { registryField, onChangeField, } from './action-creators';
+import { registryField, onChangeField } from './action-creators';
 import capitalizeFirst from '../../util/capitalize-first';
 
 const propTypes = {
@@ -51,7 +51,7 @@ const stateMap = (state, ownProps) => ({
 });
 
 const dispatchMap = dispatch => ({
-	dispatch: bindActionCreators({ registryField, onChangeField, }, dispatch),
+	dispatch: bindActionCreators({ registryField, onChangeField }, dispatch),
 });
 
 class SelectInput extends React.PureComponent {

@@ -7,7 +7,7 @@ const editUser = userData => api.call('patch', '/user', userData);
 const deleteUser = id => api.call('delete', `/user/id/${id}`);
 
 export default {
-    createUser,
-    editUser,
-    deleteUser,
+	createUser,
+	editUser,
+	deleteUser,
 };

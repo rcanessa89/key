@@ -13,40 +13,54 @@ import ModalEditContent from './ModalEditContent.component';
 import ModalControl from '../../services/ModalControl';
 import getRol from '../../services/getRole';
 import guid from '../../util/guid';
-import capitalizeFirst from '../../util/capitalize-first';
 import constants from '../../constants.app';
 import {
 	createUser,
 	setUserEdit,
 	EditUser,
-	deleteUser
+	deleteUser,
+	resetUserEdit,
 } from './action-creators';
 
 const propTypes = {
-	company: PropTypes.object.isRequired,
+	companyId: PropTypes.string.isRequired,
 	users: PropTypes.array.isRequired,
 	userEdit: PropTypes.object,
+	dispatch: PropTypes.shape({
+		createUser: PropTypes.func.isRequired,
+		setUserEdit: PropTypes.func.isRequired,
+		EditUser: PropTypes.func.isRequired,
+		deleteUser: PropTypes.func.isRequired,
+		resetUserEdit: PropTypes.func.isRequired,
+	}).isRequired,
 };
 
-const stateMap = (state) => ({
-	company: state.companyPage.company,
+const defaultProps = {
+	userEdit: null,
+};
+
+const stateMap = state => ({
+	companyId: state.companyPage.company._id,
 	users: state.usersPage.users,
 	userEdit: state.usersPage.userEdit,
 });
 
-const dispatchMap = dispatch => ({
-	dispatch: bindActionCreators(
-		{
-			createUser,
-			setUserEdit,
-			EditUser,
-			deleteUser,
-		},
-		dispatch,
-	),
-});
+const dispatchMap = (dispatch) => {
+	const actionsToBind = {
+		createUser,
+		setUserEdit,
+		EditUser,
+		deleteUser,
+		resetUserEdit,
+	};
+
+	return {
+		dispatch: bindActionCreators(actionsToBind, dispatch),
+	};
+};
 
 const UsersPage = (props) => {
+	const companyId = props.companyId;
 	const modalcreateId = 'create-user-form-modal';
 	const modalCreateControl = new ModalControl(modalcreateId);
 	const modalEditId = 'edit-user-modal';
@@ -66,17 +80,17 @@ const UsersPage = (props) => {
 		},
 	];
 
-	const onSubmitCreateUser = values => {
-		props.dispatch.createUser({ ...values, company: props.company._id });
+	const onSubmitCreateUser = (values) => {
+		props.dispatch.createUser({ ...values, company: companyId });
 		modalCreateControl.close();
 	};
 
-	const editUser = user => {
+	const editUser = (user) => {
 		props.dispatch.setUserEdit(user);
 		modalEditControl.open();
 	};
 
-	const deleteUser = (user, index) => {
+	const setUserToDelete = (user) => {
 		props.dispatch.setUserEdit(user);
 		modalDeleteControl.open();
 	};
@@ -85,14 +99,14 @@ const UsersPage = (props) => {
 		const buttons = user.rol !== 'super_admin' ? [
 			{
 				label: 'Edit',
-				action: () => editUser({ ...user, index: index }),
+				action: () => editUser({ ...user, index }),
 			},
 			{
 				label: 'Delete',
-				action: () => deleteUser({ ...user, index: index }),
+				action: () => setUserToDelete({ ...user, index }),
 			},
 		] : [];
-		
+
 		return (
 			<PersonCard
 				key={`person-card-${guid()}`}
@@ -189,7 +203,7 @@ const UsersPage = (props) => {
 				type="card"
 				modalId={modalEditId}
 				title="Edit User"
-				onClose={props.resetUserEdit}
+				onClose={props.dispatch.resetUserEdit}
 			>
 				<p>{editModalContent}</p>
 			</Modal>
@@ -203,5 +217,6 @@ const UsersPage = (props) => {
 };
 
 UsersPage.propTypes = propTypes;
+UsersPage.defaultProps = defaultProps;
 
 export default connect(stateMap, dispatchMap)(UsersPage);

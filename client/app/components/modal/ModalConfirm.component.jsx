@@ -3,41 +3,39 @@ import PropTypes from 'prop-types';
 import AppButton from '../app-button/AppButton.component';
 
 const propTypes = {
-    message: PropTypes.string,
-    confirm: PropTypes.func.isRequired,
-    cancel: PropTypes.func,
+	message: PropTypes.string,
+	confirm: PropTypes.func.isRequired,
+	cancel: PropTypes.func,
 	close: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-    cancel: () => false,
+	cancel: () => false,
 	message: 'Are you sure?',
 };
 
 const ModalConfirm = (props) => {
-	const ratioClassName = `image is-${props.ratio}`;
-
-    const close = () => {
-        props.cancel();
-        props.close();
-    }
+	const close = () => {
+		props.cancel();
+		props.close();
+	};
 
 	return (
 		<div className="modal-content">
 			<div className="modal-confirm">
-                <p className="message">{props.message}</p>
-                <div className="buttons-container">
-                    <AppButton
-                        text="Confirm"
-                        state="danger"
-                        action={props.confirm}
-                    />
-                    <AppButton
-                        text="Cancel"
-                        action={close}
-                    />
-                </div>
-            </div>
+				<p className="message">{props.message}</p>
+				<div className="buttons-container">
+					<AppButton
+						text="Confirm"
+						state="danger"
+						action={props.confirm}
+					/>
+					<AppButton
+						text="Cancel"
+						action={close}
+					/>
+				</div>
+			</div>
 		</div>
 	);
 };

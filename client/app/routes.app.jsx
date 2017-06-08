@@ -9,8 +9,8 @@ import NotFoundPage from './pages/not-found/not-found.component';
 import AssetsPage from './pages/assets/assets.component';
 import MainPage from './pages/main/main.component';
 import PeoplePage from './pages/people/People.component';
-import UsersPage from './pages/users/UsersPage.component';
 import CompanyPage from './pages/company/CompanyPage.component';
+import UsersPage from './pages/users/UsersPage.component';
 
 const api = new Api();
 
