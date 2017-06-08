@@ -78,7 +78,7 @@ class DepartmentFilterPanel extends React.PureComponent {
 					'is-active': department.name === this.props.filter.department.name,
 				});
 
-				if (department.name.indexOf(this.props.filter.search) > -1) {
+				if (department.name.toLowerCase().indexOf(this.props.filter.search.toLowerCase()) > -1) {
 					const block = (
 						<a
 							key={department._id}

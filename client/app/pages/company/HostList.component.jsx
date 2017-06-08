@@ -72,7 +72,7 @@ const dispatchMap = dispatch => ({
 });
 
 const HostList = (props) => {
-	const searchHostValue = props.searchHostValue;
+	const searchHostValue = props.searchHostValue.toLowerCase();
 	const modalId = 'modalNewHost';
 	const modalControl = new ModalControl(modalId);
 	const formId = 'hostForm';
@@ -233,7 +233,7 @@ const HostList = (props) => {
 					<tbody>
 						{
 							props.department.hosts.map((host) => {
-								if (host.name.indexOf(searchHostValue) === -1 && host.last_name.indexOf(searchHostValue) === -1) {
+								if (host.name.toLowerCase().indexOf(searchHostValue) === -1 && host.last_name.indexOf(searchHostValue) === -1) {
 									return null;
 								}
 
