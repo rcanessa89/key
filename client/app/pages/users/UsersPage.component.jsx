@@ -58,11 +58,11 @@ const UsersPage = (props) => {
 	const selectRolInputOptions = [
 		{
 			label: 'Admin',
-			value: constants.admin,
+			value: constants.rols.admin,
 		},
 		{
 			label: 'Viewer',
-			value: constants.viewer,
+			value: constants.rols.viewer,
 		},
 	];
 

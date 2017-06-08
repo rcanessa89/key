@@ -16,6 +16,16 @@ export default props => {
             });
         },
 	});
+
+    const onSelectChange = event => {
+        props.onBlur({
+            data: { 
+                rol: event.target.value,
+                _id: props.userEdit._id,
+            },
+            index: props.userEdit.index,
+        });
+    };
     
     return (
         <div className="edit-container columns is-multiline">
@@ -38,7 +48,10 @@ export default props => {
                     <label className="label">Rol</label>
                     <p className="control">
                         <span className="select">
-                            <select defaultValue={props.userEdit.rol}>
+                            <select
+                                onChange={onSelectChange}
+                                defaultValue={props.userEdit.rol}
+                            >
                                 <option value="admin">Admin</option>
                                 <option value="viewer">Viewer</option>
                             </select>
