@@ -1,7 +1,7 @@
 .button-menu {
-	position: relative;
 	display: inline-block;
-	
+	position: relative;
+
 	&.is-active {
 		ul {
 			display: block;
@@ -21,23 +21,27 @@
 	}
 
 	ul {
-		position: absolute;
-		min-width: 200px;
-		top: calc(100% + 5px);
 		background-color: $white;
 		box-shadow: $pop-shadow;
-		z-index: z-index(modal);
 		display: none;
+		min-width: 200px;
+		position: absolute;
+		top: calc(100% + 5px);
+		z-index: z-index(modal);
 
 		a {
-			border: none !important;
+			border: 0;
+
+			&:first-child {
+				border-top: 0;
+			}
 		}
 	}
 
 	.delete {
-		&:before,
-		&:after {
-			content: none !important;
+		&::before,
+		&::after {
+			background-color: transparent;
 		}
 
 		span {

@@ -10,12 +10,12 @@
 	}
 
 	.department-title-container {
-		margin: 1.5rem 0;
 		@include flex(space-between, center);
+		margin: 1.5rem 0;
 
 		.title {
-			width: 100%;
 			margin-bottom: 0;
+			width: 100%;
 
 			&[contenteditable] {
 				line-height: normal;

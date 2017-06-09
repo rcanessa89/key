@@ -6,9 +6,9 @@ $app-nav-height: calc(100% - #{$app-header-height});
 $mobile-nav-height: calc(100% - #{$app-header-height});
 
 // Colors
-$modal-background-color: rgba(10,10,10,.86);
+$modal-background-color: rgba(10, 10, 10, .86);
 $darken-primary: darken($primary, 5%);
 
 // Others
 $transition-duration: .3s;
-$pop-shadow: 1px 1px 20px 1px rgba(0,0,0,0.4);
+$pop-shadow: 1px 1px 20px 1px rgba(0, 0, 0, .4);

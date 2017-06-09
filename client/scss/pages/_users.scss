@@ -1,22 +1,22 @@
 .users-page {
-    .button-container {
-        margin-bottom: 1.5rem;
-        @include flex(flex-end, null);
-    }
+	.button-container {
+		@include flex(flex-end, null);
+		margin-bottom: 1.5rem;
+	}
 
-    .edit-container {
-        .field-container {
-            @include flex(null, center);
-        }
-        
-        p,
-        i {
-            font-size: 1.2rem;
-        }
+	.edit-container {
+		.field-container {
+			@include flex(null, center);
+		}
 
-        i {
-            cursor: pointer;
-            margin-left: 10px;
-        }
-    }
+		p,
+		i {
+			font-size: 1.2rem;
+		}
+
+		i {
+			cursor: pointer;
+			margin-left: 10px;
+		}
+	}
 }
