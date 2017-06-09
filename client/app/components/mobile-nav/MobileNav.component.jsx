@@ -53,6 +53,18 @@ const MobileNav = (props) => {
 					</UISref>
 				</li>
 			</ul>
+			<p>Menu</p>
+			<ul className="menu">
+				<li>
+					<a href="/account"><span><Icon size="medium" icon="id-card-o" />Account</span></a>
+				</li>
+				<li>
+					<a href="/"><span><Icon size="medium" icon="home" />Site Home</span></a>
+				</li>
+				<li>
+					<a href="/api/logout"><span><Icon size="medium" icon="sign-out" />Log Out</span></a>
+				</li>
+			</ul>
 		</div>
 	);
 };

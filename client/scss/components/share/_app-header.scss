@@ -99,18 +99,28 @@
 	}
 
 	.menu {
-		background-color: gray;
-
+		background-color: $white-bis;
+		box-shadow: $pop-shadow;
+		bottom: -175%;
 		position: absolute;
+		left: -25px;
+		width: calc(100% + 20px);
 
 		a {
 			@include flex(null, center);
+			color: $black;
+			padding: 10px 15px;
+
+			&:hover {
+				background-color: $primary;
+				color: $white;
+			}
 
 			span {
 				text-align: center;
 				display: inline-block;
-				width: 20px;
-				margin-right: 5px;
+				width: 25px;
+				margin-right: 6px;
 
 				@include flex(center, center);
 			}

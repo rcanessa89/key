@@ -1,8 +1,16 @@
 import actions from './actions';
 
-const setTitle = title => ({
+const setTitle = payload => ({
 	type: actions.setTitle,
-	payload: title,
+	payload,
 });
 
-export default setTitle;
+const setShowMenu = payload => ({
+	type: actions.setShowMenu,
+	payload,
+});
+
+export {
+	setTitle,
+	setShowMenu,
+};
