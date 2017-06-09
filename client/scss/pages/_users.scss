@@ -1,6 +1,6 @@
 .users-page {
 	.button-container {
-		@include flex(flex-end, null);
+		@include flex(space-between, null);
 		margin-bottom: 1.5rem;
 	}
 

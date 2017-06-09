@@ -20,18 +20,21 @@ import {
 	EditUser,
 	deleteUser,
 	resetUserEdit,
+	searchUser,
 } from './action-creators';
 
 const propTypes = {
 	companyId: PropTypes.string.isRequired,
 	users: PropTypes.array.isRequired,
 	userEdit: PropTypes.object,
+	seachValue: PropTypes.string.isRequired,
 	dispatch: PropTypes.shape({
 		createUser: PropTypes.func.isRequired,
 		setUserEdit: PropTypes.func.isRequired,
 		EditUser: PropTypes.func.isRequired,
 		deleteUser: PropTypes.func.isRequired,
 		resetUserEdit: PropTypes.func.isRequired,
+		searchUser: PropTypes.func.isRequired,
 	}).isRequired,
 };
 
@@ -43,6 +46,7 @@ const stateMap = state => ({
 	companyId: state.companyPage.company._id,
 	users: state.usersPage.users,
 	userEdit: state.usersPage.userEdit,
+	seachValue: state.usersPage.seachValue,
 });
 
 const dispatchMap = (dispatch) => {
@@ -52,6 +56,7 @@ const dispatchMap = (dispatch) => {
 		EditUser,
 		deleteUser,
 		resetUserEdit,
+		searchUser,
 	};
 
 	return {
@@ -96,6 +101,10 @@ const UsersPage = (props) => {
 	};
 
 	const cards = props.users.map((user, index) => {
+		if (user.name.toLowerCase().indexOf(props.seachValue) === -1 && user.last_name.toLowerCase().indexOf(props.seachValue)) {
+			return null;
+		}
+
 		const buttons = user.rol !== 'super_admin' ? [
 			{
 				label: 'Edit',
@@ -131,70 +140,83 @@ const UsersPage = (props) => {
 				line
 			/>
 			<div className="button-container">
-				<Modal
-					type="card"
-					modalId={modalcreateId}
-					title="User form"
-					modalButton={
-						<AppButton
-							text="Create user"
-							state="primary"
-						/>
-					}
-				>
-					<AppForm
-						formId={formId}
-						onSubmit={onSubmitCreateUser}
-						onCancel={modalCreateControl.close}
-						selfDEstroy
+				<p className="control has-icon has-icons-left">
+					<input
+						className="input"
+						type="text" 
+						placeholder="Search a user"
+						onChange={(event) => props.dispatch.searchUser(event.target.value)}
+					/>
+					<span className="icon is-small is-left">
+						<i className="fa fa-search" />
+					</span>
+				</p>
+				<div>
+					<Modal
+						type="card"
+						modalId={modalcreateId}
+						title="User form"
+						modalButton={
+							<AppButton
+								text="Create user"
+								state="primary"
+							/>
+						}
 					>
-						<TextInput
+						<AppForm
 							formId={formId}
-							fieldId="newUserNameInput"
-							name="name"
-							label="Name"
-							placeholer="User name..."
-							columns="6"
-							columnsTablet="12"
-							columnsMobile="12"
-							required
-						/>
-						<TextInput
-							formId={formId}
-							fieldId="newUserLastNameInput"
-							name="last_name"
-							label="Last name"
-							placeholer="User last name..."
-							columns="6"
-							columnsTablet="12"
-							columnsMobile="12"
-							required
-						/>
-						<TextInput
-							formId={formId}
-							fieldId="newUserEmailInput"
-							type="email"
-							name="email"
-							label="Email"
-							placeholer="User email..."
-							columns="6"
-							columnsTablet="12"
-							columnsMobile="12"
-							required
-						/>
-						<SelectInput
-							formId={formId}
-							fieldId="newUserRolInput"
-							name="rol"
-							label="User rol"
-							options={selectRolInputOptions}
-							columns="6"
-							columnsTablet="12"
-							columnsMobile="12"
-							required
-						/>
-					</AppForm>
-				</Modal>
+							onSubmit={onSubmitCreateUser}
+							onCancel={modalCreateControl.close}
+							selfDEstroy
+						>
+							<TextInput
+								formId={formId}
+								fieldId="newUserNameInput"
+								name="name"
+								label="Name"
+								placeholer="User name..."
+								columns="6"
+								columnsTablet="12"
+								columnsMobile="12"
+								required
+							/>
+							<TextInput
+								formId={formId}
+								fieldId="newUserLastNameInput"
+								name="last_name"
+								label="Last name"
+								placeholer="User last name..."
+								columns="6"
+								columnsTablet="12"
+								columnsMobile="12"
+								required
+							/>
+							<TextInput
+								formId={formId}
+								fieldId="newUserEmailInput"
+								type="email"
+								name="email"
+								label="Email"
+								placeholer="User email..."
+								columns="6"
+								columnsTablet="12"
+								columnsMobile="12"
+								required
+							/>
+							<SelectInput
+								formId={formId}
+								fieldId="newUserRolInput"
+								name="rol"
+								label="User rol"
+								options={selectRolInputOptions}
+								columns="6"
+								columnsTablet="12"
+								columnsMobile="12"
+								required
+							/>
+						</AppForm>
+					</Modal>
+				</div>
 			</div>
 			<div className="columns is-multiline">
 				{cards}

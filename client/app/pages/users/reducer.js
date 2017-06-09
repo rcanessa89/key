@@ -3,6 +3,7 @@ import actions from './actions';
 const initialState = {
 	users: [],
 	userEdit: null,
+	seachValue: '',
 };
 
 export default (state = initialState, action) => {
@@ -32,8 +33,8 @@ export default (state = initialState, action) => {
 				...state.users.slice(action.payload + 1),
 			],
 		};
-	case actions.editUser:
-		return state;
+	case actions.searchUser:
+		return { ...state, seachValue: action.payload };
 	default:
 		return state;
 	}

@@ -30,6 +30,11 @@ const resetUserEdit = () => ({
 	type: actions.resetEdit,
 });
 
+const searchUser = payload => ({
+	type: actions.searchUser,
+	payload,
+});
+
 // Async
 const createUser = payload => dispatch => usersService.createUser(payload).then(user => dispatch(setUser(user)));
 const EditUser = payload => dispatch => usersService.editUser(payload.data).then(user => dispatch(setUserEdited({ user, index: payload.index })));
@@ -44,4 +49,5 @@ export {
 	createUser,
 	EditUser,
 	deleteUser,
+	searchUser,
 };
