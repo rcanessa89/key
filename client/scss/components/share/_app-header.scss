@@ -80,7 +80,8 @@
 		min-height: 70px;
 		padding: 0 10px;
 
-		&:hover {
+		&:hover,
+		&.active {
 			background-color: $darken-primary;
 		}
 

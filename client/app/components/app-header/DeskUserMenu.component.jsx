@@ -31,12 +31,17 @@ const DeskUserMenu = (props) => {
         </div>
     ) : null;
 
+    const menuButtonContainerClassName = classnames({
+        'menu-button-container': true,
+        active: props.showMenu,
+    });
+
     return (
         <div className="desk-menu-user">
             <ClickOut onOut={hideMenu}>
                 <div>
                     <div
-                        className="menu-button-container"
+                        className={menuButtonContainerClassName}
                         onClick={showMenu}
                     >
                         <img src="http://via.placeholder.com/40x40" />
