@@ -1,13 +1,12 @@
 import * as mongoose from 'mongoose';
-import IRegistry from '../registry/IRegistry';
-import ICompany from '../company/ICompany';
+import IPeople from '../people/IPeople';
 
 interface IAsset extends mongoose.Document {
-	company: ICompany;
-	asset_type: string;
+	description: string;
 	asset_model: string;
+	series_number: string;
 	brand: string;
-	owner: IRegistry;
+	owner: IPeople;
 	check_in: Date;
 	check_out: Date;
 	created_at: Date;

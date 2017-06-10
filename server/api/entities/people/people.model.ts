@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import IRegistry from './IRegistry';
+import IPeople from './IPeople';
 
 const registrySchema: mongoose.Schema = new mongoose.Schema({
 	name: {
@@ -8,7 +8,13 @@ const registrySchema: mongoose.Schema = new mongoose.Schema({
 		trim: true
 	},
 
-	last_name: {
+	last_name_1: {
+		type: String,
+		required: true,
+		trim: true
+	},
+
+	last_name_2: {
 		type: String,
 		required: true,
 		trim: true
@@ -21,31 +27,42 @@ const registrySchema: mongoose.Schema = new mongoose.Schema({
 	},
 
 	company: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Company'
+		type: String,
+		trim: true,
+	},
+
+	department: {
+		type: String,
+		required: true,
+		trim: true
 	},
 
 	host: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Host'
+		type: String,
+		required: true
 	},
 
-	sign: {
-		type: String,
+	date: {
+		type: Date,
 		required: true
 	},
 
 	check_in: {
 		type: Date,
-		default: Date.now
+		required: true
 	},
 
 	check_out: {
 		type: Date,
-		default: null
+		required: true
+	},
+
+	sign: {
+		type: String,
+		required: true
 	}
 }, {
 	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
-export default mongoose.model <IRegistry> ('Registry', registrySchema, 'Registries');
+export default mongoose.model <IPeople> ('People', registrySchema, 'People');

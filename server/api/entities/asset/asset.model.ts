@@ -2,12 +2,7 @@ import * as mongoose from 'mongoose';
 import IAsset from './IAsset';
 
 const assetSchema: mongoose.Schema = new mongoose.Schema({
-	company: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Company'
-	},
-
-	asset_type: {
+	description: {
 		type: String,
 		required: true,
 		trim: true
@@ -25,9 +20,15 @@ const assetSchema: mongoose.Schema = new mongoose.Schema({
 		trim: true
 	},
 
+	series_number: {
+		type: String,
+		required: true,
+		trim: true
+	},
+
 	owner: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Registry',
+		ref: 'People',
 		required: true
 	},
 

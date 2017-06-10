@@ -5,7 +5,7 @@ process.env.ENVIRONMENT = 'test';
 import * as mocha from 'mocha';
 import * as chai from 'chai';
 import app from '../../index';
-import Registry from '../entities/registry/registry.model';
+import People from '../entities/people/people.model';
 
 const chaiHttp = require('chai-http');
 const should = chai.should();
@@ -13,8 +13,8 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('Registry', () => {
-	const testRegistry = {
+describe('People', () => {
+	const testPeople = {
 		name: 'popin',
 		last_name: 'canessa',
 		document_id: '603780292',
@@ -23,15 +23,15 @@ describe('Registry', () => {
 	};
 
 	beforeEach((done) => {
-		Registry.remove({}, (err) => {
+		People.remove({}, (err) => {
 			done();
 		});
 	});
 
-	describe('/GET /registry', () => {
+	describe('/GET /people', () => {
 		it('it should GET all the resgistries', done => {
 			chai.request(app)
-				.get('/api/registry')
+				.get('/api/people')
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('array');
@@ -41,23 +41,23 @@ describe('Registry', () => {
 		});
 	});
 
-	describe('/GET /registry/id/:id', () => {
-		it('it should GET an registry by _id', done => {
-			const testRegistryModel = new Registry(testRegistry);
+	describe('/GET /people/id/:id', () => {
+		it('it should GET people by _id', done => {
+			const testPeopleModel = new People(testPeople);
 
-			testRegistryModel.save((error, registry) => {
-				const endPoint = '/api/registry/id/' + registry._id;
+			testPeopleModel.save((error, people) => {
+				const endPoint = '/api/eople/id/' + people._id;
 
 				chai.request(app)
 					.get(endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
 						res.body.should.be.a('object');
-						res.body.should.have.property('_id').eql(registry._id.toString());
-						res.body.should.have.property('name').eql(testRegistry.name);
-						res.body.should.have.property('last_name').eql(testRegistry.last_name);
-						res.body.should.have.property('document_id').eql(testRegistry.document_id);
-						res.body.should.have.property('sign').eql(testRegistry.sign);
+						res.body.should.have.property('_id').eql(people._id.toString());
+						res.body.should.have.property('name').eql(testPeople.name);
+						res.body.should.have.property('last_name').eql(testPeople.last_name);
+						res.body.should.have.property('document_id').eql(testPeople.document_id);
+						res.body.should.have.property('sign').eql(testPeople.sign);
 						res.body.should.have.property('host');
 						res.body.should.have.property('created_at');
 						res.body.should.have.property('updated_at');
@@ -68,18 +68,18 @@ describe('Registry', () => {
 		});
 	});
 
-	describe('/POST /registry', () => {
-		it('it should POST an registry', done => {
+	describe('/POST /people', () => {
+		it('it should POST people', done => {
 			chai.request(app)
-				.post('/api/registry')
-				.send(testRegistry)
+				.post('/api/people')
+				.send(testPeople)
 				.end((err, res) => {
 					res.should.have.status(200);
 					res.body.should.be.a('object');
-					res.body.should.have.property('name').eql(testRegistry.name);
-					res.body.should.have.property('last_name').eql(testRegistry.last_name);
-					res.body.should.have.property('document_id').eql(testRegistry.document_id);
-					res.body.should.have.property('sign').eql(testRegistry.sign);
+					res.body.should.have.property('name').eql(testPeople.name);
+					res.body.should.have.property('last_name').eql(testPeople.last_name);
+					res.body.should.have.property('document_id').eql(testPeople.document_id);
+					res.body.should.have.property('sign').eql(testPeople.sign);
 					res.body.should.have.property('host');
 					res.body.should.have.property('created_at');
 					res.body.should.have.property('updated_at');
@@ -89,15 +89,15 @@ describe('Registry', () => {
 		});
 	});
 
-	describe('/PATCH /registry', () => {
-		const testRegistryModel = new Registry(testRegistry);
+	describe('/PATCH /people', () => {
+		const testPeopleModel = new People(testPeople);
 		const newName = 'Popo';
 
-		it('it should UPDATE an registry', done => {
-			testRegistryModel.save((error, registry) => {
+		it('it should UPDATE people', done => {
+			testPeopleModel.save((error, people) => {
 				chai.request(app)
-					.patch('/api/registry')
-					.send({_id: registry._id, name: newName})
+					.patch('/api/people')
+					.send({_id: people._id, name: newName})
 					.end((error, res) => {
 						res.should.have.status(200);
 						res.body.should.be.a('object');
@@ -109,19 +109,19 @@ describe('Registry', () => {
 		});
 	});
 
-	describe('/DELETE /registry', () => {
-		const testRegistryModel = new Registry(testRegistry);
+	describe('/DELETE /people', () => {
+		const testPeopleModel = new People(testPeople);
 
-		it('it should DELETE an registry', done => {
-			testRegistryModel.save((error, registry) => {
-				const endPoint = '/api/registry/id/' + registry._id;
+		it('it should DELETE people', done => {
+			testPeopleModel.save((error, people) => {
+				const endPoint = '/api/people/id/' + people._id;
 
 				chai.request(app)
 					['delete'](endPoint)
 					.end((error, res) => {
 						res.should.have.status(200);
 						res.body.should.be.a('object');
-						res.body.should.have.property('_id').eql(registry._id.toString());
+						res.body.should.have.property('_id').eql(people._id.toString());
 						res.body.should.have.property('message').eql('Entity deleted.');
 
 						done();

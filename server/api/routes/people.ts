@@ -1,5 +1,5 @@
 import * as express from 'express';
-import registryHandler from '../entities/registry/Registry.handler';
+import registryHandler from '../entities/people/People.handler';
 
 module.exports = function(router: express.Router) {
 	router.route('')
