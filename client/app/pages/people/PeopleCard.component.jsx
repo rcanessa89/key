@@ -7,12 +7,17 @@ const propTypes = {
 
 };
 
-const PeopleCard = (props) => {
-    return (
-        <div className="people-card">
-            
-        </div>
-    );
+class PeopleCard extends React.PureComponent {
+    
+    render() {
+        return (
+            <div className="people-card">
+                <div className>
+                    <p>Rodolfo Canessa Espinza</p>
+                </div>
+            </div>
+        );
+    }
 };
 
 export default PeopleCard;

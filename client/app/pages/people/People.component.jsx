@@ -9,6 +9,7 @@ import AppForm from '../../components/app-form/AppForm.component';
 import TextInput from '../../components/app-form/TextInput.component';
 import SelectInput from '../../components/app-form/SelectInput.component';
 import ModalControl from '../../services/ModalControl';
+import PeopleCard from './PeopleCard.component';
 
 const PeoplePage = (props) => {
     return (
@@ -18,6 +19,13 @@ const PeoplePage = (props) => {
 				subtitle="Create, edit or delete the people registries"
 				line
 			/>
+            <div className="users-page-main">
+                <PeopleCard />
+                <PeopleCard />
+                <PeopleCard />
+                <PeopleCard />
+                <PeopleCard />
+            </div>
         </div>
     );
 };
