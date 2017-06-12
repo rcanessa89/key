@@ -6,5 +6,5 @@ export default {
 	setUserEdited: 'USERS_SET_USER_EDITED',
 	deleteUser: 'USERS_DELETE_USER',
 	removeUser: 'USERS_REMOVE_USER',
-	searchUser: 'USERS_SEARCH_USER'
+	searchUser: 'USERS_SEARCH_USER',
 };

@@ -16,7 +16,7 @@ const propTypes = {
 	dispatch: PropTypes.shape({
 		toggleNav: PropTypes.func.isRequired,
 		setShowMenu: PropTypes.func.isRequired,
-	}),
+	}).isRequired,
 };
 
 const stateMap = state => ({
@@ -39,7 +39,7 @@ const AppHeader = (props) => {
 		<div className="app-header">
 			<div className="header-section logo-container">
 				<UISref to={company.name}>
-					<a></a>
+					<a>home</a>
 				</UISref>
 			</div>
 			<div className="header-section route-text-container">

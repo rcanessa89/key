@@ -1,14 +1,20 @@
 import store from './store.app';
 import Api from './services/Api';
+
+// Serives
+import peopleService from './pages/people/people.service';
+
+// Redux actions
 import { getUserLoggedAction } from './services/set-current-logged';
 import { getCompanySetAction } from './pages/company/action-creators';
 import { setUsers } from './pages/users/action-creators';
+import { setRegistries } from './pages/people/action-creators';
 
 // Pages components
 import NotFoundPage from './pages/not-found/not-found.component';
-import AssetsPage from './pages/assets/assets.component';
+import AssetsPage from './pages/assets/AssetsPage.component';
 import MainPage from './pages/main/main.component';
-import PeoplePage from './pages/people/People.component';
+import PeoplePage from './pages/people/PeoplePage.component';
 import CompanyPage from './pages/company/CompanyPage.component';
 import UsersPage from './pages/users/UsersPage.component';
 
@@ -81,6 +87,16 @@ const people = {
 	component: PeoplePage,
 	data: {
 		title: 'People',
+	},
+	resolve: {
+		registries: () => new Promise((resolve, reject) => {
+			peopleService.getRegistries()
+				.then((registries) => {
+					store.dispatch(setRegistries(registries));
+					resolve(registries);
+				}, error => reject(error))
+				.catch(error => reject(error));
+		}),
 	},
 };
 

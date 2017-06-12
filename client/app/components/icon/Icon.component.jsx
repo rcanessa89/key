@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
 	icon: PropTypes.string.isRequired,
-	size: PropTypes.string,
+	size: PropTypes.oneOf(['small', 'medium', 'large']),
+	click: PropTypes.func,
 };
 
 const defaultProps = {
 	size: null,
+	click: null,
 };
 
 const Icon = (props) => {
@@ -15,7 +17,10 @@ const Icon = (props) => {
 	const iconClassName = `fa fa-${props.icon}`;
 
 	return (
-		<span className={sizeClassName}>
+		<span
+			className={sizeClassName}
+			onClick={props.click}
+		>
 			<i className={iconClassName} />
 		</span>
 	);

@@ -1,0 +1,34 @@
+.collapse {
+	border-bottom: solid 1px $white;
+
+	&.is-active {
+		.collapse-content {
+			display: block;
+		}
+	}
+
+	.label-container {
+		background-color: $grey-lighter;
+		border-radius: 2px;
+		display: flex;
+		padding: 10px;
+	}
+
+	.label-content {
+		width: calc(100% - 24px);
+	}
+
+	.label-button-container {
+		.icon {
+			border-radius: 50%;
+			cursor: pointer;
+		}
+	}
+
+	.collapse-content {
+		border: solid 2px $grey-lighter;
+		border-top: 0;
+		display: none;
+		padding: 5px;
+	}
+}

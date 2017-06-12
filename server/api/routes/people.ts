@@ -10,4 +10,7 @@ module.exports = function(router: express.Router) {
 	router.route('/id/:id')
 		.get(registryHandler.getById)
 		.delete(registryHandler.deleteById);
+
+	router.route('/company/:company/page/:page')
+		.get(registryHandler.getByPage.bind(registryHandler));
 };

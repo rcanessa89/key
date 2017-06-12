@@ -1,0 +1,31 @@
+{
+        "_id": ObjectID(),
+    	"name": "Rodolfo",
+    	"last_name_1": "Canessa",
+    	"last_name_2": "Espinoza",
+    	"document_id": 603780292,
+    	"department": "develop",
+    	"host": "Daniel Jimenez",
+		"sign": "http://via.placeholder.com/350x150",
+    	"date": ISODate("2017-06-03T07:09:21.421Z"),
+    	"check_in": ISODate("2017-06-03T07:09:21.421Z"),
+    	"check_out": ISODate("2017-06-07T04:05:35.146Z"),
+    	"created_at": ISODate("2017-06-03T07:09:21.421Z"),
+    	"updated_at": null
+}
+
+{
+        "_id": ObjectID(),
+    	"name": "Rodolfo",
+    	"last_name_1": "Canessa",
+    	"last_name_2": "Espinoza",
+    	"document_id": 603780292,
+    	"department": "develop",
+    	"host": "Daniel Jimenez",
+		"sign": "http://via.placeholder.com/350x150",
+    	"date": ISODate("2018-06-03T07:09:21.421Z"),
+    	"check_in": ISODate("2018-06-03T07:09:21.421Z"),
+    	"check_out": ISODate("2018-06-07T04:05:35.146Z"),
+    	"created_at": ISODate("2018-06-03T07:09:21.421Z"),
+    	"updated_at": null
+}

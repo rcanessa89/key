@@ -143,9 +143,9 @@ const UsersPage = (props) => {
 				<p className="control has-icon has-icons-left">
 					<input
 						className="input"
-						type="text" 
+						type="text"
 						placeholder="Search a user"
-						onChange={(event) => props.dispatch.searchUser(event.target.value)}
+						onChange={event => props.dispatch.searchUser(event.target.value)}
 					/>
 					<span className="icon is-small is-left">
 						<i className="fa fa-search" />

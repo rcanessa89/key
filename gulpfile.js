@@ -234,12 +234,12 @@ function reload(){
 }
 
 function watchClient() {
-	gulp.watch(configClient.scss.watch, ['build-css']);
-	gulp.watch(configClient.code.watch, ['build-app']);
-	gulp.watch(configClient.main.src, ['reload']);
+	gulp.watch(configClient.scss.watch, { cwd:'./' }, ['build-css']);
+	gulp.watch(configClient.code.watch, { cwd:'./' }, ['build-app']);
+	gulp.watch(configClient.main.src, { cwd:'./' }, ['reload']);
 }
 function watchServer() {
-	gulp.watch(configServer.scss.watch, ['build-server-css']);
+	gulp.watch(configServer.scss.watch, { cwd:'./' }, ['build-server-css']);
 }
 
 function buildEnvVar() {

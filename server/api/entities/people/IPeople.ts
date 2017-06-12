@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import ICompany from '../company/ICompany';
 
 interface IRegistry extends mongoose.Document {
+	company_id: string;
 	name: string;
 	last_name_1: string;
 	last_name_2: string;

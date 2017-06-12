@@ -17,7 +17,7 @@ var config = {
 		scss: {
 			main: './server/public/scss/main.scss',
 			dest: './server/dist/public/assets/css/',
-			watch: './server/public/scss/**/*.scss'
+			watch: 'server/public/scss/**/*.scss'
 		},
 
 		lint: {
@@ -36,9 +36,9 @@ var config = {
 			main: './client/app/index.app.jsx',
 
 			watch: [
-				'./client/app/**/*.jsx',
-				'./client/app/**/*.js',
-				'!./client/app/**/*.spec.js'
+				'client/app/**/*.jsx',
+				'client/app/**/*.js',
+				'!client/app/**/*.spec.js'
 			],
 
 			extensions: [
@@ -47,8 +47,9 @@ var config = {
 			],
 
 			presets: [
-				"es2015",
-				"react"
+				'es2015',
+				'react',
+				'babel-preset-stage-1'
 			],
 
 			plugins: [
@@ -86,7 +87,7 @@ var config = {
 			main: './client/scss/main.scss',
 			outputStyle: 'compressed',
 			dest: './client/dist/src/css',
-			watch: './client/scss/**/*.scss',
+			watch: 'client/scss/**/*.scss',
 
 			lint: {
 				src: [

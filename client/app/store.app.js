@@ -10,10 +10,14 @@ import buttonMenus from './components/button-menu/reducer';
 import forms from './components/app-form/reducer';
 import mobileNav from './components/mobile-nav/reducer';
 import header from './components/app-header/reducer';
-import company from './pages/company/reducer';
-import users from './pages/users/reducer';
+import collapse from './components/collapse/reducer';
 import { userReducer } from './services/set-current-logged';
 import { fetchReducer } from './services/Api';
+
+// Pages reducers
+import company from './pages/company/reducer';
+import users from './pages/users/reducer';
+import people from './pages/people/reducer';
 
 let middleware = applyMiddleware(thunk);
 
@@ -27,8 +31,10 @@ const reducers = combineReducers({
 	mobileNav,
 	header,
 	buttonMenus,
+	collapse,
 	companyPage: company,
 	usersPage: users,
+	peoplePage: people,
 	userLogged: userReducer,
 	fetching: fetchReducer,
 });

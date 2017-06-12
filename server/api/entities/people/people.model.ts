@@ -1,7 +1,14 @@
 import * as mongoose from 'mongoose';
+import * as mongoosePaginate from 'mongoose-paginate';
 import IPeople from './IPeople';
 
 const registrySchema: mongoose.Schema = new mongoose.Schema({
+	company_id: {
+		type: String,
+		required: true,
+		trim: true
+	},
+
 	name: {
 		type: String,
 		required: true,
@@ -65,4 +72,6 @@ const registrySchema: mongoose.Schema = new mongoose.Schema({
 	timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
-export default mongoose.model <IPeople> ('People', registrySchema, 'People');
+registrySchema.plugin(mongoosePaginate);
+
+export default mongoose.model <IPeople> ('People', registrySchema, 'people');

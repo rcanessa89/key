@@ -1,0 +1,23 @@
+.people-page {
+	.people-registry-content {
+		display: flex;
+		margin-bottom: 10px;
+
+		.col {
+			width: 50%;
+		}
+
+		span {
+			font-weight: bold;
+		}
+	}
+
+	.people-registry-sign-container {
+		padding: 10px;
+
+		img {
+			display: block;
+			margin: 0 auto;
+		}
+	}
+}
