@@ -5,6 +5,7 @@ import logger from 'redux-logger';
 // Reducers
 import user from './reducers/user';
 import registry from './pages/registry/reducer';
+import responsive from './reducers/responsive';
 
 const middleware = applyMiddleware(thunk, logger);
 
@@ -18,6 +19,7 @@ const initialNavState = {
 const reducers = combineReducers({
     user,
     registry,
+    responsive,
     nav: (state = initialNavState, action) => state
 });
 
