@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Camera from 'react-native-camera';
 import * as actionCreators from './action-creators';
 import { colors, sizes } from '../../constants';
-
+import DocumentIdService from '../../services/DocumentIdService';
 
 const styles = StyleSheet.create({
     registryPage: {
@@ -28,21 +28,14 @@ const styles = StyleSheet.create({
         width: '90%',
     },
 
-    buttons: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-
-    buttonContainer: {
-        backgroundColor: colors.info,
-        width: '40%'
-    },
-
     camera: {
         flex: 1,
         width: '100%',
         height: '100%'
+    },
+
+    welcome: {
+        fontSize: 32
     }
 });
 
@@ -59,15 +52,15 @@ class RegistryPage extends React.PureComponent {
         super();
         this.openScanner = this.openScanner.bind(this);
         this.onReadCode = this.onReadCode.bind(this);
+        this.decodeDocumentID = new DocumentIdService().decodeDocumentID;
     }
 
     openScanner() {
-        this.props.dispatch.showCamera(true);
+        
     }
 
     onReadCode(code) {
-        console.log(code);
-      //   this.props.dispatch.showCamera(false);
+
     }
 
     render() {
@@ -81,17 +74,12 @@ class RegistryPage extends React.PureComponent {
             />
         ) : null;
 
-
-
         return (
             <View style={styles.registryPage}>
-                <Camera
-                    ref={cam => this.camera = cam}
-                    style={styles.camera}
-                    captureAudio={false}
-                    onBarCodeRead={this.onReadCode}
-                    barcodeTypes={['org.iso.pdf417']}
-                />
+                <View>
+                    <Text>Welcome!</Text>
+                    <Text>Scan your ID or fill the form</Text>
+                </View>
             </View>
         );
     }
