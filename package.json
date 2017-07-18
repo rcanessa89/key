@@ -6,6 +6,7 @@
   "author": "rcanessa <rcanessa89@hotmail.com>",
   "license": "MIT",
   "scripts": {
+    "postinstall": "typings install",
     "mongo-express": "cd ./mongo-express && node app.js",
     "test-client": "mocha ./client/app/**/*.spec.js --compilers js:babel-core/register",
     "test-api": "mocha ./server/api/test/*.spec.ts --compilers ts:ts-node/register"
