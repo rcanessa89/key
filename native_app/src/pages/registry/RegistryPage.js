@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
+import { requireNativeComponent, StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Camera from 'react-native-camera';
@@ -43,7 +43,13 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%'
-    }
+    },
+
+    map: {
+        width: '100%',
+        height: '100%'
+    },
+
 });
 
 const stateMap = state => ({
@@ -54,11 +60,14 @@ const dispatchMap = dispatch => ({
     dispatch: bindActionCreators(actionCreators, dispatch)
 });
 
+const MapComponent = requireNativeComponent('RNTMap', null);
+
 class RegistryPage extends React.PureComponent {
     constructor() {
         super();
         this.openScanner = this.openScanner.bind(this);
         this.onReadCode = this.onReadCode.bind(this);
+        this.hello = 'Hello world';
     }
 
     openScanner() {
@@ -66,32 +75,37 @@ class RegistryPage extends React.PureComponent {
     }
 
     onReadCode(code) {
-        console.log(code);
+        console.log(MapComponent);
+        // console.log(`
+        //     Data: ${code.data}
+        //     Type: ${code.type}
+        //     ----------------------------
+        // `);
       //   this.props.dispatch.showCamera(false);
     }
 
     render() {
-        const camera = this.props.showCamera ? (
+        /*const camera = this.props.showCamera ? (
             <Camera
                 ref={cam => this.camera = cam}
                 style={styles.camera}
                 captureAudio={false}
                 onBarCodeRead={this.onReadCode}
-                barcodeTypes={['org.iso.pdf417']}
+                barcodeTypes={[Camera.constants.BarCodeType.pdf417]}
             />
-        ) : null;
-
+        ) : null;*/
 
 
         return (
-            <View style={styles.registryPage}>
-                <Camera
+            <View style={ {} }>
+                {/*<Camera
                     ref={cam => this.camera = cam}
                     style={styles.camera}
                     captureAudio={false}
                     onBarCodeRead={this.onReadCode}
-                    barcodeTypes={['org.iso.pdf417']}
-                />
+                    barcodeTypes={[Camera.constants.BarCodeType.pdf417]}
+                />*/}
+                <MapComponent style={styles.map} />
             </View>
         );
     }
