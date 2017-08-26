@@ -2,12 +2,12 @@ import * as cluster from 'cluster';
 import * as os from 'os';
 import * as express from 'express';
 import logger from '../api/util/logger';
-import constants from '../constants';
+import envVariables from '../env-variables';
 
 export default class Server {
 	private runServer(): void {
-		this.app.listen(constants.SERVER_PORT, () => {
-			logger('[SERVER] Listening on port ' + constants.SERVER_PORT);
+		this.app.listen(envVariables.server_port, () => {
+			logger('[SERVER] Listening on port ' + envVariables.server_port);
 			logger('[APP] initialized SUCCESSFULLY');
 		});
 	}
@@ -34,7 +34,7 @@ export default class Server {
 	}
 
 	public run(): void {
-		if (constants.ENV === 'dev') {
+		if (envVariables.environment === 'dev') {
 			this.runServer();
 		} else {
 			this.runCluster();

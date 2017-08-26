@@ -1,6 +1,4 @@
 import * as express from 'express';
-import { ParsedAsJson } from 'body-parser';
-import * as session from 'express-session';
 import * as mongoose from 'mongoose';
 import saveBase64 from '../util/saveBase64';
 
@@ -40,11 +38,11 @@ export default class BaseHandler {
 		});
 	}
 
-	public get(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
+	public get(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		this.model.find({}, (error, data) => res.json(this.queryCallback(error, data)));
 	}
 
-	public getById(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
+	public getById(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		let query = this.model.findById(req.params.id);
 
 		if (req.query.populate) {
@@ -68,13 +66,13 @@ export default class BaseHandler {
 		query.exec((error, data)  => res.json(this.queryCallback(error, data)));
 	}
 
-	public create(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
+	public create(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		const newEntity = new this.model(req.body);
 
 		newEntity.save((error, data) => res.json(this.queryCallback(error, data)));
 	}
 
-	public update(req: express.Request & ParsedAsJson & session, res: express.Response, next: express.NextFunction): void {
+	public update(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		req.body.updated_at = new Date();
 
 		if (req.body.photo) {
@@ -114,7 +112,7 @@ export default class BaseHandler {
 		}
 	}
 
-	public deleteById(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
+	public deleteById(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		this.model.remove({ _id: req.params.id }, (error, data?) => res.json(this.queryCallback(error, {_id: req.params.id, message: 'Entity deleted.'})));
 	}
 }

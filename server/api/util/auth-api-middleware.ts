@@ -1,8 +1,8 @@
 import * as express from 'express';
-import * as session from 'express-session';
+import envVariables from '../../env-variables';
 
-export default (req: express.Request & session, res: express.Response, next: express.NextFunction) => {
-	if (process.env.ENVIRONMENT === 'test') {
+export default (req: express.Request, res: express.Response, next: express.NextFunction) => {
+	if (envVariables.environment === 'test') {
 		req.session.logged = {
 			name: 'Rodolfo',
 			last_name: 'Canessa',

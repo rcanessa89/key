@@ -1,5 +1,5 @@
 import * as jwt from 'jwt-simple';
-import constants from '../../constants';
+import envVariables from '../../env-variables';
 
 interface ITokenOptions {
 	payload?: any;
@@ -8,8 +8,8 @@ interface ITokenOptions {
 
 export default class Token {
 	constructor(options: ITokenOptions) {
-		this.payload = options.payload || jwt.decode(options.token, constants.SECRET);
-		this.token = options.token || jwt.encode(options.payload, constants.SECRET);
+		this.payload = options.payload || jwt.decode(options.token, envVariables.token_secret);
+		this.token = options.token || jwt.encode(options.payload, envVariables.token_secret);
 	}
 
 	public payload: any;

@@ -1,6 +1,4 @@
 import * as express from 'express';
-import * as session from 'express-session';
-import { ParsedAsJson } from 'body-parser';
 import * as mongoose from 'mongoose';
 import BaseHandler from './BaseHandler';
 
@@ -10,7 +8,7 @@ export default class SubDocHandler extends BaseHandler {
 		this.query = this.query.bind(this);
 	}
 
-	public query(req: express.Request & ParsedAsJson & session, res: express.Response, queryData): void {
+	public query(req: express.Request, res: express.Response, queryData): void {
 		this.model.findById(queryData.id, (error, result) => {
 			if (error) {
 				return res.json(error);
@@ -29,7 +27,7 @@ export default class SubDocHandler extends BaseHandler {
 		});
 	}
 
-	public runQuery(req: express.Request & ParsedAsJson & session, res: express.Response, queryData): void {
+	public runQuery(req: express.Request, res: express.Response, queryData): void {
 		const queryApply = result => new Promise((resolve, reject) => {
 			resolve(queryData.apply(result));
 		});

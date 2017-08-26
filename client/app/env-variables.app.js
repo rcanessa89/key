@@ -1,1 +1,1 @@
-const envVariables = {"environment":"dev","apiBaseUrl":"http://localhost:8000/api"}; export default envVariables;
+const envVariables = {"environment":"test","apiBaseUrl":""}; export default envVariables;

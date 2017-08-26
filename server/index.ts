@@ -1,6 +1,3 @@
-/// <reference path="../typings-custom/index.d.ts" />
-/// <reference path="../typings/index.d.ts" />
-
 import * as express from 'express';
 import * as async from 'async';
 import * as logger from 'winston';
@@ -11,7 +8,6 @@ import Routes from './api/routes/index';
 import cors from './initializers/cors';
 import helmet from './initializers/helmet';
 import appSession from './initializers/session';
-import constants from './constants';
 import viewsRoutes from './initializers/views-routes';
 
 const server = Server.bootstrap();

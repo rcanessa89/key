@@ -1,8 +1,8 @@
 import * as logger from 'winston';
-import constants from '../../constants';
+import envVariables from '../../env-variables';
 
 export default text => {
-	if (constants.ENV === 'test') {
+	if (envVariables.environment === 'test') {
 		return;
 	}
 

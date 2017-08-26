@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/index.d.ts" />
-
 process.env.ENVIRONMENT = 'test';
 
 import * as mocha from 'mocha';

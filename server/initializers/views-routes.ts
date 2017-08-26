@@ -8,7 +8,7 @@ import authViewMiddleware from '../api/util/auth-view-middleware';
 export default (app: express.Application): void => {
 	logger('[APP] Views routes configuring...');
 
-	const render = (view: string, otherData?: any) => (req: express.Request & session, res: express.Response): void => {
+	const render = (view: string, otherData?: any) => (req: express.Request, res: express.Response): void => {
 		const logged = req.session.logged || null;
 		const data = otherData || {};
 		const renderData = Object.assign({}, { logged }, data);
