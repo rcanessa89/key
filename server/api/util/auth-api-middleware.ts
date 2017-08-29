@@ -13,6 +13,7 @@ export default (req: express.Request, res: express.Response, next: express.NextF
 			photo: null,
 			rol: 'super_admin'
 		};
+		
 		return next();
 	}
 

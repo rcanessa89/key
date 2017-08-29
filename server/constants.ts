@@ -10,6 +10,11 @@ export default {
 	GMAIL_REFRESH_TOKEN: '1/IUFejBA5vv7dsEScQWafCeVIqYAbF3kt5wBtp3NAO0xhmFAHrV8KQOYTB5oz5zS8',
 	SALT_WORK_FACTOR: 10,
 	RECAPTCHA_ENDPOINT: 'https://www.google.com/recaptcha/api/siteverify',
+	ROL: {
+		super_admin: 'super_admin',
+		admin: 'admin',
+		viewer: 'viewer'
+	},
 	NO_ROUTE_AUTH: [
 		'login',
 		'password',

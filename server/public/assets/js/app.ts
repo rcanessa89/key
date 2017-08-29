@@ -1,4 +1,7 @@
-var app: any = {};
+declare var app: any;
+declare var grecaptcha: any;
+
+app = {};
 
 (function($) {
 	// Public methods
@@ -46,8 +49,8 @@ var app: any = {};
 			values = {};
 
 		inputs.each(function() {
-			if (this.name) {
-				values[this.name] = $(this).val();
+			if (this['name']) {
+				values[this['name']] = $(this).val();
 			}
 		});
 

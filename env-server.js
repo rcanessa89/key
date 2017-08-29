@@ -1,5 +1,5 @@
 var env = {
-	dev: {
+	develop: {
 		environment: 'dev',
 		server_port: 8000,
 		db_name: 'key',
@@ -32,7 +32,7 @@ var env = {
 		]
 	},
 
-	prod: {
+	production: {
 		environment: 'prod',
 		server_port: 0,
 		db_name: '',

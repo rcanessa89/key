@@ -27,10 +27,6 @@ class CompanyHandler extends BaseHandler {
 				}
 			})
 			.then((recaptchaRes: any) => {
-				if (envVariables.environment === 'test') {
-					resolve(recaptchaRes);
-				}
-
 				if (recaptchaRes.data.success) {
 					resolve(recaptchaRes);
 				} else {

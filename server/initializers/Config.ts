@@ -26,8 +26,8 @@ export default class Config {
 	}
 
 	public run(): void {
-		if (envVariables.morgan) {
-			this.app.use(morgan(envVariables.morgan));
+		if (envVariables['morgan']) {
+			this.app.use(morgan(envVariables['morgan']));
 		}
 
 		this.app.use(this.onAppError);
