@@ -16,6 +16,8 @@ class UserHandler extends BaseHandler {
 	}
 
 	public createUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
+		console.log(req.body);
+
 		this.ifExist({ name: req.body.email })
 			.then((ifExistEmail: boolean) => new Promise((resolve, reject) => {
 				if (!ifExistEmail) {
