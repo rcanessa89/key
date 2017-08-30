@@ -77,6 +77,7 @@ function defaultTask() {
 			'copy',
 			'build-css',
 			'watch',
+			'watch-server',
 			'client-server',
 			'run-server'
 		);
