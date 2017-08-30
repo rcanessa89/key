@@ -55,7 +55,7 @@ const defaultProps = {
 	onBeforeOpen: null,
 	confirm: null,
 	cancel: null,
-	message: null,
+	message: 'Are you sure?',
 };
 
 const stateMap = (state, ownProps) => ({

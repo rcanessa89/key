@@ -1,14 +1,9 @@
 // Vendors
+@import '../../node_modules/bulma-scss/bulma';
 
 // Partials
-@import 'partials/reset';
-@import 'partials/breakpoints';
-@import 'partials/reset-button';
-@import 'partials/clearfix';
 @import 'partials/opacity';
 @import 'partials/placeholder';
-@import 'partials/reset-anchor';
-@import 'partials/reset-input';
 @import 'partials/truncate';
 @import 'partials/z-index';
 @import 'partials/flex';
@@ -16,7 +11,6 @@
 
 // Modules
 @import 'modules/fonts';
-@import 'modules/bulma-variables';
 @import 'modules/variables';
 @import 'modules/global';
 @import 'modules/icons';
@@ -37,3 +31,4 @@
 @import 'pages/company';
 @import 'pages/users';
 @import 'pages/people';
+

@@ -26,7 +26,7 @@ $menu-left-position: -10px;
 
 		a {
 			@include banner('http://placehold.it/112x28');
-			@include bp-sm {
+			@include mobile  {
 				display: none;
 			}
 			display: block;
@@ -36,7 +36,7 @@ $menu-left-position: -10px;
 	}
 
 	.route-text-container {
-		@include bp-sm {
+		@include mobile  {
 			display: flex;
 		}
 		align-items: center;
@@ -63,7 +63,7 @@ $menu-left-position: -10px;
 			background-color: $primary;
 		}
 
-		@include bp-sm {
+		@include mobile  {
 			display: block;
 		}
 
@@ -74,7 +74,7 @@ $menu-left-position: -10px;
 }
 
 .desk-menu-user {
-	@include bp-sm {
+	@include mobile  {
 		display: none;
 	}
 	position: relative;
@@ -124,10 +124,14 @@ $menu-left-position: -10px;
 
 			span {
 				@include flex(center, center);
-				display: inline-block;
+				
 				margin-right: 6px;
 				text-align: center;
 				width: 25px;
+			}
+
+			i {
+				margin-top: 1px;
 			}
 		}
 	}

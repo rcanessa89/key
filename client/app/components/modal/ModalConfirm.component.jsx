@@ -23,15 +23,15 @@ const ModalConfirm = (props) => {
 	return (
 		<div className="modal-content">
 			<div className="modal-confirm">
-				<p className="message">{props.message}</p>
+				<p className="title is-3 has-text-centered">{props.message}</p>
 				<div className="buttons-container">
 					<AppButton
 						text="Confirm"
-						state="danger"
 						action={props.confirm}
 					/>
 					<AppButton
 						text="Cancel"
+						state="danger"
 						action={close}
 					/>
 				</div>

@@ -1,15 +1,17 @@
 // Levels
-$z1: 1;
-$z10: 10;
-$z100: 100;
-$z-max: 9999999;
+$z-index-level-1: 9;
+$z-index-level-2: 99;
+$z-index-level-3: 999;
+$z-index-level-4: 9999;
+$z-index-level-5: 99999;
+$z-index-level-6: 999999;
 
 $z-index: (
-	modal: $z100,
-	header: $z100 - 1,
-	sidebar: $z100 - 1,
-	mobile_nav: $z100,
-	loading: $z100,
+	modal: $z-index-level-2,
+	header: $z-index-level-1,
+	sidebar: $z-index-level-1,
+	mobile_nav: $z-index-level-1,
+	loading: $z-index-level-6,
 );
 
 @function z-index($key) {

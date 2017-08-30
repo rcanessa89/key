@@ -13,7 +13,7 @@
 	z-index: z-index(mobile_nav);
 
 	&.is-open {
-		@include bp-sm {
+		@include mobile  {
 			transform: translate3d(0, 0, 0);
 		}
 	}
