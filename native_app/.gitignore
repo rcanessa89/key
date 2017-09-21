@@ -36,6 +36,9 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+# IOS Pod ignores
+ios/Pods/
+
 # BUCK
 buck-out/
 \.buckd/
