@@ -9,6 +9,7 @@
 	"dependencies": {
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.46.3",
+		"react-native-barcode-scanner-google": "git+https://github.com/ekreutz/react-native-barcode-scanner-google.git#v1.2.0",
 		"react-native-camera": "https://github.com/lwansbrough/react-native-camera.git",
 		"react-navigation": "^1.0.0-beta.11",
 		"react-redux": "^5.0.5",
