@@ -3117,6 +3117,10 @@ react-devtools-core@2.3.1:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+"react-native-barcode-scanner-google@git+https://github.com/ekreutz/react-native-barcode-scanner-google.git#v1.2.0":
+  version "1.2.0"
+  resolved "git+https://github.com/ekreutz/react-native-barcode-scanner-google.git#34d248d57e65ed4c6ef77c9cbb9740dc199bc6c2"
+
 "react-native-camera@https://github.com/lwansbrough/react-native-camera.git":
   version "0.9.4"
   resolved "https://github.com/lwansbrough/react-native-camera.git#97d5d7988ab083e8b43011237a6deaa6b4a10ae5"

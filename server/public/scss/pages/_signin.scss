@@ -6,4 +6,9 @@
 	.field:not(:last-child) {
 		margin-bottom: 1.50rem;
 	}
+
+	.photo-name {
+		margin-left: $gutter-1;
+		line-height: 36px;
+	}
 }

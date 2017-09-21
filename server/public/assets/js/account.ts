@@ -5,6 +5,8 @@
 
 	var userLogged = null;
 
+	console.log(app);
+
 	app.user
 		.then(function(res) {
 			userLogged = res;
@@ -68,9 +70,9 @@
 			payload['_id'] = userLogged.company._id;
 			payload[field] = value;
 
-			app.apiCall('patch', '/company', payload);
+			app.apiCall('patch', '/company', payload, false);
 		} else {
-			app.apiCall('patch', '/user', { _id: userLogged._id, [field]: value });
+			app.apiCall('patch', '/user', { _id: userLogged._id, [field]: value }, false);
 		}
 	};
 

@@ -1,0 +1,18 @@
+$modal-confirm-width: $gutter * 12;
+
+.modal-confirm {
+    width: $modal-confirm-width;
+    margin: 0 auto;
+    background-color: $white;
+    padding: $gutter-2;
+    border-radius: $radius;
+
+    .buttons-container {
+        @include flex(center, null);
+        margin-top: $gutter-2;
+    }
+
+    .is-danger {
+        margin-left: $gutter-1;
+    }
+}

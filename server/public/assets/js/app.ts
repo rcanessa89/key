@@ -1,4 +1,7 @@
-var app: any = {};
+declare var app: any;
+declare var grecaptcha: any;
+
+app = {};
 
 (function($) {
 	// Public methods
@@ -8,7 +11,7 @@ var app: any = {};
 	app.showFormErrors = showFormErrors;
 	app.addModalOnClose = addModalOnClose;
 	app.goHome = goHome;
-	app.user = document.cookie.indexOf('key_session=') >= 0 ? apiCall('get', '/user/logged') : null;
+	app.user = apiCall('get', '/user/logged');
 	app.isValidEmail = isValidEmail;
 	app.toogleLoader = toogleLoader;
 
@@ -46,8 +49,8 @@ var app: any = {};
 			values = {};
 
 		inputs.each(function() {
-			if (this.name) {
-				values[this.name] = $(this).val();
+			if (this['name']) {
+				values[this['name']] = $(this).val();
 			}
 		});
 

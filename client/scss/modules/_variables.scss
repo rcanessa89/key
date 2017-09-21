@@ -1,7 +1,14 @@
-// layout - sizes
-$app-nav-width: 220px;
+// Spacing
+$gutter: 30px;
+$gutter-1: $gutter / 2;
+$gutter-2: $gutter;
+$gutter-3: $gutter * 1.5;
+$gutter-4: $gutter * 2;
+
+// Layout
+$app-nav-width: $gutter * 7;
 $app-main-width: calc(100% - #{$app-nav-width});
-$app-header-height: 70px;
+$app-header-height: $gutter-4;
 $app-nav-height: calc(100% - #{$app-header-height});
 $mobile-nav-height: calc(100% - #{$app-header-height});
 
@@ -10,5 +17,7 @@ $modal-background-color: rgba(10, 10, 10, .86);
 $darken-primary: darken($primary, 5%);
 
 // Others
+$border-radius-1: 3px;
+$border-radius-2: 5px;
 $transition-duration: .3s;
 $pop-shadow: 1px 1px 20px 1px rgba(0, 0, 0, .4);

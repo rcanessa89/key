@@ -25,13 +25,15 @@ var gulp = require('gulp'),
 	argv = require('yargs').argv,
 	gulpif = require('gulp-if'),
 	lazypipe = require('lazypipe'),
+	fs = require('fs'),
 	gulpNSP = require('gulp-nsp'),
 	config = require('./gulp.config'),
 	configServer = config.server,
 	configClient = config.client,
-	isProd = !!argv.prod;
+	isProd = !!argv.prod,
+	currentEnv = argv.prod ? 'production' : argv.test ? 'test' : 'develop';
 
-process.env.NODE_ENV = isProd ? 'production' : 'develop';
+process.env.NODE_ENV = currentEnv;
 
 // Client tasks
 gulp.task('client-server', clientServerTask);
@@ -65,19 +67,46 @@ gulp.task('nsp', nsp);
 
 function defaultTask() {
 	del(['server/dist', 'client/dist']).then(function() {
-		runSequence('build-constants', 'build-server-css', 'build-server', 'build-vendor', 'build-app', 'svg-font', 'copy', 'build-css', 'watch', 'client-server', 'run-server');
+		runSequence(
+			'build-constants',
+			'build-server-css',
+			'build-server',
+			'build-vendor',
+			'build-app',
+			'svg-font',
+			'copy',
+			'build-css',
+			'watch',
+			'watch-server',
+			'client-server',
+			'run-server'
+		);
 	});
 }
 
 function clientTask() {
 	del('client/dist').then(function() {
-		runSequence('build-constants', 'build-vendor', 'build-app', 'svg-font', 'copy', 'build-css', 'watch', 'client-server');
+		runSequence(
+			'build-constants',
+			'build-vendor',
+			'build-app',
+			'svg-font',
+			'copy',
+			'build-css',
+			'watch',
+			'client-server'
+		);
 	});
 }
 
 function serverTask() {
 	del('server/dist').then(function() {
-		runSequence('build-server-css', 'build-server', 'run-server', 'watch-server');
+		runSequence(
+			'build-server-css',
+			'build-server',
+			'run-server',
+			'watch-server'
+		);
 	});
 }
 
@@ -238,24 +267,32 @@ function watchClient() {
 	gulp.watch(configClient.code.watch, { cwd:'./' }, ['build-app']);
 	gulp.watch(configClient.main.src, { cwd:'./' }, ['reload']);
 }
+
 function watchServer() {
 	gulp.watch(configServer.scss.watch, { cwd:'./' }, ['build-server-css']);
 }
 
 function buildEnvVar() {
-	var currentEnv = isProd ? 'prod' : 'dev';
+	var configEnv = config.env;
 
-	var fs = require('fs'),
-		env = require('./env')[currentEnv],
-		envStr = JSON.stringify(env),
-		fileContent = 'const envVariables = ' + envStr + '; export default envVariables;',
-		folder = __dirname + '/client/app/env-variables.app.js';
-	
-	fs.writeFile(folder, fileContent, function(err) {
-	    if (err) {
-	    	return console.log(err);
-	    }
-	});
+	var writeFile = function(config) {
+		var env = require(config.fileRoot)[currentEnv],
+			envStr = JSON.stringify(env),
+			fileContent = 'const envVariables = ' + envStr + '; export default envVariables;',
+			folder = __dirname + config.dest;
+		
+		fs.writeFile(folder, fileContent, function(err) {
+			if (err) {
+				return console.log(err);
+			}
+		});
+	}
+
+	// Write client env variables
+	writeFile(configEnv['client']);
+
+	// Write server env variables
+	writeFile(configEnv['server']);
 }
 
 function scsslint() {

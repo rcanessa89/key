@@ -1,11 +1,9 @@
 import * as express from 'express';
-import { ParsedAsJson } from 'body-parser';
-import * as session from 'express-session';
 import User from '../entities/user/user.model';
 
 module.exports = function(router: express.Router) {
 	router.route('')
-		.post((req: express.Request & ParsedAsJson & session, res: express.Response, next: express.NextFunction) => {
+		.post((req: express.Request, res: express.Response, next: express.NextFunction) => {
 			User.findOne({ email: req.body.email }, '+password', (error, user) => {
 				if (error) {
 					res.json(error);

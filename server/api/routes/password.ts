@@ -1,5 +1,4 @@
 import * as express from 'express';
-import { ParsedAsJson } from 'body-parser';
 import * as session from 'express-session';
 import Token from '../services/Token';
 import User from '../entities/user/user.model';
@@ -7,11 +6,10 @@ import hourDifference from '../util/hour-difference';
 import userModel from '../entities/user/user.model';
 import BaseHandler from '../services/BaseHandler';
 import email from '../services/Email';
-import constants from '../../constants';
 
 module.exports = function(router: express.Router) {
 	router.route('')
-		.post((req: express.Request & ParsedAsJson & session, res: express.Response, next: express.NextFunction) => {
+		.post((req: express.Request, res: express.Response, next: express.NextFunction) => {
 			const userId = new Token({ token: req.body.userToken }).payload;
 
 			User.findById(userId, (error, user) => {
@@ -61,7 +59,7 @@ module.exports = function(router: express.Router) {
 		});
 
 	router.route('/forgot')
-		.post((req: express.Request & ParsedAsJson & session, res: express.Response, next: express.NextFunction) => {
+		.post((req: express.Request, res: express.Response, next: express.NextFunction) => {
 			User.findOne({ email: req.body.email }, (error, user) => {
 				if (error) {
 					res.json(error);

@@ -1,3 +1,8 @@
+$logo-anchor-width: $gutter * 3;
+$mobile-route-name-font-size: 28px;
+$menu-bottom-position: -190%;
+$menu-left-position: -10px;
+
 .app-header {
 	background-color: $primary;
 	color: $white;
@@ -5,7 +10,7 @@
 	height: $app-header-height;
 	justify-content: space-between;
 	margin-top: -$app-header-height;
-	padding: 0 15px;
+	padding: 0 $gutter-1;
 	position: fixed;
 	width: 100%;
 	z-index: z-index(header);
@@ -21,22 +26,22 @@
 
 		a {
 			@include banner('http://placehold.it/112x28');
-			@include bp-sm {
+			@include mobile  {
 				display: none;
 			}
 			display: block;
-			height: 28px;
-			width: 112px;
+			height: $gutter-2;
+			width: $logo-anchor-width;
 		}
 	}
 
 	.route-text-container {
-		@include bp-sm {
+		@include mobile  {
 			display: flex;
 		}
 		align-items: center;
 		display: none;
-		font-size: 28px;
+		font-size: $mobile-route-name-font-size;
 		font-weight: bold;
 		justify-content: center;
 		text-align: center;
@@ -58,7 +63,7 @@
 			background-color: $primary;
 		}
 
-		@include bp-sm {
+		@include mobile  {
 			display: block;
 		}
 
@@ -69,7 +74,7 @@
 }
 
 .desk-menu-user {
-	@include bp-sm {
+	@include mobile  {
 		display: none;
 	}
 	position: relative;
@@ -77,8 +82,8 @@
 	.menu-button-container {
 		@include flex(null, center);
 		cursor: pointer;
-		min-height: 70px;
-		padding: 0 10px;
+		min-height: $app-header-height;
+		padding: 0 $gutter-1;
 
 		&:hover,
 		&.active {
@@ -87,11 +92,11 @@
 
 		img {
 			border-radius: 50%;
-			width: 40px;
+			width: $gutter-2;
 		}
 
 		span {
-			margin: 0 10px;
+			margin: 0 ($gutter / 3);
 		}
 
 		i {
@@ -101,16 +106,16 @@
 
 	.menu {
 		background-color: $white-bis;
-		bottom: -175%;
+		bottom: $menu-bottom-position;
 		box-shadow: $pop-shadow;
-		left: -25px;
+		left: $menu-left-position;
 		position: absolute;
 		width: calc(100% + 20px);
 
 		a {
 			@include flex(null, center);
 			color: $black;
-			padding: 10px 15px;
+			padding: ($gutter / 3) $gutter-1;
 
 			&:hover {
 				background-color: $primary;
@@ -119,10 +124,14 @@
 
 			span {
 				@include flex(center, center);
-				display: inline-block;
+				
 				margin-right: 6px;
 				text-align: center;
 				width: 25px;
+			}
+
+			i {
+				margin-top: 1px;
 			}
 		}
 	}
