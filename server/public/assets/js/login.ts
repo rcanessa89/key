@@ -60,7 +60,7 @@
 			app.apiCall('post', '/login', form.values)
 				.then(function(res) {
 					if (res.errors) {
-						app.showFormErrors(errorContainerId, res);
+						app.showFormErrors(errorContainerId, res.errors);
 					} else {
 						app.goHome();
 					}

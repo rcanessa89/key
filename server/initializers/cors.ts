@@ -1,11 +1,11 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import logger from '../api/util/logger';
-import constants from '../constants';
+import envVariables from '../env-variables';
 
 const corsOptions = {
 	origin: function(origin: string, callback){
-		const originIsWhitelisted = constants.ORIGINS.indexOf(origin) !== -1;
+		const originIsWhitelisted = envVariables.cors_origins.indexOf(origin) !== -1;
 		callback(null, originIsWhitelisted);
 	}
 };

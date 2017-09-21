@@ -6,7 +6,7 @@ import * as expressReactViews from 'express-react-views';
 import * as cookieParser from 'cookie-parser';
 import * as path from 'path';
 import logger from '../api/util/logger';
-import constants from '../constants';
+import envVariables from '../env-variables';
 
 export default class Config {
 	constructor(app: express.Application, db: any) {
@@ -26,8 +26,8 @@ export default class Config {
 	}
 
 	public run(): void {
-		if (constants.ENV !== 'test') {
-			this.app.use(morgan(constants.MORGAN));
+		if (envVariables['morgan']) {
+			this.app.use(morgan(envVariables['morgan']));
 		}
 
 		this.app.use(this.onAppError);

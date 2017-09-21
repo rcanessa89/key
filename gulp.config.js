@@ -21,7 +21,7 @@ var config = {
 		},
 
 		lint: {
-			src: ['./server/**/*.ts', '!./server/public/assets/js/**', '!./server/dist']
+			src: ['./server/**/*.ts', '!./server/env-variables.ts', '!./server/public/assets/js/**', '!./server/dist']
 		}
 	},
 
@@ -142,6 +142,18 @@ var config = {
 				src: './client/assets/fonts/**',
 				dest: './client/dist/src/fonts'
 			}
+		}
+	},
+
+	env: {
+		server: {
+			fileRoot: './env-server',
+			dest: '/server/env-variables.ts'
+		},
+
+		client: {
+			fileRoot: './env-client',
+			dest: '/client/app/env-variables.app.js'
 		}
 	},
 

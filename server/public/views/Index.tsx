@@ -24,7 +24,7 @@ class IndexDocument extends React.Component<IndexDocumentProps, undefined> {
 					<link rel="stylesheet" href="assets/css/main.css" />
 					<script src='https://www.google.com/recaptcha/api.js'></script>
 				</head>
-				<body className={`${this.props.wrapperClass} ${userBodyClassName}`}>
+				<body className={`${this.props.wrapperClass} ${userBodyClassName}`.trim()}>
 					<HeaderNav
 						logged={this.props.logged}
 					/>

@@ -227,7 +227,7 @@ const UsersPage = (props) => {
 				title="Edit User"
 				onClose={props.dispatch.resetUserEdit}
 			>
-				<p>{editModalContent}</p>
+				<div>{editModalContent}</div>
 			</Modal>
 			<Modal
 				type="confirm"

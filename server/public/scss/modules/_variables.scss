@@ -1,21 +1,23 @@
-// Site layout - sizes
-$footer-height: 208px;
-$header-height: 52px;
-$main-padding-bottom: 60px;
+// Spacing
+$gutter: 30px;
+$gutter-1: $gutter / 2;
+$gutter-2: $gutter;
+$gutter-3: $gutter * 1.5;
+$gutter-4: $gutter * 2;
+
+// Layout - sizes
+$footer-height: $gutter * 7;
+$header-height: $gutter-4;
+$main-padding-bottom: $gutter-4;
 $main-height-calc: ($footer-height + $header-height);
 $header-margin-top: (-$header-height);
 $body-padding-top: $header-height;
-
-// App layout - sizes
-$app-nav-width: 220px;
-$app-main-width: calc(100% - #{$app-nav-width});
-$app-header-height: 70px;
-$app-nav-height: calc(100% - #{$app-header-height});
-$mobile-nav-height: calc(100% - #{$app-header-height});
 
 // Colors
 $modal-background-color: rgba(10,10,10,.86);
 
 // Others
+$border-radius-1: 3px;
+$border-radius-2: 5px;
 $transition-duration: .3s;
 $shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);

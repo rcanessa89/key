@@ -26,9 +26,12 @@ const getAllHost = (departments = store.getState().companyPage.company.departmen
 
 	Object.keys(departments).forEach((key) => {
 		if (Object.prototype.hasOwnProperty.call(departments, key)) {
-			const department = departments[key];
+			const hostsWithDepartment = departments[key].hosts.map(host => ({
+				...host,
+				departmentName: departments[key].name,
+			}));
 
-			hosts = [...hosts, ...department.hosts];
+			hosts = [...hosts, ...hostsWithDepartment];
 		}
 	});
 

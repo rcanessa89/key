@@ -5,18 +5,19 @@ import companyModel from '../company/company.model';
 import BaseHandler from '../../services/BaseHandler';
 import Token from '../../services/Token';
 import email from '../../services/Email';
-import constants from '../../../constants';
 
 class UserHandler extends BaseHandler {
 	constructor() {
 		super(userModel);
 	}
 
-	public getLogged(req: express.Request & session, res: express.Response, next: express.NextFunction): void {
+	public getLogged(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		res.json(req.session.logged);
 	}
 
-	public createUser(req: express.Request & session, res: express.Response, next: express.NextFunction): void {
+	public createUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
+		console.log(req.body);
+
 		this.ifExist({ name: req.body.email })
 			.then((ifExistEmail: boolean) => new Promise((resolve, reject) => {
 				if (!ifExistEmail) {

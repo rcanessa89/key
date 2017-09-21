@@ -3,7 +3,7 @@
 }
 
 .app-main-container {
-	@include bp-sm {
+	@include mobile  {
 		min-width: 100%;
 	}
 	margin: 0 auto;

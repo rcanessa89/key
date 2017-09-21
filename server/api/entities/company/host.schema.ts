@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import departmentSchema from './department.schema';
 import regex from '../../util/regex';
 
 export default new mongoose.Schema({
@@ -9,12 +10,6 @@ export default new mongoose.Schema({
 	},
 
 	last_name: {
-		type: String,
-		required: true,
-		trim: true
-	},
-
-	departmentName: {
 		type: String,
 		required: true,
 		trim: true

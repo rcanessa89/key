@@ -1,12 +1,10 @@
 import * as express from 'express';
-import * as session from 'express-session';
-import { ParsedAsJson } from 'body-parser';
 import companyModel from './company.model';
 import SubDocHandler from '../../services/SubDocHandler';
 
 const companySubDoc = new SubDocHandler(companyModel);
 
-const addDepartment = (req: express.Request & ParsedAsJson & session, res: express.Response): void => {
+const addDepartment = (req: express.Request, res: express.Response): void => {
 	companySubDoc.runQuery(req, res, {
 		id: req.session.logged.company._id,
 		apply: result => {
@@ -17,7 +15,7 @@ const addDepartment = (req: express.Request & ParsedAsJson & session, res: expre
 	});
 };
 
-const editDepartment = (req: express.Request & ParsedAsJson & session, res: express.Response): void => {
+const editDepartment = (req: express.Request, res: express.Response): void => {
 	companySubDoc.runQuery(req, res, {
 		id: req.session.logged.company._id,
 		apply: result => {
@@ -28,7 +26,7 @@ const editDepartment = (req: express.Request & ParsedAsJson & session, res: expr
 	});
 };
 
-const deleteDepartmentById = (req: express.Request & ParsedAsJson & session, res: express.Response): void => {
+const deleteDepartmentById = (req: express.Request, res: express.Response): void => {
 	companySubDoc.runQuery(req, res, {
 		id: req.session.logged.company._id,
 		apply: result => {

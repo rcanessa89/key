@@ -1,6 +1,4 @@
 import * as express from 'express';
-import * as session from 'express-session';
-import { ParsedAsJson } from 'body-parser';
 import axios from 'axios';
 import companyModel from './company.model';
 import userModel from '../user/user.model';
@@ -8,30 +6,27 @@ import BaseHandler from '../../services/BaseHandler';
 import Token from '../../services/Token';
 import email from '../../services/Email';
 import constants from '../../../constants';
+import envVariables from '../../../env-variables';
 
 class CompanyHandler extends BaseHandler {
 	constructor() {
 		super(companyModel);
 	}
 
-	public createCompanyUser(req: express.Request & ParsedAsJson, res: express.Response, next: express.NextFunction): void {
+	public createCompanyUser(req: express.Request, res: express.Response, next: express.NextFunction): void {
 		let ifCompanyExist: boolean;
 		let ifEmailExist: boolean;
 
 		const recaptchaPromise: Promise<boolean> = new Promise((resolve, reject) => {
 			axios({
 				method: 'POST',
-				url: constants.RECAPTCHA.endpoint,
+				url: constants.RECAPTCHA_ENDPOINT,
 				params: {
-					secret: constants.RECAPTCHA.secret,
+					secret: envVariables.recaptcha_secret_key,
 					response: req.body.recaptcha
 				}
 			})
-			.then(recaptchaRes => {
-				if (process.env.ENVIRONMENT === 'test') {
-					resolve(recaptchaRes);
-				}
-
+			.then((recaptchaRes: any) => {
 				if (recaptchaRes.data.success) {
 					resolve(recaptchaRes);
 				} else {
@@ -65,7 +60,7 @@ class CompanyHandler extends BaseHandler {
 			});
 	}
 
-	private saveCompanyUser(req: express.Request & ParsedAsJson, res: express.Response): void {
+	private saveCompanyUser(req: express.Request, res: express.Response): void {
 		const newUserAdmin = new userModel({
 			name: req.body.name,
 			last_name: req.body.last_name,

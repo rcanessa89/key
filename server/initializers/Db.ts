@@ -1,26 +1,24 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import logger from '../api/util/logger';
-import constants from '../constants';
+import envVariables from '../env-variables';
 
 export default class Db {
 	constructor(onOpen: () => any, app: express.Application) {
 		(<any>mongoose).Promise = global.Promise;
-		this.db = mongoose.connection;
 		this.onOpen = onOpen;
 		this.app = app;
 	}
 
 	private app: express.Application;
 	private dbConnected;
-	private db: mongoose.Connection;
 	private onOpen: () => any;
 
 	public connect(): void {
-		if (constants.DB_NAME && constants.DB_URI) {
-			this.db.on('error', console.error.bind(console, 'connection error:'));
-			this.db.once('open', () => {
-				logger('[DB] Connected to ' + constants.DB_NAME);
+		if (envVariables.db_name && envVariables.db_uri) {
+			mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+			mongoose.connection.once('open', () => {
+				logger('[DB] Connected to ' + envVariables.db_name);
 
 				if (this.onOpen) {
 					this.onOpen();
@@ -29,7 +27,7 @@ export default class Db {
 
 			logger('[DB] Connecting...');
 
-			this.dbConnected = mongoose.connect(constants.DB_URI);
+			this.dbConnected = mongoose.connect(envVariables.db_uri);
 		} else {
 			logger('[DB] Data base is not defined');
 		}
