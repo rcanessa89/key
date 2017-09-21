@@ -21,7 +21,9 @@
   if ((self = [super init])) {
     self.manager = manager;
 //    [self.manager initializeCaptureSessionInput:AVMediaTypeVideo];
-    [self.manager startSession];
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self.manager startSession];
+    });
   }
   return self;
 }

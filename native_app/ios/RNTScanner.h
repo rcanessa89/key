@@ -11,6 +11,7 @@
 
 @interface RNTScanner : UIView
 
+@property (nonatomic, copy) RCTBubblingEventBlock onScanChange;
 - (id)initWithManager:(RNTMapManager*)manager;
 
 @end

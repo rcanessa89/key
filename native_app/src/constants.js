@@ -1,4 +1,5 @@
 export const colors = {
+    dark_gray:    'hsl(0,0%,13%)',
     black:        'hsl(0, 0%, 4%)',
     black_bis:    'hsl(0, 0%, 7%)',
     black_ter:    'hsl(0, 0%, 14%)',
@@ -15,6 +16,7 @@ export const colors = {
     green:        'hsl(141, 71%,  48%)',
     turquoise:    'hsl(171, 100%, 41%)',
     blue:         'hsl(217, 71%,  53%)',
+    kgBlue:       'hsl(63,99%,40%)',
     purple:       'hsl(271, 100%, 71%)',
     red:          'hsl(348, 100%, 61%)',
     primary:      'hsl(171, 100%, 41%)',

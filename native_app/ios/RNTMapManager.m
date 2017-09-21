@@ -14,9 +14,8 @@
 
 
 @interface RNTMapManager () <ZXCaptureDelegate>
-
+@property (nonatomic, retain) RNTScanner *scanner;
 //@property (nonatomic, strong) RCTEventDispatcher *eventDispatcher;
-@property (nonatomic, copy) RCTBubblingEventBlock onScanChange;
 
 @end
 
@@ -37,10 +36,13 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(onScanChange, RCTBubblingEventBlock)
 
 - (UIView *)view {
-  RNTScanner *scanner = [[RNTScanner alloc] initWithManager:self];
-  scanner.clipsToBounds = YES;
+  if (self.scanner == nil) {
+    self.scanner = [[RNTScanner alloc] initWithManager:self];
+  }
+  
+  _scanner.clipsToBounds = YES;
 
-  return scanner;
+  return _scanner;
 }
 
 
@@ -115,8 +117,8 @@ RCT_EXPORT_VIEW_PROPERTY(onScanChange, RCTBubblingEventBlock)
   NSLog(@"Result: %@", display);
 
 
-  if (_onScanChange != nil) {
-    _onScanChange(@{@"data": result.text});
+  if (self.scanner.onScanChange != nil) {
+    self.scanner.onScanChange(@{@"data": result.text});
   }
 
   // Vibrate

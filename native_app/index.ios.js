@@ -1,3 +1,5 @@
+// import App from './App';
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -5,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, View, Text } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/store'
 import Navigation from './src/Navigation';
